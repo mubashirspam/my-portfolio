@@ -3,11 +3,12 @@
 
 export const colors = {
   // Primary brand color - Change this to update the main theme color
-  primary: '#FF4F22', // Sky Blue (current)
+  // primary: '#FF4F22', // Sky Blue (current)
   // primary: '#3B82F6', // Blue
   // primary: '#8B5CF6', // Purple  
-  // primary: '#10B981', // Emerald
+  primary: '#10B981', // Emerald
   // primary: '#F59E0B', // Amber
+  
   // primary: '#EF4444', // Red
   // primary: '#EC4899', // Pink
   // primary: '#6366F1', // Indigo

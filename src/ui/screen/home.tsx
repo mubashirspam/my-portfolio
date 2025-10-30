@@ -5,10 +5,13 @@ import React, { useState, useEffect } from "react";
 // Import section components
 import Navigation from "../sections/Navigation";
 import Background from "../sections/Background";
+import LandingSection from "../sections/LandingSection";
 import HeroSection from "../sections/HeroSection";
+import ServicesSection from "../sections/ServicesSection";
 import AboutSection from "../sections/AboutSection";
 import SkillsSection from "../sections/SkillsSection";
 import ProjectsSection from "../sections/ProjectsSection";
+import ReviewsSection from "../sections/ReviewsSection";
 import ContactSection from "../sections/ContactSection";
 import Footer from "../sections/Footer";
 
@@ -18,10 +21,18 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"];
+      const navItems = [
+        "home",
+        "services",
+        "about",
+        "skills",
+        "projects",
+        "reviews",
+        "contact",
+      ];
       const scrollPosition = window.scrollY + 100;
 
-      for (const section of sections) {
+      for (const section of navItems) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
@@ -155,10 +166,13 @@ const HomeScreen = () => {
         scrollToSection={scrollToSection}
       />
 
+      <LandingSection />
       <HeroSection scrollToSection={scrollToSection} />
+      <ServicesSection />
       <AboutSection experiences={experiences} />
       <SkillsSection skills={skills} />
       <ProjectsSection projects={projects} />
+      <ReviewsSection />
       <ContactSection />
       <Footer />
     </div>

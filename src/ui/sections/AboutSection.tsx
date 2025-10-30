@@ -24,24 +24,24 @@ const AboutSection: React.FC<AboutSectionProps> = ({ experiences }) => {
             {"// About Me"}
           </p>
           <h2 className="text-4xl md:text-6xl font-bold mb-8">
-            Professional <span style={{ color: colors.primary }}>Journey</span>
+            Cross-Platform <span style={{ color: colors.primary }}>Expert</span>
           </h2>
           <div className="max-w-4xl mx-auto text-lg text-gray-300 leading-relaxed">
             <p className="mb-6">
-              As a senior Flutter developer with more than four years of
-              hands-on experience, I have designed over 10 cross-platform
-              applications that have touched sectors like e-commerce,
-              e-learning, and healthcare. I am driven to create apps that are
-              seamless on web, Android, and iOS, yet feel simple and intuitive
-              for users.
+              <strong>Flutter transforms the development process.</strong> As a Lead Flutter developer with 4+ years 
+              of experience, I build, test, and deploy beautiful applications for <strong>Android, iOS, Web, and Desktop</strong> 
+              from a single codebase. I&apos;ve delivered 10+ cross-platform applications across e-commerce, 
+              healthcare, and e-learning sectors.
+            </p>
+            <p className="mb-6">
+              <strong>Reach users on every screen:</strong> Whether your audience uses smartphones, tablets, 
+              web browsers, or desktop computers, I create native-quality experiences that feel 
+              perfectly at home on each platform. One codebase, multiple platforms, zero compromise on quality.
             </p>
             <p>
-              With technologies like Flutter, Dart, Firebase, Supabase,
-              Node.js, and Django, I love transforming ideas into fully
-              deployed, scalable solutions. I am a strong believer in
-              constructing proper foundations like MVVM, MVC, BLoC, and Clean
-              Architecture to make apps not just functional but also simple to
-              change and scale in the long run.
+              <strong>Technologies & Architecture:</strong> Flutter, Dart, Firebase, Supabase, Node.js with 
+              state management (BLoC, Provider, GetX) and clean architecture patterns (MVVM, MVC). 
+              My solutions have increased user engagement by 25% and improved UX by 30% across platforms.
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 const Background: React.FC = () => {
   return (
@@ -12,13 +12,14 @@ const Background: React.FC = () => {
         <div className="bg-border"></div>
         <div className="bg-border"></div>
         <div className="bg-border"></div>
+        <div className="bg-border"></div>
       </div>
 
       <style jsx>{`
         .bg-border-box {
           position: fixed;
           inset: 0%;
-          z-index: 1;
+          z-index: 0;
           display: flex;
           width: 100%;
           max-width: 1326px;

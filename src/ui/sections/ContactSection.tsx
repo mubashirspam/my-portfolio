@@ -1,171 +1,127 @@
 'use client';
 
-import React from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import colors from '../../theme/colors';
 
 const ContactSection: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    budget: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+  };
+
   return (
-    <section id="contact" className="py-20 relative z-10 bg-gray-900/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-sm font-mono text-gray-400 mb-4">
-            {"// Get In Touch"}
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold mb-8">
-            Let&rsquo;s Build Something Amazing Together
-          </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Ready to bring your app ideas to life? Let&rsquo;s discuss your
-            next Flutter project.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="space-y-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 border flex items-center justify-center" style={{ borderColor: colors.primary }}>
-                <Mail style={{ color: colors.primary }} size={20} />
-              </div>
+    <section id="contact" className="py-20 bg-black">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div 
+          className="rounded-3xl p-12 relative overflow-hidden"
+          style={{ 
+            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%)'
+          }}
+        >
+          <div className="relative z-10">
+            <p className="text-sm font-medium mb-6 tracking-wide" style={{ color: colors.primary }}>● CONTACT</p>
+            
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
               <div>
-                <h3 className="text-white font-semibold">Email</h3>
-                <p className="text-gray-300">getmemubashir@gmail.com</p>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
+                  HAVE A PROJECT?<br />
+                  LET&apos;S BUILD IT TOGETHER
+                </h2>
+                
+                <div className="absolute top-8 right-8">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: colors.primary }}>
+                    <div className="text-black text-2xl">✨</div>
+                  </div>
+                </div>
+                
+                <div className="absolute bottom-8 right-8 text-right text-gray-400 text-sm">
+                  <p>getmemubashir@gmail.com</p>
+                  <p>+91 9562229979</p>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 border flex items-center justify-center" style={{ borderColor: colors.primary }}>
-                <Phone style={{ color: colors.primary }} size={20} />
-              </div>
+              
               <div>
-                <h3 className="text-white font-semibold">Phone</h3>
-                <p className="text-gray-300">+91 95622 29979</p>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-white text-sm font-medium mb-2">NAME</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your fullname"
+                      className="w-full bg-transparent border-b border-gray-600 text-white placeholder-gray-500 py-3 focus:border-white focus:outline-none transition-colors"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-white text-sm font-medium mb-2">EMAIL</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Where I can contact you"
+                      className="w-full bg-transparent border-b border-gray-600 text-white placeholder-gray-500 py-3 focus:border-white focus:outline-none transition-colors"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-white text-sm font-medium mb-2">BUDGET</label>
+                    <select
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleInputChange}
+                      className="w-full bg-transparent border-b border-gray-600 text-white py-3 focus:border-white focus:outline-none transition-colors appearance-none cursor-pointer"
+                    >
+                      <option value="" className="bg-black">Amount</option>
+                      <option value="5000-10000" className="bg-black">$5,000 - $10,000</option>
+                      <option value="10000-25000" className="bg-black">$10,000 - $25,000</option>
+                      <option value="25000-50000" className="bg-black">$25,000 - $50,000</option>
+                      <option value="50000+" className="bg-black">$50,000+</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-white text-sm font-medium mb-2">MESSAGE</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Leave a message here"
+                      rows={4}
+                      className="w-full bg-transparent border-b border-gray-600 text-white placeholder-gray-500 py-3 focus:border-white focus:outline-none transition-colors resize-none"
+                    />
+                  </div>
+                  
+                  <div className="pt-6">
+                    <button
+                      type="submit"
+                      className="text-black font-bold px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105"
+                      style={{ backgroundColor: colors.primary }}
+                    >
+                      SEND NOW
+                      <ArrowRight size={20} />
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
-
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 border flex items-center justify-center" style={{ borderColor: colors.primary }}>
-                <MapPin style={{ color: colors.primary }} size={20} />
-              </div>
-              <div>
-                <h3 className="text-white font-semibold">Location</h3>
-                <p className="text-gray-300">Wayanad, Kerala, India</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 pt-6">
-              <a
-                href="https://www.linkedin.com/in/mubashir-ahmad/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 border border-white/20 flex items-center justify-center transition-colors"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = colors.primary;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-12 h-12 border border-white/20 flex items-center justify-center transition-colors"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = colors.primary;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}
-              >
-                <Github size={20} />
-              </a>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <label className="block text-white font-semibold mb-2">
-                Name *
-              </label>
-              <input
-                type="text"
-                className="w-full bg-transparent border border-white/20 p-3 text-white focus:outline-none transition-colors"
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = colors.primary;
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}
-                placeholder="Your name"
-              />
-            </div>
-
-            <div>
-              <label className="block text-white font-semibold mb-2">
-                Email *
-              </label>
-              <input
-                type="email"
-                className="w-full bg-transparent border border-white/20 p-3 text-white focus:outline-none transition-colors"
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = colors.primary;
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}
-                placeholder="Your email"
-              />
-            </div>
-
-            <div>
-              <label className="block text-white font-semibold mb-2">
-                Project Type
-              </label>
-              <select className="w-full bg-black border border-white/20 p-3 text-white focus:outline-none transition-colors"
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = colors.primary;
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}>
-                <option>Mobile App Development</option>
-                <option>Cross-Platform App</option>
-                <option>UI/UX Design</option>
-                <option>Consultation</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-white font-semibold mb-2">
-                Message
-              </label>
-              <textarea
-                rows={4}
-                className="w-full bg-transparent border border-white/20 p-3 text-white focus:outline-none transition-colors resize-none"
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = colors.primary;
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                }}
-                placeholder="Tell me about your project..."
-              ></textarea>
-            </div>
-
-            <button className="w-full px-8 py-3 border border-white/20 text-white transition-all duration-300"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = colors.primary;
-                e.currentTarget.style.color = colors.primary;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                e.currentTarget.style.color = 'white';
-              }}>
-              Send Message
-            </button>
           </div>
         </div>
       </div>

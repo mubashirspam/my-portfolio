@@ -1,52 +1,127 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Class-based dark mode for manual toggle */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* ===== Design System Tokens ===== */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-roboto-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-fg);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-fg);
+  --color-border: var(--border-color);
+  --color-accent: var(--accent-color, #7C3AED);
+
+  /* Terminal */
+  --color-terminal-bg: #1a1b26;
+  --color-terminal-header: #16161e;
+
+  /* Fonts */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===== Light Theme (default) ===== */
+:root {
+  --bg: #fafbff;
+  --fg: #0f172a;
+  --muted: #e8ecf7;
+  --muted-fg: #64748b;
+  --surface: rgba(255, 255, 255, 0.7);
+  --surface-fg: #1e293b;
+  --border-color: rgba(148, 163, 184, 0.2);
+  --accent-color: #7C3AED;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.8);
+
+  color-scheme: light;
+}
+
+/* ===== Dark Theme ===== */
+.dark {
+  --bg: #0a0b14;
+  --fg: #e2e8f0;
+  --muted: #1a1b2e;
+  --muted-fg: #94a3b8;
+  --surface: rgba(22, 22, 28, 0.7);
+  --surface-fg: #cbd5e1;
+  --border-color: rgba(148, 163, 184, 0.15);
+  --glass-bg: rgba(22, 22, 28, 0.5);
+  --glass-border: rgba(148, 163, 184, 0.1);
+
+  color-scheme: dark;
+}
+
+/* ===== Base ===== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-roboto-mono), "Roboto Mono", monospace;
-}
+/* ===== Animations ===== */
+@layer utilities {
+  @keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  .animate-cursor {
+    animation: cursor-blink 1s step-end infinite;
+  }
 
-/* Typewriter Animation */
-@keyframes typewriter {
-  0% {
-    width: 0;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
   }
-  100% {
-    width: 100%;
-  }
-}
-
-@keyframes blink {
-  0%, 49% {
-    border-right-color: rgba(255, 255, 255, 0.75);
-  }
-  50%, 100% {
-    border-right-color: transparent;
+  .animate-float {
+    animation: float 2s ease-in-out infinite;
   }
 }
 
-.typewriter {
-  overflow: hidden;
-  border-right: 2px solid rgba(255, 255, 255, 0.75);
-  white-space: nowrap;
-  animation: typewriter 3s steps(10, end) 1s forwards, blink 0.75s step-end infinite 1s;
+/* ===== Selection ===== */
+::selection {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-fg); }
+
+/* ===== Code blocks ===== */
+pre { overflow-x: auto; border-radius: 0.75rem; padding: 1rem; font-size: 0.875rem; }
+code { font-family: var(--font-mono); }
+:not(pre) > code {
+  background: var(--muted);
+  color: var(--fg);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
 }

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mubashir.dev
+
+# Sitemaps
+Sitemap: https://mubashir.dev/sitemap.xml

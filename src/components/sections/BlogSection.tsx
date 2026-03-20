@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { blogPosts } from '@/data/blog';
 
 export function BlogSection() {
@@ -26,13 +27,24 @@ export function BlogSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="group rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300"
+            className="group rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden hover:shadow-xl hover:shadow-accent transition-all duration-300"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 gradient-accent-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             <div className="relative z-10">
+              {post.coverImage && (
+                <div className="relative w-full h-40 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl" style={{ width: 'calc(100% + 3rem)' }}>
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              )}
               <div className="flex items-start justify-between gap-4 mb-3">
-                <h3 className="text-lg font-semibold font-display text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors line-clamp-2">
+                <h3 className="text-lg font-semibold font-display text-foreground group-hover:text-accent transition-colors line-clamp-2">
                   {post.title}
                 </h3>
               </div>
@@ -60,7 +72,7 @@ export function BlogSection() {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium text-foreground/70 bg-muted/50 backdrop-blur-sm border border-border px-2.5 py-1 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+                    className="text-xs font-medium text-foreground/70 bg-muted/50 backdrop-blur-sm border border-border px-2.5 py-1 rounded-lg hover:bg-accent-subtle hover:text-accent transition-colors"
                   >
                     {tag}
                   </span>
@@ -69,7 +81,7 @@ export function BlogSection() {
 
               <Link
                 href={`/blog/${post.id}`}
-                className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors group/link"
+                className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent transition-colors group/link"
               >
                 Read Article
                 <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
@@ -88,7 +100,7 @@ export function BlogSection() {
       >
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-accent hover:text-accent transition-colors"
         >
           View All Articles
           <ArrowRight className="w-4 h-4" />
@@ -100,7 +112,7 @@ export function BlogSection() {
 
 function SectionBadge({ label }: { label: string }) {
   return (
-    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800/50 rounded-full backdrop-blur-sm">
+    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-accent bg-accent-subtle border border-accent rounded-full backdrop-blur-sm">
       {label}
     </span>
   );

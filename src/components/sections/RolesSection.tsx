@@ -28,7 +28,7 @@ export function RolesSection() {
       <div className="mt-16">
         <SectionBadge label="CLIENT FEEDBACK" />
         <div className="mt-6 rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden shadow-lg">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5" />
+          <div className="absolute inset-0 gradient-accent-hover" />
           <p className="text-lg font-bold text-foreground mb-4 relative z-10">
             Sarah Johnson &mdash; Tech Startup
           </p>
@@ -47,7 +47,7 @@ export function RolesSection() {
 
 function SectionBadge({ label }: { label: string }) {
   return (
-    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800/50 rounded-full backdrop-blur-sm">
+    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-accent bg-accent-subtle border border-accent rounded-full backdrop-blur-sm">
       {label}
     </span>
   );
@@ -63,10 +63,10 @@ function RoleCard({
   badge?: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 group">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden hover:shadow-xl hover:shadow-accent transition-all duration-300 group">
+      <div className="absolute inset-0 gradient-accent-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="flex items-start justify-between gap-4 mb-4 relative z-10">
-        <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+        <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-accent transition-colors">
           {title}
         </h3>
         {badge}

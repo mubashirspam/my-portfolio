@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { blogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
@@ -35,11 +35,23 @@ export default function BlogPage() {
           {blogPosts.map((post) => (
             <article
               key={post.id}
-              className="group rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-8 relative overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300"
+              className="group rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-8 relative overflow-hidden hover:shadow-xl hover:shadow-accent transition-all duration-300"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 gradient-accent-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
-              <div className="relative z-10">
+              {post.coverImage && (
+                <div className="relative w-full aspect-[2.5/1] -m-8 mb-0 overflow-hidden rounded-t-2xl" style={{ width: 'calc(100% + 4rem)' }}>
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 896px"
+                  />
+                </div>
+              )}
+
+              <div className="relative z-10 pt-6">
                 <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4" />
@@ -56,7 +68,7 @@ export default function BlogPage() {
                 </div>
 
                 <Link href={`/blog/${post.id}`}>
-                  <h2 className="text-2xl sm:text-3xl font-bold font-display text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-3">
+                  <h2 className="text-2xl sm:text-3xl font-bold font-display text-foreground group-hover:text-accent transition-colors mb-3">
                     {post.title}
                   </h2>
                 </Link>
@@ -69,7 +81,7 @@ export default function BlogPage() {
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-xs font-medium text-foreground/70 bg-muted/50 backdrop-blur-sm border border-border px-3 py-1.5 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+                      className="text-xs font-medium text-foreground/70 bg-muted/50 backdrop-blur-sm border border-border px-3 py-1.5 rounded-lg hover:bg-accent-subtle hover:text-accent transition-colors"
                     >
                       {tag}
                     </span>
@@ -78,7 +90,7 @@ export default function BlogPage() {
 
                 <Link
                   href={`/blog/${post.id}`}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent transition-colors"
                 >
                   Read Full Article →
                 </Link>

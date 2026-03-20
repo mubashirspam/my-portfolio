@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { blogPosts } from '@/data/blog';
 
 interface BlogPostPageProps {
@@ -77,12 +78,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800/50 px-3 py-1.5 rounded-full"
+                className="text-xs font-medium text-accent bg-accent-subtle border border-accent px-3 py-1.5 rounded-full"
               >
                 {tag}
               </span>
             ))}
           </div>
+
+          {post.coverImage && (
+            <div className="relative w-full aspect-[2/1] mt-8 rounded-2xl overflow-hidden">
+              <Image
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 768px"
+                priority
+              />
+            </div>
+          )}
         </header>
 
         {/* Content */}
@@ -93,7 +107,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 .replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
                   return `<pre class="bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto"><code class="language-${lang || 'text'}">${code.trim()}</code></pre>`;
                 })
-                .replace(/`([^`]+)`/g, '<code class="bg-slate-200 dark:bg-slate-800 px-2 py-1 rounded text-sm">$1</code>')
+                .replace(/`([^`]+)`/g, '<code class="bg-muted px-2 py-1 rounded text-sm">$1</code>')
                 .replace(/### (.*)/g, '<h3 class="text-xl font-bold text-foreground mt-6 mb-3">$1</h3>')
                 .replace(/## (.*)/g, '<h2 class="text-2xl font-bold text-foreground mt-8 mb-4">$1</h2>')
                 .replace(/# (.*)/g, '<h1 class="text-3xl font-bold text-foreground mt-8 mb-4">$1</h1>')
@@ -105,8 +119,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   return `<ol class="list-decimal list-inside space-y-2 mb-4 text-muted-foreground">${items.map(item => `<li>${item}</li>`).join('')}</ol>`;
                 })
                 .replace(/(<li.*<\/li>\n)+/g, '<ul class="list-disc list-inside space-y-2 mb-4 text-muted-foreground">$&</ul>')
-                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-purple-600 dark:text-purple-400 hover:underline" target="_blank" rel="noopener noreferrer">$1</a>')
-                .replace(/> (.*)/g, '<blockquote class="border-l-4 border-purple-500 pl-4 italic text-muted-foreground my-4">$1</blockquote>')
+                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-accent hover:underline" target="_blank" rel="noopener noreferrer">$1</a>')
+                .replace(/> (.*)/g, '<blockquote class="border-l-4 pl-4 italic text-muted-foreground my-4" style="border-color: var(--accent-color)">$1</blockquote>')
                 .replace(/\n\n/g, '</p><p class="text-base text-muted-foreground leading-relaxed mb-4">')
                 .replace(/^(.*)/, '<p class="text-base text-muted-foreground leading-relaxed mb-4">$1</p>')
             }}
@@ -118,7 +132,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="flex items-center justify-between">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to All Articles

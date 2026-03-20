@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Smartphone } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import { projects } from '@/data/projects';
 
 export function ProjectsCarousel() {
@@ -68,14 +69,26 @@ export function ProjectsCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0"
           >
-            <Smartphone className="w-20 h-20 text-muted-foreground/30" />
+            {project.coverImage ? (
+              <Image
+                src={project.coverImage}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 896px"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-muted">
+                <span className="text-4xl font-bold text-muted-foreground/20">{project.title[0]}</span>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-6">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={project.id}
@@ -91,6 +104,24 @@ export function ProjectsCarousel() {
               <p className="text-sm text-white/70 mt-2 line-clamp-2">
                 {project.description}
               </p>
+              <div className="flex items-center gap-3 mt-3">
+                {project.tags.slice(0, 3).map((tag) => (
+                  <span key={tag} className="text-xs font-medium text-white/60 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                    {tag}
+                  </span>
+                ))}
+                {project.links.live && (
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-white/80 hover:text-white transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    Visit
+                  </a>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

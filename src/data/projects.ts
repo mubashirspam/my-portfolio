@@ -4,6 +4,7 @@ export interface Project {
   description: string;
   longDescription?: string;
   image?: string;
+  coverImage?: string;
   tags: string[];
   category: 'flutter' | 'web' | 'fullstack';
   links: {
@@ -27,6 +28,7 @@ export const projects: Project[] = [
     featured: true,
     stats: 'Real Estate',
     image: 'https://raastarealty.com/og-image.jpg',
+    coverImage: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=500&fit=crop',
     links: {
       live: 'https://raastarealty.com/',
     },
@@ -41,6 +43,7 @@ export const projects: Project[] = [
     featured: true,
     stats: 'Community',
     image: 'https://www.bishertalks.com/og-image.jpg',
+    coverImage: 'https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=800&h=500&fit=crop',
     links: {
       live: 'https://www.bishertalks.com/',
     },
@@ -55,6 +58,7 @@ export const projects: Project[] = [
     featured: true,
     stats: 'Marketing',
     image: 'https://www.marketingnizam.com/og-image.jpg',
+    coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop',
     links: {
       live: 'https://www.marketingnizam.com/',
     },
@@ -68,6 +72,7 @@ export const projects: Project[] = [
     category: 'flutter',
     featured: false,
     stats: '600K+ Downloads',
+    coverImage: 'https://images.unsplash.com/photo-1501504905252-473c47e709a3?w=800&h=500&fit=crop',
     links: {
       appStore:
         'https://apps.apple.com/in/app/eduport-sslc-11-12-science/id6443499408',
@@ -82,6 +87,7 @@ export const projects: Project[] = [
     category: 'flutter',
     featured: false,
     stats: 'Offline-First',
+    coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
     links: {},
   },
   {
@@ -93,6 +99,7 @@ export const projects: Project[] = [
     category: 'flutter',
     featured: false,
     stats: 'TDD Built',
+    coverImage: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=500&fit=crop',
     links: {},
   },
   {
@@ -104,6 +111,7 @@ export const projects: Project[] = [
     category: 'flutter',
     featured: false,
     stats: 'Travel Solution',
+    coverImage: 'https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=800&h=500&fit=crop',
     links: {
       playStore:
         'https://play.google.com/store/apps/details?id=com.lastairfare.lastminuteflights',
@@ -118,6 +126,7 @@ export const projects: Project[] = [
     category: 'flutter',
     featured: false,
     stats: 'Multi-platform',
+    coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop',
     links: {
       appStore: 'https://apps.apple.com/in/app/the1andonly/id6744329968',
     },
@@ -131,6 +140,7 @@ export const projects: Project[] = [
     category: 'flutter',
     featured: false,
     stats: 'Healthcare Innovation',
+    coverImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
     links: {},
   },
 ];

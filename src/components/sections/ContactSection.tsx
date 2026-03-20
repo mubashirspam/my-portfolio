@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Music, Play, Pause, Volume2 } from 'lucide-react';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export function ContactSection() {
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
@@ -27,7 +27,14 @@ export function ContactSection() {
       }
       setIsPlaying(!isPlaying);
     }
-  };
+  }, [isPlaying]);
+
+  // Listen for terminal play command
+  useEffect(() => {
+    const handler = () => togglePlay();
+    window.addEventListener('terminal:toggle-music', handler);
+    return () => window.removeEventListener('terminal:toggle-music', handler);
+  }, [togglePlay]);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {

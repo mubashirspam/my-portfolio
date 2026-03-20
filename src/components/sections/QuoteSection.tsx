@@ -49,7 +49,7 @@ export function QuoteSection() {
 
 function SectionBadge({ label }: { label: string }) {
   return (
-    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-800/50 rounded-full backdrop-blur-sm">
+    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-accent bg-accent-subtle border border-accent rounded-full backdrop-blur-sm">
       {label}
     </span>
   );
@@ -69,14 +69,14 @@ function ExpertiseCard({
   isAvailable: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 group">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-6 relative overflow-hidden hover:shadow-xl hover:shadow-accent transition-all duration-300 group">
+      <div className="absolute inset-0 gradient-accent-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div className="flex items-center justify-between mb-10 relative z-10">
         <span className="text-sm text-muted-foreground">({number})</span>
-        <span className="text-lg font-bold text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{title}</span>
+        <span className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">{title}</span>
       </div>
       <div className="flex justify-center mb-10 relative z-10">
-        <div className="p-8 bg-muted/50 backdrop-blur-sm rounded-2xl group-hover:bg-purple-100 dark:group-hover:bg-purple-900/20 transition-colors">{icon}</div>
+        <div className="p-8 bg-muted/50 backdrop-blur-sm rounded-2xl group-hover:bg-accent-subtle transition-colors">{icon}</div>
       </div>
       <div className="flex items-center justify-between relative z-10">
         <span className="text-sm text-foreground">{statusText}</span>

@@ -9,6 +9,8 @@ import {
   MapPin,
   Globe,
   Clock,
+  Menu,
+  X,
 } from 'lucide-react';
 import {
   useTheme,
@@ -16,7 +18,17 @@ import {
   type AccentColor,
 } from '@/components/providers/ThemeProvider';
 
+const navLinks = [
+  { label: 'About', href: '#bio' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Blog', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
+];
+
 export function Navigation() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 bg-surface/70 backdrop-blur-2xl border-b border-border/50 shadow-sm">
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,17 +39,48 @@ export function Navigation() {
             <ThemeModeToggle />
           </div>
 
-          {/* Right: Status chips */}
+          {/* Center: Section links (desktop) */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* Right: Status chips + mobile menu */}
           <div className="flex items-center gap-2">
-            <StatusChip icon={<MapPin className="w-3.5 h-3.5" />} label="INDIA" />
-            <StatusChip
-              icon={<Globe className="w-3.5 h-3.5" />}
-              label="UTC+5:30"
-              className="hidden sm:flex"
-            />
+            <StatusChip icon={<MapPin className="w-3.5 h-3.5" />} label="INDIA" className="hidden sm:flex" />
             <LiveClock />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile nav */}
+        {mobileOpen && (
+          <div className="md:hidden pb-3 border-t border-border/50 mt-1 pt-2">
+            {navLinks.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        )}
       </nav>
     </header>
   );
@@ -145,7 +188,7 @@ function ThemeModeToggle() {
               }}
               className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
                 mode === opt.value
-                  ? 'text-foreground bg-purple-100 dark:bg-purple-900/30 font-medium'
+                  ? 'text-foreground bg-accent-subtle font-medium'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               }`}
             >

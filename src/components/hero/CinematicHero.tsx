@@ -30,10 +30,10 @@ export function CinematicHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-block px-4 py-1.5 text-sm font-medium rounded-full text-white/80 mb-8"
-          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
+          className="inline-block px-4 py-1.5 text-sm font-medium rounded-full text-white/70 mb-8 tracking-widest uppercase"
+          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
         >
-          Available for freelance projects
+          Mubashir Ahmed
         </motion.span>
 
         {/* Headline */}
@@ -44,9 +44,9 @@ export function CinematicHero() {
           className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-[-2px] max-w-5xl font-normal text-white"
           style={{ fontFamily: "'Instrument Serif', serif" }}
         >
-          Crafting <em className="not-italic text-white/50">digital</em>{' '}
-          experiences that{' '}
-          <em className="not-italic text-white/50">inspire.</em>
+          Where <em className="not-italic text-white/50">code</em> meets{' '}
+          the rhythm of{' '}
+          <em className="not-italic text-white/50">nature.</em>
         </motion.h1>
 
         {/* Subtext */}
@@ -54,10 +54,10 @@ export function CinematicHero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-white/60 text-base sm:text-lg max-w-2xl mt-8 leading-relaxed"
+          className="text-white/50 text-base sm:text-lg max-w-xl mt-8 leading-relaxed"
         >
-          Senior Flutter Engineer with 6+ years building production mobile apps.
-          Clean architecture, beautiful interfaces, and scalable solutions.
+          Building apps that breathe — thoughtful, fluid, and alive.
+          From Kerala, for the world.
         </motion.p>
 
         {/* CTAs */}
@@ -79,7 +79,7 @@ export function CinematicHero() {
             href="#contact"
             className="rounded-full px-10 py-4 text-base font-medium text-white/80 hover:text-white border border-white/15 hover:border-white/30 transition-all cursor-pointer"
           >
-            Contact Me
+            Say Hello
           </a>
         </motion.div>
       </div>

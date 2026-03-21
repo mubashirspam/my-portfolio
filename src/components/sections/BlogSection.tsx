@@ -7,10 +7,10 @@ import Image from 'next/image';
 import { blogPosts } from '@/data/blog';
 
 const cardAccents = [
-  { top: 'from-violet-500 to-purple-500', border: 'border-violet-500/15', bg: 'from-violet-500/5 to-transparent' },
-  { top: 'from-blue-500 to-cyan-500', border: 'border-blue-500/15', bg: 'from-blue-500/5 to-transparent' },
-  { top: 'from-emerald-500 to-green-500', border: 'border-emerald-500/15', bg: 'from-emerald-500/5 to-transparent' },
-  { top: 'from-amber-500 to-orange-500', border: 'border-amber-500/15', bg: 'from-amber-500/5 to-transparent' },
+  { top: 'from-violet-500 to-purple-500', border: 'border-violet-500/15', bg: 'from-violet-500/5 to-transparent', color: '#8b5cf6' },
+  { top: 'from-blue-500 to-cyan-500', border: 'border-blue-500/15', bg: 'from-blue-500/5 to-transparent', color: '#3b82f6' },
+  { top: 'from-emerald-500 to-green-500', border: 'border-emerald-500/15', bg: 'from-emerald-500/5 to-transparent', color: '#10b981' },
+  { top: 'from-amber-500 to-orange-500', border: 'border-amber-500/15', bg: 'from-amber-500/5 to-transparent', color: '#f59e0b' },
 ];
 
 export function BlogSection() {
@@ -32,11 +32,12 @@ export function BlogSection() {
           return (
             <motion.article
               key={post.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`group rounded-2xl border ${accent.border} bg-gradient-to-b ${accent.bg} backdrop-blur-xl relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-[1.01]`}
+              transition={{ duration: 0.5, delay: index * 0.12 }}
+              whileHover={{ y: -4, scale: 1.01 }}
+              className={`group rounded-2xl border ${accent.border} bg-gradient-to-b ${accent.bg} backdrop-blur-xl relative overflow-hidden cursor-pointer`}
             >
               {/* Top color accent bar */}
               <div className={`h-1 w-full bg-gradient-to-r ${accent.top}`} />
@@ -48,9 +49,11 @@ export function BlogSection() {
                       src={post.coverImage}
                       alt={post.title}
                       fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
+                    {/* Gradient fade */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
                   </div>
                 )}
                 <div className="relative z-10">
@@ -97,6 +100,9 @@ export function BlogSection() {
                   </Link>
                 </div>
               </div>
+
+              {/* Hover shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
             </motion.article>
           );
         })}
@@ -111,7 +117,7 @@ export function BlogSection() {
       >
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-accent"
+          className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-accent hover:gap-3 transition-all"
         >
           View All Articles
           <ArrowRight className="w-4 h-4" />

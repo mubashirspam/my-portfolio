@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
@@ -8,14 +8,23 @@ import { projects } from '@/data/projects';
 
 export function ProjectsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   const prev = useCallback(() => {
+    setDirection(-1);
     setCurrentIndex((i) => (i - 1 + projects.length) % projects.length);
   }, []);
 
   const next = useCallback(() => {
+    setDirection(1);
     setCurrentIndex((i) => (i + 1) % projects.length);
   }, []);
+
+  // Auto-advance
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
 
   const project = projects[currentIndex];
 
@@ -53,14 +62,15 @@ export function ProjectsCarousel() {
       </div>
 
       {/* Card */}
-      <div className="relative h-[420px] rounded-3xl overflow-hidden border border-border/30">
-        <AnimatePresence mode="wait">
+      <div className="relative h-[420px] sm:h-[480px] rounded-3xl overflow-hidden border border-border/30 group">
+        <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={project.id}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.3 }}
+            custom={direction}
+            initial={{ opacity: 0, x: direction * 60, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: direction * -60, scale: 0.95 }}
+            transition={{ duration: 0.4 }}
             className="absolute inset-0"
           >
             {project.coverImage ? (
@@ -68,7 +78,7 @@ export function ProjectsCarousel() {
                 src={project.coverImage}
                 alt={project.title}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 896px"
               />
             ) : (
@@ -80,20 +90,20 @@ export function ProjectsCarousel() {
         </AnimatePresence>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-6 pt-20">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 sm:p-8 pt-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.35 }}
             >
               <p className="text-[10px] font-bold tracking-widest text-white/50 uppercase mb-1">
                 {project.category}
               </p>
               <h3
-                className="text-2xl sm:text-3xl font-normal text-white"
+                className="text-2xl sm:text-4xl font-normal text-white"
                 style={{ fontFamily: "'Instrument Serif', serif" }}
               >
                 {project.title}
@@ -102,17 +112,23 @@ export function ProjectsCarousel() {
                 {project.description}
               </p>
               <div className="flex items-center gap-3 mt-4">
-                {project.tags.slice(0, 3).map((tag) => (
-                  <span key={tag} className="text-xs font-medium text-white/50 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                {project.tags.slice(0, 3).map((tag, i) => (
+                  <motion.span
+                    key={tag}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + i * 0.05 }}
+                    className="text-xs font-medium text-white/50 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full"
+                  >
                     {tag}
-                  </span>
+                  </motion.span>
                 ))}
                 {(project.links.live || project.links.appStore || project.links.playStore) && (
                   <a
                     href={project.links.live || project.links.appStore || project.links.playStore}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-auto inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white liquid-glass rounded-full px-4 py-2 transition-all"
+                    className="ml-auto inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white liquid-glass rounded-full px-4 py-2 transition-all hover:scale-105"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     Visit
@@ -122,6 +138,17 @@ export function ProjectsCarousel() {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* Auto-advance progress */}
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10">
+          <motion.div
+            key={currentIndex}
+            className="h-full bg-white/40"
+            initial={{ width: '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 5, ease: 'linear' }}
+          />
+        </div>
       </div>
 
       {/* Dots */}
@@ -129,7 +156,10 @@ export function ProjectsCarousel() {
         {projects.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => {
+              setDirection(index > currentIndex ? 1 : -1);
+              setCurrentIndex(index);
+            }}
             className="h-2 rounded-full transition-all duration-300"
             style={
               index === currentIndex

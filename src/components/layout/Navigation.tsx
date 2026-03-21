@@ -50,10 +50,10 @@ export function Navigation() {
             scrolled ? 'h-11' : 'h-14'
           }`}
         >
-          {/* Left: Logo */}
+          {/* Left: Logo with shine */}
           <a
             href="#"
-            className={`font-bold tracking-tight transition-all duration-500 ${
+            className={`font-bold tracking-tight transition-all duration-500 relative overflow-hidden inline-block logo-shine ${
               scrolled ? 'text-xl text-foreground' : 'text-2xl text-white'
             }`}
             style={{ fontFamily: "'Instrument Serif', serif" }}

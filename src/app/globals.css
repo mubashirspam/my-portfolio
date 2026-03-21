@@ -244,6 +244,29 @@
   pointer-events: none;
 }
 
+/* ===== Logo Shine ===== */
+@keyframes logo-shine {
+  0% { left: -100%; }
+  20% { left: 120%; }
+  100% { left: 120%; }
+}
+.logo-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  animation: logo-shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* ===== Code blocks ===== */
 pre { overflow-x: auto; border-radius: 0.75rem; padding: 1rem; font-size: 0.875rem; }
 code { font-family: var(--font-mono); }

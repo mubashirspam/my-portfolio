@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
 import { projects } from '@/data/projects';
 
 export function ProjectsCarousel() {
@@ -27,6 +26,7 @@ export function ProjectsCarousel() {
   }, [next]);
 
   const project = projects[currentIndex];
+  const liveUrl = project.links.live;
 
   return (
     <motion.section
@@ -44,7 +44,6 @@ export function ProjectsCarousel() {
         </h2>
       </div>
       <div className="flex items-center justify-end mb-4">
-
         <div className="flex items-center gap-2">
           <button
             onClick={prev}
@@ -78,24 +77,34 @@ export function ProjectsCarousel() {
             transition={{ duration: 0.4 }}
             className="absolute inset-0"
           >
-            {project.coverImage ? (
-              <Image
-                src={project.coverImage}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 896px"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-muted">
-                <span className="text-4xl font-bold text-muted-foreground/20">{project.title[0]}</span>
+            {liveUrl ? (
+              <div className="w-full h-full relative bg-muted">
+                <iframe
+                  src={liveUrl}
+                  title={project.title}
+                  className="absolute top-0 left-0 border-0 pointer-events-none"
+                  style={{
+                    width: '1440px',
+                    height: '900px',
+                    transform: 'scale(0.625)',
+                    transformOrigin: 'top left',
+                  }}
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                />
               </div>
+            ) : (
+              <ProjectPlaceholder
+                title={project.title}
+                category={project.category}
+                tags={project.tags}
+              />
             )}
           </motion.div>
         </AnimatePresence>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 sm:p-8 pt-24">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 sm:p-8 pt-24 z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={project.id}
@@ -145,7 +154,7 @@ export function ProjectsCarousel() {
         </div>
 
         {/* Auto-advance progress */}
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10">
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10 z-10">
           <motion.div
             key={currentIndex}
             className="h-full bg-white/40"
@@ -176,6 +185,47 @@ export function ProjectsCarousel() {
         ))}
       </div>
     </motion.section>
+  );
+}
+
+/* Styled placeholder for mobile/flutter projects without live URLs */
+function ProjectPlaceholder({ title, category, tags }: { title: string; category: string; tags: string[] }) {
+  return (
+    <div className="w-full h-full flex items-center justify-center relative"
+      style={{ background: 'linear-gradient(135deg, #1a1b2e 0%, #0f1019 50%, #1a1028 100%)' }}
+    >
+      {/* Background grid */}
+      <div className="absolute inset-0 opacity-[0.04]">
+        <svg width="100%" height="100%">
+          <pattern id="project-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.8" fill="white" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#project-grid)" />
+        </svg>
+      </div>
+
+      {/* Floating accent rings */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="w-48 h-48 rounded-full border border-violet-500/10 absolute animate-[spin_20s_linear_infinite]" />
+        <div className="w-72 h-72 rounded-full border border-violet-500/5 absolute animate-[spin_30s_linear_infinite_reverse]" />
+      </div>
+
+      {/* Center content */}
+      <div className="text-center relative z-10">
+        <div
+          className="text-7xl sm:text-8xl font-normal text-white/10 mb-4"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          {title[0]}
+        </div>
+        <p className="text-xs font-bold tracking-widest text-violet-400/50 uppercase">{category}</p>
+        <div className="flex gap-2 mt-3 justify-center">
+          {tags.slice(0, 2).map((tag) => (
+            <span key={tag} className="text-[10px] text-white/20 border border-white/10 px-2 py-0.5 rounded-full">{tag}</span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

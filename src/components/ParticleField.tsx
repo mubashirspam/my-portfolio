@@ -25,10 +25,9 @@ export function ParticleField() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const PARTICLE_COUNT = 60;
-    const CONNECT_DISTANCE = 120;
-    const MOUSE_RADIUS = 150;
-    const ACCENT = '#8B5CF6';
+    const PARTICLE_COUNT = 50;
+    const CONNECT_DISTANCE = 130;
+    const MOUSE_RADIUS = 180;
 
     function resize() {
       if (!canvas) return;
@@ -43,14 +42,13 @@ export function ParticleField() {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         particles.push({
-          x,
-          y,
+          x, y,
           baseX: x,
           baseY: y,
           vx: (Math.random() - 0.5) * 0.3,
           vy: (Math.random() - 0.5) * 0.3,
-          size: Math.random() * 2 + 1,
-          alpha: Math.random() * 0.3 + 0.1,
+          size: Math.random() * 1.5 + 0.8,
+          alpha: Math.random() * 0.4 + 0.15,
         });
       }
       particlesRef.current = particles;
@@ -65,17 +63,13 @@ export function ParticleField() {
       const mouseAbsY = mouse.y + scrollY;
 
       for (const p of particlesRef.current) {
-        // Drift motion
         p.x += p.vx;
         p.y += p.vy;
 
-        // Soft bounce back toward base position
         const dx = p.baseX - p.x;
         const dy = p.baseY - p.y;
         p.vx += dx * 0.0005;
         p.vy += dy * 0.0005;
-
-        // Damping
         p.vx *= 0.99;
         p.vy *= 0.99;
 
@@ -83,10 +77,12 @@ export function ParticleField() {
         const mdx = p.x - mouse.x;
         const mdy = p.y - mouseAbsY;
         const dist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (dist < MOUSE_RADIUS && dist > 0) {
+        const nearMouse = dist < MOUSE_RADIUS && dist > 0;
+
+        if (nearMouse) {
           const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
-          p.vx += (mdx / dist) * force * 0.8;
-          p.vy += (mdy / dist) * force * 0.8;
+          p.vx += (mdx / dist) * force * 0.6;
+          p.vy += (mdy / dist) * force * 0.6;
         }
 
         // Wrap edges
@@ -95,17 +91,32 @@ export function ParticleField() {
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
 
-        // Draw particle
+        // Neon glow — outer halo
+        const glowAlpha = nearMouse
+          ? p.alpha * 1.5 * ((MOUSE_RADIUS - dist) / MOUSE_RADIUS + 0.5)
+          : p.alpha * 0.4;
+        const glowSize = nearMouse ? p.size * 6 : p.size * 4;
+
+        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowSize);
+        gradient.addColorStop(0, `rgba(139, 92, 246, ${glowAlpha})`);
+        gradient.addColorStop(0.4, `rgba(139, 92, 246, ${glowAlpha * 0.3})`);
+        gradient.addColorStop(1, 'rgba(139, 92, 246, 0)');
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Core dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = ACCENT;
-        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = nearMouse
+          ? `rgba(196, 167, 255, ${Math.min(p.alpha * 2.5, 0.9)})`
+          : `rgba(139, 92, 246, ${p.alpha})`;
         ctx.fill();
       }
 
-      // Draw connections
-      ctx.strokeStyle = ACCENT;
-      ctx.lineWidth = 0.5;
+      // Connections
       for (let i = 0; i < particlesRef.current.length; i++) {
         for (let j = i + 1; j < particlesRef.current.length; j++) {
           const a = particlesRef.current[i];
@@ -114,7 +125,9 @@ export function ParticleField() {
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECT_DISTANCE) {
-            ctx.globalAlpha = (1 - dist / CONNECT_DISTANCE) * 0.06;
+            const lineAlpha = (1 - dist / CONNECT_DISTANCE) * 0.08;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${lineAlpha})`;
+            ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -123,7 +136,6 @@ export function ParticleField() {
         }
       }
 
-      ctx.globalAlpha = 1;
       rafRef.current = requestAnimationFrame(animate);
     }
 
@@ -143,7 +155,6 @@ export function ParticleField() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
 
-    // Re-size canvas on content height changes
     const resizeObserver = new ResizeObserver(() => {
       if (canvas) {
         canvas.height = document.documentElement.scrollHeight;
@@ -163,7 +174,6 @@ export function ParticleField() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
     />
   );
 }

@@ -11,19 +11,24 @@ export function FloatingTerminal() {
   return (
     <>
       {/* Floating button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.5, duration: 0.4 }}
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-40 liquid-glass w-14 h-14 rounded-2xl flex items-center justify-center text-foreground hover:scale-105 transition-transform shadow-lg group"
-        aria-label="Open terminal"
-        style={{ display: isOpen ? 'none' : 'flex' }}
-      >
-        <Terminal className="w-6 h-6 group-hover:text-accent transition-colors" />
-        {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-2xl border border-accent/30 animate-ping opacity-20" />
-      </motion.button>
+      {!isOpen && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.5, duration: 0.4 }}
+          onClick={() => setIsOpen(true)}
+          className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-xl group cursor-pointer"
+          style={{ backgroundColor: 'var(--accent-color)' }}
+          aria-label="Open terminal"
+        >
+          <Terminal className="w-6 h-6" />
+          {/* Pulse ring */}
+          <span
+            className="absolute inset-0 rounded-2xl animate-ping opacity-20"
+            style={{ border: '2px solid var(--accent-color)' }}
+          />
+        </motion.button>
+      )}
 
       {/* Terminal Modal */}
       <AnimatePresence>

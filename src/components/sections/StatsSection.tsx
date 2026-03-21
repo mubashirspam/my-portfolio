@@ -113,8 +113,11 @@ export function StatsSection() {
       className="py-16"
     >
       <SectionBadge label="ACHIEVEMENTS" />
+      <h2 className="text-4xl sm:text-5xl font-normal text-foreground mt-3 mb-6" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        Numbers That Speak
+      </h2>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => (
           <motion.div
             key={stat.label}

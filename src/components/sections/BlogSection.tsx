@@ -25,8 +25,11 @@ export function BlogSection() {
       className="py-16"
     >
       <SectionBadge label="LATEST ARTICLES" />
+      <h2 className="text-4xl sm:text-5xl font-normal text-foreground mt-3 mb-8" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        From the Journal
+      </h2>
 
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {featured.map((post, index) => {
           const accent = cardAccents[index % cardAccents.length];
           return (

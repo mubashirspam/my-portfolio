@@ -11,10 +11,12 @@ import { BlogSection } from '@/components/sections/BlogSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { FlutterPlayground } from '@/components/FlutterPlayground';
 import { FloatingTerminal } from '@/components/FloatingTerminal';
+import { ParticleField } from '@/components/ParticleField';
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="relative">
+      <ParticleField />
       <CinematicHero />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

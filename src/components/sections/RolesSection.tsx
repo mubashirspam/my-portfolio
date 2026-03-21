@@ -12,8 +12,11 @@ export function RolesSection() {
       className="py-16"
     >
       <SectionBadge label="CURRENT ROLES" />
+      <h2 className="text-4xl sm:text-5xl font-normal text-foreground mt-3 mb-6" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        What I Do
+      </h2>
 
-      <div className="mt-6 space-y-4">
+      <div className="space-y-4">
         <RoleCard
           title="Independent Contractor"
           description="I'm available for a limited number of collaborative projects each year. If you're interested in exploring potential opportunities, feel free to reach out, and let's see how we can create something remarkable together."

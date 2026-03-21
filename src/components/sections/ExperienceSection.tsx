@@ -15,6 +15,9 @@ export function ExperienceSection() {
       className="py-16"
     >
       <SectionBadge label="EXPERIENCE" />
+      <h2 className="text-4xl sm:text-5xl font-normal text-foreground mt-3 mb-2" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        Where I&apos;ve Been
+      </h2>
 
       <div className="mt-8 relative">
         {/* Timeline line with animated gradient */}

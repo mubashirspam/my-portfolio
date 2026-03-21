@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Sun,
   Moon,
@@ -8,12 +8,8 @@ import {
   Clock,
   Menu,
   X,
-  Palette,
 } from 'lucide-react';
-import {
-  useTheme,
-  accentColors,
-} from '@/components/providers/ThemeProvider';
+import { useTheme } from '@/components/providers/ThemeProvider';
 
 const navLinks = [
   { label: 'Projects', href: '#projects' },
@@ -78,9 +74,8 @@ export function Navigation() {
             ))}
           </div>
 
-          {/* Right: Inline color dots + theme + clock */}
+          {/* Right: theme + clock + mobile menu */}
           <div className="flex items-center gap-1">
-            <ColorPickerPopup scrolled={scrolled} />
             <ThemeModeToggle scrolled={scrolled} />
             <LiveClock scrolled={scrolled} />
             <button
@@ -114,66 +109,6 @@ export function Navigation() {
         )}
       </nav>
     </header>
-  );
-}
-
-/* ===== Color Picker Popup ===== */
-function ColorPickerPopup({ scrolled }: { scrolled: boolean }) {
-  const { accent, setAccent } = useTheme();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const close = useCallback(() => setOpen(false), []);
-
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) close();
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, [open, close]);
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setOpen(!open)}
-        className={`p-2 rounded-full transition-colors ${
-          scrolled
-            ? 'text-muted-foreground hover:text-foreground hover:bg-foreground/5'
-            : 'text-white/60 hover:text-white hover:bg-white/10'
-        }`}
-        aria-label="Change accent color"
-      >
-        <Palette className="w-4 h-4" />
-      </button>
-
-      {open && (
-        <div className="absolute right-0 top-full mt-2 p-3 rounded-2xl liquid-glass shadow-xl border border-border/30 z-50">
-          <div className="grid grid-cols-4 gap-2">
-            {accentColors.map((color) => (
-              <button
-                key={color.name}
-                onClick={() => {
-                  setAccent(color);
-                  close();
-                }}
-                className={`w-7 h-7 rounded-full transition-all duration-200 hover:scale-110 ${
-                  accent.name === color.name
-                    ? 'ring-2 ring-offset-2 ring-foreground/30 scale-110'
-                    : ''
-                }`}
-                style={{
-                  backgroundColor: color.value,
-                  ringOffsetColor: 'var(--bg)',
-                } as React.CSSProperties}
-                aria-label={color.name}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
   );
 }
 

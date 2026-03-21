@@ -226,13 +226,15 @@ export function ContactSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-6"
         >
-          <Image
-            src="/text.svg"
-            alt="Mubashir Ahmad signature"
-            width={200}
-            height={40}
-            className="mx-auto dark:invert"
-          />
+          <div className="footer-shine mx-auto w-fit">
+            <Image
+              src="/text.svg"
+              alt="Mubashir Ahmad signature"
+              width={200}
+              height={40}
+              className="dark:invert"
+            />
+          </div>
         </motion.div>
 
         {/* Copyright */}

@@ -33,8 +33,13 @@ export function TestimonialsSection() {
       className="py-16"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-2">
         <SectionBadge label="WHAT CLIENTS SAY" />
+        <h2 className="text-4xl sm:text-5xl font-normal text-foreground mt-3" style={{ fontFamily: "'Instrument Serif', serif" }}>
+          Kind Words
+        </h2>
+      </div>
+      <div className="flex items-center justify-end mb-4">
 
         <div className="flex items-center gap-2">
           <button

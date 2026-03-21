@@ -278,8 +278,6 @@ export function InteractiveTerminal() {
             ln('  book                 Book a call'),
             ln('  resume               Download resume'),
             ln('  goto <section>       Scroll to section'),
-            ln('  theme <color>        Change accent color'),
-            ln(''),
             ln('Shell:', 'text-slate-500'),
             ln('  echo <text>          Print text'),
             ln('  date                 Show date & time'),
@@ -804,26 +802,6 @@ export function InteractiveTerminal() {
         break;
       }
 
-      /* ── theme ── */
-      case 'theme': {
-        const colors: Record<string, string> = {
-          purple: '#7C3AED', blue: '#2563EB', green: '#16A34A', orange: '#EA580C',
-          red: '#DC2626', teal: '#0D9488', indigo: '#4F46E5', pink: '#DB2777',
-        };
-        const c = args[0]?.toLowerCase();
-        if (!c || !colors[c]) {
-          output = [
-            ln('Usage: theme <color>', 'text-amber-400'),
-            ln(`Colors: ${Object.keys(colors).join('  ')}`, 'text-slate-500'),
-          ];
-        } else {
-          document.documentElement.style.setProperty('--accent-color', colors[c]);
-          localStorage.setItem('theme-accent', c);
-          output = [ln(`✓ Accent → ${c}`, 'text-emerald-400')];
-        }
-        break;
-      }
-
       /* ── echo ── */
       case 'echo': {
         output = [ln(args.join(' ') || '', 'text-slate-100')];
@@ -1260,15 +1238,10 @@ export function InteractiveTerminal() {
    Context-aware argument suggestions
    ═══════════════════════════════════════════════════ */
 
-const themeColors = ['purple', 'blue', 'green', 'orange', 'red', 'teal', 'indigo', 'pink'];
 const gotoSections = ['bio', 'about', 'stats', 'projects', 'work', 'techstack', 'tech', 'skills', 'experience', 'timeline', 'expertise', 'roles', 'testimonials', 'reviews', 'blog', 'contact', 'music', 'top', 'home'];
 
 function getArgSuggestions(cmd: string, typing: string, fs: FsNode, cwd: string): string[] {
   switch (cmd) {
-    // ── theme → color names ──
-    case 'theme':
-      return themeColors.filter((c) => c.startsWith(typing));
-
     // ── goto → section names ──
     case 'goto':
       return gotoSections.filter((s) => s.startsWith(typing));
@@ -1379,7 +1352,7 @@ function fsCompletions(fs: FsNode, cwd: string, partial: string, filter: 'dir' |
 const allCommands = [
   'help', 'ls', 'cd', 'pwd', 'cat', 'tree', 'open', 'read',
   'whoami', 'id', 'skills', 'projects', 'blog', 'social', 'contact',
-  'play', 'book', 'resume', 'download', 'goto', 'theme',
+  'play', 'book', 'resume', 'download', 'goto',
   'echo', 'date', 'hostname', 'uname', 'which', 'env', 'history',
   'grep', 'find', 'man', 'neofetch', 'clear', 'exit', 'sudo',
 ];
@@ -1402,7 +1375,6 @@ const cmdDescriptions: Record<string, string> = {
   book: 'Open booking page (topmate.io)',
   resume: 'Download resume PDF',
   goto: 'Scroll to a page section',
-  theme: 'Change accent color (purple, blue, green, orange, red, teal, indigo, pink)',
   echo: 'Print text to terminal',
   date: 'Show current date and time',
   hostname: 'Show hostname',

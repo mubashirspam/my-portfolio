@@ -12,7 +12,7 @@
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-fg);
   --color-border: var(--border-color);
-  --color-accent: var(--accent-color, #7C3AED);
+  --color-accent: var(--accent-color, #8B5CF6);
 
   /* Terminal */
   --color-terminal-bg: #1a1b26;
@@ -33,7 +33,7 @@
   --surface: rgba(255, 255, 255, 0.7);
   --surface-fg: #1e293b;
   --border-color: rgba(148, 163, 184, 0.2);
-  --accent-color: #7C3AED;
+  --accent-color: #8B5CF6;
   --glass-bg: rgba(255, 255, 255, 0.6);
   --glass-border: rgba(255, 255, 255, 0.8);
 
@@ -264,6 +264,28 @@
     transparent 100%
   );
   animation: logo-shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.footer-shine {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.footer-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  animation: logo-shine 5s ease-in-out infinite 2s;
   pointer-events: none;
 }
 

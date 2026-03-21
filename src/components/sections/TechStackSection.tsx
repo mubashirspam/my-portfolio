@@ -41,8 +41,11 @@ export function TechStackSection() {
       </div>
 
       <SectionBadge label="TECH STACK" />
+      <h2 className="text-4xl sm:text-5xl font-normal text-foreground mt-3 mb-6" style={{ fontFamily: "'Instrument Serif', serif" }}>
+        Tools &amp; Technologies
+      </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 relative z-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
         {skills.map((skill, index) => {
           const accent = cardAccents[index % cardAccents.length];
           const iconPath = categoryIcons[skill.category] || categoryIcons['Tools & Protocols'];

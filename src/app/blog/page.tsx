@@ -5,8 +5,15 @@ import Image from 'next/image';
 import { blogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
-  title: 'Blog - Mubashir Ahmed',
-  description: 'Articles about Flutter, React, and web development',
+  title: 'Blog — Flutter, Mobile Dev & AI Articles',
+  description: 'Read articles by Mubashir Ahmed on Flutter development, mobile app architecture, React, Next.js, AI integration, and software engineering best practices.',
+  alternates: { canonical: 'https://mubashir.dev/blog' },
+  openGraph: {
+    title: 'Blog — Flutter, Mobile Dev & AI Articles | Mubashir Ahmed',
+    description: 'Technical articles on Flutter, mobile app development, clean architecture, AI integration, and modern web development.',
+    url: 'https://mubashir.dev/blog',
+    type: 'website',
+  },
 };
 
 export default function BlogPage() {

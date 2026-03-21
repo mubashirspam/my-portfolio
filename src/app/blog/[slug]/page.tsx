@@ -20,17 +20,71 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.id === slug);
-  
+
   if (!post) {
     return {
       title: 'Post Not Found',
     };
   }
 
+  const postUrl = `https://mubashir.dev/blog/${post.id}`;
+
   return {
-    title: `${post.title} - Mubashir Ahmed`,
+    title: post.title,
     description: post.excerpt,
+    alternates: { canonical: postUrl },
+    keywords: [...post.tags, 'Mubashir Ahmed', 'Flutter Developer', 'Mobile Development', 'Software Engineering'],
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: postUrl,
+      type: 'article',
+      publishedTime: post.date,
+      authors: ['Mubashir Ahmed'],
+      tags: post.tags,
+      images: post.coverImage
+        ? [{ url: post.coverImage, width: 1200, height: 630, alt: post.title }]
+        : [{ url: '/og-image.png', width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: post.coverImage ? [post.coverImage] : ['/og-image.png'],
+      creator: '@mubashirahmed',
+    },
   };
+}
+
+function ArticleJsonLd({ post }: { post: { id: string; title: string; excerpt: string; date: string; coverImage?: string; tags: string[] } }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      '@id': 'https://mubashir.dev/#person',
+      name: 'Mubashir Ahmed',
+      url: 'https://mubashir.dev',
+    },
+    publisher: {
+      '@type': 'Person',
+      '@id': 'https://mubashir.dev/#person',
+      name: 'Mubashir Ahmed',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://mubashir.dev/blog/${post.id}`,
+    },
+    image: post.coverImage || 'https://mubashir.dev/og-image.png',
+    keywords: post.tags.join(', '),
+    url: `https://mubashir.dev/blog/${post.id}`,
+    inLanguage: 'en-US',
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />;
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -42,7 +96,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+    <>
+      <ArticleJsonLd post={post} />
+      <main className="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
       <article className="max-w-3xl mx-auto">
         {/* Back Button */}
         <Link
@@ -147,5 +203,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </footer>
       </article>
     </main>
+    </>
   );
 }

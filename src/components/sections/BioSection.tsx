@@ -9,11 +9,14 @@ export function BioSection() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="py-16"
+      className="py-20"
     >
-      <p className="text-xl sm:text-2xl font-medium leading-relaxed">
+      <p
+        className="text-3xl sm:text-4xl font-normal leading-snug tracking-[-0.5px]"
+        style={{ fontFamily: "'Instrument Serif', serif" }}
+      >
         <span className="text-foreground">
-          Ciao 👋 &mdash; I&apos;m a Mobile Developer and Flutter Enthusiast
+          Ciao &mdash; I&apos;m a Mobile Developer and Flutter Enthusiast
           based in India, passionate about building beautiful cross-platform
           applications.{' '}
         </span>

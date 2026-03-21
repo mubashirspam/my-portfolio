@@ -6,8 +6,6 @@ import {
   Sun,
   Moon,
   Monitor,
-  MapPin,
-  Globe,
   Clock,
   Menu,
   X,
@@ -19,25 +17,39 @@ import {
 } from '@/components/providers/ThemeProvider';
 
 const navLinks = [
-  { label: 'About', href: '#bio' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Journal', href: '#blog' },
+  { label: 'Playground', href: '#flutter-playground' },
 ];
 
 export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-surface/70 backdrop-blur-2xl border-b border-border/50 shadow-sm">
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
-          {/* Left: Theme controls */}
-          <div className="flex items-center gap-1">
-            <ColorPicker />
-            <ThemeModeToggle />
-          </div>
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 transition-all duration-300">
+      <nav
+        className={`max-w-6xl mx-auto rounded-2xl transition-all duration-500 ${
+          scrolled
+            ? 'liquid-glass shadow-lg shadow-black/5'
+            : 'liquid-glass'
+        }`}
+      >
+        <div className="flex items-center justify-between h-14 px-5">
+          {/* Left: Logo */}
+          <a
+            href="#"
+            className="text-2xl font-bold text-foreground tracking-tight"
+            style={{ fontFamily: "'Instrument Serif', serif" }}
+          >
+            MA<span className="text-accent">.</span>
+          </a>
 
           {/* Center: Section links (desktop) */}
           <div className="hidden md:flex items-center gap-1">
@@ -45,20 +57,21 @@ export function Navigation() {
               <a
                 key={href}
                 href={href}
-                className="px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                className="px-4 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground rounded-full hover:bg-white/5 transition-all duration-200"
               >
                 {label}
               </a>
             ))}
           </div>
 
-          {/* Right: Status chips + mobile menu */}
-          <div className="flex items-center gap-2">
-            <StatusChip icon={<MapPin className="w-3.5 h-3.5" />} label="INDIA" className="hidden sm:flex" />
+          {/* Right: Theme controls + Clock + Mobile menu */}
+          <div className="flex items-center gap-1.5">
+            <ColorPicker />
+            <ThemeModeToggle />
             <LiveClock />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -68,13 +81,13 @@ export function Navigation() {
 
         {/* Mobile nav */}
         {mobileOpen && (
-          <div className="md:hidden pb-3 border-t border-border/50 mt-1 pt-2">
+          <div className="md:hidden px-4 pb-4 border-t border-white/10 mt-1 pt-3">
             {navLinks.map(({ label, href }) => (
               <a
                 key={href}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                className="block px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground rounded-xl hover:bg-white/5 transition-colors"
               >
                 {label}
               </a>
@@ -104,14 +117,14 @@ function ColorPicker() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
         aria-label="Change accent color"
       >
-        <Sparkles className="w-5 h-5" style={{ color: accent.value }} />
+        <Sparkles className="w-4 h-4" style={{ color: accent.value }} />
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-2 p-3 bg-surface/90 backdrop-blur-xl border border-border rounded-xl shadow-2xl z-50">
+        <div className="absolute top-full right-0 mt-2 p-3 liquid-glass rounded-2xl shadow-2xl z-50">
           <div className="grid grid-cols-4 gap-2">
             {accentColors.map((color) => (
               <button
@@ -154,11 +167,11 @@ function ThemeModeToggle() {
 
   const icon =
     mode === 'light' ? (
-      <Sun className="w-5 h-5" />
+      <Sun className="w-4 h-4" />
     ) : mode === 'dark' ? (
-      <Moon className="w-5 h-5" />
+      <Moon className="w-4 h-4" />
     ) : (
-      <Monitor className="w-5 h-5" />
+      <Monitor className="w-4 h-4" />
     );
 
   const options: { value: 'light' | 'dark' | 'system'; label: string; icon: React.ReactNode }[] = [
@@ -171,14 +184,14 @@ function ThemeModeToggle() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
         aria-label="Change theme"
       >
         {icon}
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-2 py-1 bg-surface/90 backdrop-blur-xl border border-border rounded-xl shadow-2xl z-50 min-w-[140px]">
+        <div className="absolute top-full right-0 mt-2 py-1 liquid-glass rounded-2xl shadow-2xl z-50 min-w-[140px]">
           {options.map((opt) => (
             <button
               key={opt.value}
@@ -188,8 +201,8 @@ function ThemeModeToggle() {
               }}
               className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
                 mode === opt.value
-                  ? 'text-foreground bg-accent-subtle font-medium'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  ? 'text-foreground bg-white/10 font-medium'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
               }`}
             >
               {opt.icon}
@@ -202,26 +215,6 @@ function ThemeModeToggle() {
   );
 }
 
-/* ===== Status Chip ===== */
-function StatusChip({
-  icon,
-  label,
-  className = '',
-}: {
-  icon: React.ReactNode;
-  label: string;
-  className?: string;
-}) {
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-foreground/70 bg-muted/60 backdrop-blur-sm border border-border/50 rounded-full ${className}`}
-    >
-      {icon}
-      {label}
-    </span>
-  );
-}
-
 /* ===== Live Clock ===== */
 function LiveClock() {
   const [time, setTime] = useState('');
@@ -229,7 +222,6 @@ function LiveClock() {
   useEffect(() => {
     const update = () => {
       const now = new Date();
-      // Convert to IST (UTC+5:30)
       const istTime = new Date(
         now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
       );
@@ -237,9 +229,8 @@ function LiveClock() {
         `${istTime.getHours().toString().padStart(2, '0')}:${istTime.getMinutes().toString().padStart(2, '0')}`
       );
     };
-    
+
     update();
-    // Update every second for real-time feel
     const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, []);
@@ -247,6 +238,9 @@ function LiveClock() {
   if (!time) return null;
 
   return (
-    <StatusChip icon={<Clock className="w-3.5 h-3.5" />} label={time} />
+    <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-foreground/70 rounded-full bg-white/5">
+      <Clock className="w-3 h-3" />
+      {time}
+    </span>
   );
 }

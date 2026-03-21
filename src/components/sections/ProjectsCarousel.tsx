@@ -29,39 +29,31 @@ export function ProjectsCarousel() {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <span
-          className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider rounded-full"
-          style={{
-            color: 'var(--accent-color)',
-            backgroundColor: 'color-mix(in srgb, var(--accent-color) 10%, transparent)',
-          }}
-        >
-          PROJECTS
-        </span>
+        <SectionBadge label="PROJECTS" />
 
         <div className="flex items-center gap-2">
           <button
             onClick={prev}
-            className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+            className="p-2 text-muted-foreground hover:text-foreground rounded-xl border border-border/50 hover:border-border hover:bg-surface/50 transition-all"
             aria-label="Previous project"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="text-sm font-bold text-foreground w-6 text-center tabular-nums">
+          <span className="text-sm font-bold text-foreground w-6 text-center tabular-nums font-mono">
             {String(currentIndex + 1).padStart(2, '0')}
           </span>
           <button
             onClick={next}
-            className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+            className="p-2 text-muted-foreground hover:text-foreground rounded-xl border border-border/50 hover:border-border hover:bg-surface/50 transition-all"
             aria-label="Next project"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       {/* Card */}
-      <div className="relative h-[400px] rounded-3xl overflow-hidden bg-surface border border-border">
+      <div className="relative h-[420px] rounded-3xl overflow-hidden border border-border/30">
         <AnimatePresence mode="wait">
           <motion.div
             key={project.id}
@@ -88,7 +80,7 @@ export function ProjectsCarousel() {
         </AnimatePresence>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-6 pt-20">
           <AnimatePresence mode="wait">
             <motion.div
               key={project.id}
@@ -97,25 +89,30 @@ export function ProjectsCarousel() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              <p className="text-xs font-bold tracking-wider text-white/70 uppercase mb-1">
+              <p className="text-[10px] font-bold tracking-widest text-white/50 uppercase mb-1">
                 {project.category}
               </p>
-              <h3 className="text-2xl font-bold text-white">{project.title}</h3>
-              <p className="text-sm text-white/70 mt-2 line-clamp-2">
+              <h3
+                className="text-2xl sm:text-3xl font-normal text-white"
+                style={{ fontFamily: "'Instrument Serif', serif" }}
+              >
+                {project.title}
+              </h3>
+              <p className="text-sm text-white/60 mt-2 line-clamp-2 max-w-lg">
                 {project.description}
               </p>
-              <div className="flex items-center gap-3 mt-3">
+              <div className="flex items-center gap-3 mt-4">
                 {project.tags.slice(0, 3).map((tag) => (
-                  <span key={tag} className="text-xs font-medium text-white/60 bg-white/10 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                  <span key={tag} className="text-xs font-medium text-white/50 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full">
                     {tag}
                   </span>
                 ))}
-                {project.links.live && (
+                {(project.links.live || project.links.appStore || project.links.playStore) && (
                   <a
-                    href={project.links.live}
+                    href={project.links.live || project.links.appStore || project.links.playStore}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-white/80 hover:text-white transition-colors"
+                    className="ml-auto inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white liquid-glass rounded-full px-4 py-2 transition-all"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     Visit
@@ -144,5 +141,13 @@ export function ProjectsCarousel() {
         ))}
       </div>
     </motion.section>
+  );
+}
+
+function SectionBadge({ label }: { label: string }) {
+  return (
+    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-accent bg-accent-subtle border border-accent rounded-full backdrop-blur-sm">
+      {label}
+    </span>
   );
 }

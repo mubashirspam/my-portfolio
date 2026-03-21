@@ -33,28 +33,26 @@ export function TestimonialsSection() {
         <div className="flex items-center gap-2">
           <button
             onClick={prev}
-            className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+            className="p-2 text-muted-foreground hover:text-foreground rounded-xl border border-border/50 hover:border-border hover:bg-surface/50 transition-all"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="text-sm font-bold text-foreground w-6 text-center tabular-nums">
+          <span className="text-sm font-bold text-foreground w-6 text-center tabular-nums font-mono">
             {String(currentIndex + 1).padStart(2, '0')}
           </span>
           <button
             onClick={next}
-            className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+            className="p-2 text-muted-foreground hover:text-foreground rounded-xl border border-border/50 hover:border-border hover:bg-surface/50 transition-all"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       {/* Testimonial Card */}
-      <div className="rounded-2xl border border-border bg-surface/70 backdrop-blur-xl p-8 relative overflow-hidden min-h-[280px]">
-        <div className="absolute inset-0 gradient-accent-hover" />
-
+      <div className="rounded-2xl border border-violet-500/15 bg-gradient-to-br from-violet-500/8 via-transparent to-blue-500/5 backdrop-blur-xl p-8 relative overflow-hidden min-h-[280px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={testimonial.id}
@@ -64,19 +62,22 @@ export function TestimonialsSection() {
             transition={{ duration: 0.3 }}
             className="relative z-10"
           >
-            <Quote className="w-10 h-10 text-accent/40 mb-4" />
+            <Quote className="w-8 h-8 text-violet-500/30 mb-4" />
 
             {/* Star Rating */}
             <div className="flex items-center gap-1 mb-4">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className="w-4 h-4 fill-accent text-accent"
+                  className="w-4 h-4 fill-amber-400 text-amber-400"
                 />
               ))}
             </div>
 
-            <p className="text-lg sm:text-xl leading-relaxed text-foreground/90 italic mb-6">
+            <p
+              className="text-lg sm:text-xl leading-relaxed text-foreground/90 italic mb-6"
+              style={{ fontFamily: "'Instrument Serif', serif" }}
+            >
               &ldquo;{testimonial.content}&rdquo;
             </p>
 

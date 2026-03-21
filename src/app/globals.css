@@ -214,50 +214,35 @@
   to { opacity: 1; }
 }
 
-/* ===== Cinematic Hero ===== */
-.cinematic-hero {
-  --ch-bg: hsl(201 100% 13%);
-  --ch-fg: hsl(0 0% 100%);
-  --ch-muted-fg: hsl(240 4% 66%);
-  background: var(--ch-bg);
-  color: var(--ch-fg);
-}
-
-/* Liquid Glass */
+/* ===== Liquid Glass ===== */
 .liquid-glass {
-  background: rgba(255, 255, 255, 0.01);
+  background: rgba(255, 255, 255, 0.03);
   background-blend-mode: luminosity;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border: none;
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
+}
+.dark .liquid-glass {
+  background: rgba(255, 255, 255, 0.02);
 }
 .liquid-glass::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1.4px;
+  padding: 1.2px;
   background: linear-gradient(180deg,
-    rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 20%,
     rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
-    rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+    rgba(255,255,255,0.1) 80%, rgba(255,255,255,0.3) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
-
-/* Cinematic Hero Animations */
-@keyframes ch-fade-rise {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-ch-fade-rise { animation: ch-fade-rise 0.8s ease-out both; }
-.animate-ch-fade-rise-delay { animation: ch-fade-rise 0.8s ease-out 0.2s both; }
-.animate-ch-fade-rise-delay-2 { animation: ch-fade-rise 0.8s ease-out 0.4s both; }
 
 /* ===== Code blocks ===== */
 pre { overflow-x: auto; border-radius: 0.75rem; padding: 1rem; font-size: 0.875rem; }

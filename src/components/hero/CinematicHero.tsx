@@ -1,16 +1,11 @@
 'use client';
 
-const navLinks = [
-  { label: 'Home', href: '#cinematic-hero', active: true },
-  { label: 'Studio', href: '#projects' },
-  { label: 'About', href: '#bio' },
-  { label: 'Journal', href: '#blog' },
-  { label: 'Reach Us', href: '#contact' },
-];
+import { motion } from 'framer-motion';
+import { ArrowDown } from 'lucide-react';
 
 export function CinematicHero() {
   return (
-    <section id="cinematic-hero" className="cinematic-hero relative min-h-screen overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden flex flex-col">
       {/* Fullscreen Video Background */}
       <video
         autoPlay
@@ -25,67 +20,92 @@ export function CinematicHero() {
         />
       </video>
 
-      {/* Navigation */}
-      <nav className="relative z-10">
-        <div className="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-          {/* Logo */}
+      {/* Subtle dark overlay for readability */}
+      <div className="absolute inset-0 z-[1] bg-black/30" />
+
+      {/* Hero Content — vertically centered */}
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-24 pb-32">
+        {/* Badge */}
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-block px-4 py-1.5 text-sm font-medium rounded-full text-white/80 mb-8"
+          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
+        >
+          Available for freelance projects
+        </motion.span>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] tracking-[-2px] max-w-5xl font-normal text-white"
+          style={{ fontFamily: "'Instrument Serif', serif" }}
+        >
+          Crafting <em className="not-italic text-white/50">digital</em>{' '}
+          experiences that{' '}
+          <em className="not-italic text-white/50">inspire.</em>
+        </motion.h1>
+
+        {/* Subtext */}
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-white/60 text-base sm:text-lg max-w-2xl mt-8 leading-relaxed"
+        >
+          Senior Flutter Engineer with 6+ years building production mobile apps.
+          Clean architecture, beautiful interfaces, and scalable solutions.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-col sm:flex-row items-center gap-4 mt-12"
+        >
           <a
-            href="#cinematic-hero"
-            className="text-3xl tracking-tight text-[--ch-fg]"
-            style={{ fontFamily: "'Instrument Serif', serif" }}
+            href="https://topmate.io/mubashir_ahammed"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="liquid-glass rounded-full px-10 py-4 text-base font-medium text-white hover:scale-[1.03] transition-transform cursor-pointer"
           >
-            Velorah<sup className="text-xs">&reg;</sup>
+            Book a Call
           </a>
-
-          {/* Nav Links */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className={`text-sm transition-colors ${
-                  link.active
-                    ? 'text-[--ch-fg]'
-                    : 'text-[--ch-muted-fg] hover:text-[--ch-fg]'
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA */}
           <a
             href="#contact"
-            className="liquid-glass rounded-full px-6 py-2.5 text-sm text-[--ch-fg] hover:scale-[1.03] transition-transform cursor-pointer"
+            className="rounded-full px-10 py-4 text-base font-medium text-white/80 hover:text-white border border-white/15 hover:border-white/30 transition-all cursor-pointer"
           >
-            Begin Journey
+            Contact Me
           </a>
-        </div>
-      </nav>
+        </motion.div>
+      </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 pt-32 pb-40 py-[90px]">
-        <h1
-          className="text-5xl sm:text-7xl md:text-8xl leading-[0.95] tracking-[-2.46px] max-w-7xl font-normal animate-ch-fade-rise"
-          style={{ fontFamily: "'Instrument Serif', serif", color: 'var(--ch-fg)' }}
-        >
-          Where <em className="not-italic text-[--ch-muted-fg]">dreams</em> rise{' '}
-          <em className="not-italic text-[--ch-muted-fg]">through the silence.</em>
-        </h1>
-
-        <p className="text-[--ch-muted-fg] text-base sm:text-lg max-w-2xl mt-8 leading-relaxed animate-ch-fade-rise-delay">
-          We&apos;re designing tools for deep thinkers, bold creators, and quiet rebels.
-          Amid the chaos, we build digital spaces for sharp focus and inspired work.
-        </p>
-
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
         <a
           href="#bio"
-          className="liquid-glass rounded-full px-14 py-5 text-base text-[--ch-fg] mt-12 hover:scale-[1.03] transition-transform cursor-pointer animate-ch-fade-rise-delay-2"
+          className="flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors"
         >
-          Begin Journey
+          <span className="text-xs font-medium tracking-wider uppercase">
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ArrowDown className="w-4 h-4" />
+          </motion.div>
         </a>
-      </div>
+      </motion.div>
     </section>
   );
 }

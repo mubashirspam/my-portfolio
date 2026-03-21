@@ -1,4 +1,3 @@
-import { TerminalHero } from '@/components/hero';
 import { CinematicHero } from '@/components/hero/CinematicHero';
 import { BioSection } from '@/components/sections/BioSection';
 import { StatsSection } from '@/components/sections/StatsSection';
@@ -11,17 +10,12 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { BlogSection } from '@/components/sections/BlogSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { FlutterPlayground } from '@/components/FlutterPlayground';
+import { FloatingTerminal } from '@/components/FloatingTerminal';
 
 export default function HomePage() {
   return (
     <main>
-      <div id="cinematic">
-        <CinematicHero />
-      </div>
-
-      <div id="hero">
-        <TerminalHero />
-      </div>
+      <CinematicHero />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div id="bio">
@@ -58,6 +52,8 @@ export default function HomePage() {
           <ContactSection />
         </div>
       </div>
+
+      <FloatingTerminal />
     </main>
   );
 }

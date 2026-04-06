@@ -1,0 +1,2589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch Lernen — German A1→A2 for Developers</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Space+Mono:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF9F6;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #F0EFEB;
+  --bg-hover: #E8E6E1;
+  --bg-active: #1A1A2E;
+  --text: #1A1A2E;
+  --text-secondary: #5A5A6E;
+  --text-muted: #8E8E9E;
+  --accent: #E63946;
+  --accent-light: #FFF0F1;
+  --accent-secondary: #457B9D;
+  --accent-green: #2D936C;
+  --accent-gold: #F4A261;
+  --border: #E0DED8;
+  --shadow: 0 1px 3px rgba(26,26,46,0.06), 0 6px 16px rgba(26,26,46,0.04);
+  --shadow-lg: 0 4px 12px rgba(26,26,46,0.08), 0 16px 40px rgba(26,26,46,0.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-display: 'Fraunces', serif;
+  --sidebar-width: 280px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] {
+  --bg: #0F0F1A;
+  --bg-card: #1A1A2E;
+  --bg-sidebar: #141425;
+  --bg-hover: #252540;
+  --bg-active: #E63946;
+  --text: #F0EFEB;
+  --text-secondary: #B0B0C0;
+  --text-muted: #6E6E80;
+  --border: #2A2A40;
+  --accent-light: #2A1A1E;
+  --shadow: 0 1px 3px rgba(0,0,0,0.2), 0 6px 16px rgba(0,0,0,0.15);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.25), 0 16px 40px rgba(0,0,0,0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform var(--transition), background var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+
+.sidebar-logo span { color: var(--text); }
+
+.sidebar-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+}
+
+/* Streak tracker */
+.streak-box {
+  margin: 16px 16px 0;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, var(--accent), #C1121F);
+  border-radius: var(--radius-sm);
+  color: #fff;
+}
+
+.streak-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.streak-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  font-family: var(--font-mono);
+}
+
+.streak-count {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.streak-days {
+  display: flex;
+  gap: 4px;
+}
+
+.streak-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.streak-dot.active {
+  background: rgba(255,255,255,0.95);
+  color: var(--accent);
+}
+
+/* Progress */
+.progress-box {
+  margin: 12px 16px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.progress-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar-bg {
+  height: 6px;
+  background: var(--bg-hover);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-secondary));
+  border-radius: 3px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* Nav */
+.sidebar-nav {
+  flex: 1;
+  padding: 8px 0;
+  overflow-y: auto;
+}
+
+.nav-section-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  padding: 16px 20px 6px;
+  font-family: var(--font-mono);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.nav-item.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: var(--accent-light);
+  font-weight: 600;
+}
+
+.nav-item .nav-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  transition: all var(--transition);
+}
+
+.nav-item.completed .nav-check {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #fff;
+}
+
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+}
+
+.sidebar-btn {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.sidebar-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.sidebar-btn.accent {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ===== MAIN ===== */
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  transition: margin var(--transition);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 12px 32px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(12px);
+  transition: background var(--transition);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.topbar-breadcrumb {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.topbar-breadcrumb strong {
+  color: var(--text);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  transition: all var(--transition);
+}
+
+.theme-toggle:hover { background: var(--bg-hover); }
+
+.content {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 32px 80px;
+}
+
+/* ===== LESSON CARD ===== */
+.lesson-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+
+.lesson-card:hover { box-shadow: var(--shadow-lg); }
+
+.lesson-header {
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition);
+}
+
+.lesson-header:hover { background: var(--bg-hover); }
+
+.lesson-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.lesson-day {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.lesson-day.week2 { background: var(--accent-secondary); }
+.lesson-day.week3 { background: var(--accent-green); }
+.lesson-day.week4 { background: var(--accent-gold); color: #1A1A2E; }
+
+.lesson-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.lesson-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.lesson-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all var(--transition);
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.lesson-check.checked {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  color: #fff;
+}
+
+.lesson-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: transform var(--transition);
+}
+
+.lesson-card.open .lesson-arrow { transform: rotate(180deg); }
+
+.lesson-body {
+  display: none;
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.lesson-card.open .lesson-body { display: block; }
+
+/* Section tabs */
+.section-tabs {
+  display: flex;
+  gap: 0;
+  margin: 16px 0;
+  border-bottom: 2px solid var(--border);
+}
+
+.section-tab {
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all var(--transition);
+}
+
+.section-tab:hover { color: var(--text); }
+.section-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.section-content { display: none; }
+.section-content.active { display: block; }
+
+/* Vocab table */
+.vocab-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.vocab-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+}
+
+.vocab-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.vocab-table tr:last-child td { border-bottom: none; }
+
+.vocab-german {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.vocab-phonetic {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.vocab-malayalam {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Grammar */
+.grammar-box {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 12px 0;
+}
+
+.grammar-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.grammar-rule {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.grammar-example {
+  background: var(--bg);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-top: 10px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+}
+
+.grammar-example .de {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.grammar-example .ml {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* Sentences */
+.sentence-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sentence-card:last-child { border-bottom: none; }
+
+.sentence-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sentence-de {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.sentence-ml {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.sentence-phonetic {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-secondary);
+}
+
+/* Practice */
+.practice-item {
+  padding: 12px 16px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  margin: 8px 0;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.practice-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Video embed */
+.video-embed {
+  margin: 16px 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.video-embed iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  display: block;
+}
+
+.video-caption {
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg);
+  font-family: var(--font-mono);
+}
+
+/* Notes */
+.notes-area {
+  margin-top: 16px;
+}
+
+.notes-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: 6px;
+}
+
+.notes-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  resize: vertical;
+  transition: border var(--transition);
+}
+
+.notes-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ===== SPECIAL PAGES ===== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* Welcome */
+.welcome-hero {
+  text-align: center;
+  padding: 48px 0 32px;
+}
+
+.welcome-flag {
+  font-size: 56px;
+  margin-bottom: 16px;
+}
+
+.welcome-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.welcome-desc {
+  color: var(--text-secondary);
+  font-size: 15px;
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
+.welcome-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+
+.welcome-start-btn {
+  display: inline-block;
+  padding: 14px 40px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.welcome-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(230,57,70,0.3);
+}
+
+/* Mistakes page */
+.mistake-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+}
+
+.mistake-wrong {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.mistake-right {
+  color: var(--accent-green);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.mistake-explain {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* Revision */
+.revision-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.revision-german {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.revision-answer {
+  font-size: 16px;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+}
+
+.revision-answer:hover, .revision-answer.show { opacity: 1; }
+
+.revision-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.rev-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.rev-btn:hover { background: var(--bg-hover); }
+.rev-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Mobile overlay */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 99;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .main { margin-left: 0; }
+  .hamburger { display: block; }
+  .content { padding: 20px 16px 80px; }
+  .welcome-stats { grid-template-columns: repeat(2, 1fr); }
+  .topbar { padding: 12px 16px; }
+  .section-tabs { overflow-x: auto; }
+  .section-tab { white-space: nowrap; padding: 10px 12px; }
+}
+
+@media (max-width: 480px) {
+  .lesson-header { padding: 14px 16px; }
+  .lesson-body { padding: 0 16px 16px; }
+  .vocab-table { font-size: 13px; }
+  .vocab-table th, .vocab-table td { padding: 8px 6px; }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lesson-card { animation: fadeIn 0.3s ease forwards; }
+.lesson-card:nth-child(2) { animation-delay: 0.05s; }
+.lesson-card:nth-child(3) { animation-delay: 0.1s; }
+.lesson-card:nth-child(4) { animation-delay: 0.15s; }
+
+/* Page title */
+.page-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Deutsch<span>Lernen</span></div>
+    <div class="sidebar-subtitle">A1 → A2 for Developers</div>
+  </div>
+
+  <div class="streak-box">
+    <div class="streak-top">
+      <span class="streak-label">Daily Streak</span>
+      <span class="streak-count" id="streakCount">0</span>
+    </div>
+    <div class="streak-days" id="streakDays"></div>
+  </div>
+
+  <div class="progress-box">
+    <div class="progress-label">
+      <span>COURSE PROGRESS</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav" id="sidebarNav"></nav>
+
+  <div class="sidebar-footer">
+    <button class="sidebar-btn" onclick="showPage('mistakes')">⚠ Mistakes</button>
+    <button class="sidebar-btn accent" onclick="showPage('revision')">⟳ Revise</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Main -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-breadcrumb" id="breadcrumb">Home</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="themeIcon">☀</span>
+        <span id="themeLabel" style="font-size:12px;font-family:var(--font-mono)">Light</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="content" id="contentArea"></div>
+</div>
+
+<script>
+// ===== COURSE DATA =====
+const COURSE = [
+  // ====== WEEK 1: Foundations ======
+  {
+    day: 1, week: 1,
+    title: "Greetings & Introductions",
+    subtitle: "Begrüßungen — അഭിവാദ്യങ്ങൾ",
+    video: "https://www.youtube.com/embed/0FnlAEijE4I",
+    videoCaption: "German Greetings for Beginners — Learn German with Anja",
+    vocab: [
+      ["Hallo", "ha-LO", "Hello", "ഹലോ"],
+      ["Guten Morgen", "GOO-ten MOR-gen", "Good morning", "സുപ്രഭാതം"],
+      ["Guten Tag", "GOO-ten TAHK", "Good day", "ശുഭദിനം"],
+      ["Guten Abend", "GOO-ten AH-bent", "Good evening", "ശുഭ സായാഹ്നം"],
+      ["Auf Wiedersehen", "owf VEE-der-zay-en", "Goodbye", "വിട"],
+      ["Tschüss", "CHEWS", "Bye (informal)", "ബൈ"],
+      ["Danke", "DAHN-keh", "Thank you", "നന്ദി"],
+      ["Bitte", "BIT-teh", "Please / You're welcome", "ദയവായി"],
+      ["Ja", "YAH", "Yes", "അതെ"],
+      ["Nein", "NINE", "No", "അല്ല"]
+    ],
+    grammar: {
+      title: "Formal vs Informal Address (Sie / du)",
+      rule: "German has two ways to say 'you'. <strong>Sie</strong> (formal) is used at work, with strangers, and elders. <strong>du</strong> (informal) is for friends, family, and colleagues who've agreed to use it. In a German office, start with Sie until invited to use du.",
+      examples: [
+        ["Wie heißen Sie?", "What is your name? (formal)", "താങ്കളുടെ പേരെന്താണ്?"],
+        ["Wie heißt du?", "What is your name? (informal)", "നിന്റെ പേരെന്താണ്?"]
+      ]
+    },
+    sentences: [
+      ["Hallo, ich bin Mubashir.", "ha-LO, ikh bin Mubashir", "Hello, I am Mubashir.", "ഹലോ, ഞാൻ മുബഷിറാണ്."],
+      ["Ich komme aus Indien.", "ikh KO-meh ows IN-dee-en", "I come from India.", "ഞാൻ ഇന്ത്യയിൽ നിന്നാണ്."],
+      ["Ich bin Softwareentwickler.", "ikh bin ZOFT-vare-ent-vik-ler", "I am a software developer.", "ഞാൻ ഒരു സോഫ്റ്റ്‌വെയർ ഡെവലപ്പറാണ്."],
+      ["Freut mich!", "froyt mikh", "Nice to meet you!", "സന്തോഷം!"],
+      ["Wie geht es Ihnen?", "vee gayt es EE-nen", "How are you? (formal)", "സുഖമാണോ?"]
+    ],
+    practice: [
+      "🗣 Introduce yourself in German to an imaginary colleague",
+      "✍ Write 5 sentences about yourself using: ich bin, ich komme aus, ich arbeite als",
+      "👂 Listen to the video and repeat each greeting 3 times",
+      "🧠 Memorize all 10 vocabulary words — cover the English and recall"
+    ]
+  },
+  {
+    day: 2, week: 1,
+    title: "Numbers & Counting",
+    subtitle: "Zahlen — അക്കങ്ങൾ",
+    video: "https://www.youtube.com/embed/6OaEHxRqdRc",
+    videoCaption: "German Numbers 1-100 — Easy German",
+    vocab: [
+      ["eins", "AYNS", "1 / one", "ഒന്ന്"],
+      ["zwei", "TSVAI", "2 / two", "രണ്ട്"],
+      ["drei", "DRAI", "3 / three", "മൂന്ന്"],
+      ["vier", "FEER", "4 / four", "നാല്"],
+      ["fünf", "FEWNF", "5 / five", "അഞ്ച്"],
+      ["zehn", "TSAYN", "10 / ten", "പത്ത്"],
+      ["zwanzig", "TSVAN-tsikh", "20 / twenty", "ഇരുപത്"],
+      ["hundert", "HOON-dert", "100 / hundred", "നൂറ്"],
+      ["die Nummer", "dee NOO-mer", "the number", "നമ്പർ"],
+      ["zählen", "TSAY-len", "to count", "എണ്ണുക"]
+    ],
+    grammar: {
+      title: "German Number System (21-99)",
+      rule: "German reverses two-digit numbers! 21 = einundzwanzig (one-and-twenty), 45 = fünfundvierzig (five-and-forty). This is like Malayalam's reverse counting. Think of it as: ones + und + tens.",
+      examples: [
+        ["dreiunddreißig (33)", "three-and-thirty", "മുപ്പത്തിമൂന്ന്"],
+        ["siebenundsiebzig (77)", "seven-and-seventy", "എഴുപത്തേഴ്"]
+      ]
+    },
+    sentences: [
+      ["Meine Telefonnummer ist...", "MY-neh teh-leh-FON-noo-mer ist", "My phone number is...", "എന്റെ ഫോൺ നമ്പർ..."],
+      ["Ich bin dreißig Jahre alt.", "ikh bin DRY-sikh YAH-reh alt", "I am 30 years old.", "എനിക്ക് 30 വയസ്സ്."],
+      ["Das kostet fünf Euro.", "das KOS-tet fewnf OY-ro", "That costs 5 euros.", "അത് 5 യൂറോ."],
+      ["Wir sind drei Personen.", "veer zint dry per-ZO-nen", "We are 3 people.", "ഞങ്ങൾ 3 പേർ."],
+      ["Bitte Zimmer zweihundertfünf.", "BIT-teh TSIM-mer tsvai-HOON-dert-fewnf", "Room 205, please.", "205 മുറി, ദയവായി."]
+    ],
+    practice: [
+      "🔢 Count 1–20 out loud in German three times",
+      "🧮 Write these in German: 23, 47, 56, 81, 99",
+      "📞 Say your phone number digit by digit in German",
+      "💶 Practice: 'Das kostet __ Euro' with random prices"
+    ]
+  },
+  {
+    day: 3, week: 1,
+    title: "The Alphabet & Pronunciation",
+    subtitle: "Das Alphabet — അക്ഷരമാല",
+    video: "https://www.youtube.com/embed/HIn25FMz8DI",
+    videoCaption: "German Alphabet & Pronunciation — Learn German with Herr Antrim",
+    vocab: [
+      ["der Buchstabe", "dair BOOKH-shtah-beh", "the letter", "അക്ഷരം"],
+      ["das Alphabet", "das al-fa-BAYT", "the alphabet", "അക്ഷരമാല"],
+      ["der Umlaut", "dair OOM-lowt", "the umlaut (ä, ö, ü)", "ഉംലൗട്ട്"],
+      ["das Eszett (ß)", "das es-TSET", "sharp S", "ഷാർപ്പ് എസ്"],
+      ["buchstabieren", "bookh-shtah-BEER-en", "to spell", "അക്ഷരത്തിൽ പറയുക"],
+      ["aussprechen", "OWS-shpreh-khen", "to pronounce", "ഉച്ചരിക്കുക"],
+      ["die Aussprache", "dee OWS-shprah-kheh", "the pronunciation", "ഉച്ചാരണം"],
+      ["schwierig", "SHVEE-rikh", "difficult", "ബുദ്ധിമുട്ടുള്ള"],
+      ["einfach", "AYN-fakh", "easy / simple", "എളുപ്പം"],
+      ["langsam", "LAHNG-zahm", "slow", "പതുക്കെ"]
+    ],
+    grammar: {
+      title: "Special German Sounds",
+      rule: "<strong>ä</strong> = 'e' as in 'bed' | <strong>ö</strong> = round lips + say 'e' | <strong>ü</strong> = round lips + say 'ee' | <strong>ß</strong> = double-s | <strong>ch</strong> after i/e = soft (like hissing) | <strong>ch</strong> after a/o/u = hard (like clearing throat) | <strong>z</strong> = 'ts' | <strong>w</strong> = 'v' | <strong>v</strong> = 'f' | <strong>j</strong> = 'y'",
+      examples: [
+        ["Tschüss → ch = hiss, ü = rounded ee, ss = sharp", "", ""],
+        ["Straße → shtra-seh, ß sounds like 'ss'", "", ""]
+      ]
+    },
+    sentences: [
+      ["Wie buchstabiert man das?", "vee bookh-shtah-BEERT man das", "How do you spell that?", "അത് എങ്ങനെ spell ചെയ്യും?"],
+      ["Können Sie das bitte wiederholen?", "KER-nen zee das BIT-teh VEE-der-ho-len", "Can you repeat that please?", "ദയവായി ആവർത്തിക്കാമോ?"],
+      ["Langsam, bitte.", "LAHNG-zahm BIT-teh", "Slowly, please.", "പതുക്കെ, ദയവായി."],
+      ["Das ist einfach.", "das ist AYN-fakh", "That is easy.", "അത് എളുപ്പമാണ്."],
+      ["Ich verstehe nicht.", "ikh fer-SHTAY-eh nikht", "I don't understand.", "എനിക്ക് മനസ്സിലായില്ല."]
+    ],
+    practice: [
+      "🔤 Spell your full name in German letters aloud",
+      "🗣 Practice ö and ü — say 'schön' and 'Tschüss' 10 times each",
+      "✍ Write the German alphabet with phonetic sounds",
+      "👂 Watch the video; pause after each letter and repeat"
+    ]
+  },
+  {
+    day: 4, week: 1,
+    title: "Introducing Yourself at Work",
+    subtitle: "Sich vorstellen — സ്വയം പരിചയപ്പെടുത്തൽ",
+    video: "https://www.youtube.com/embed/sZDVVdEVxnI",
+    videoCaption: "Self Introduction in German — GermanPod101",
+    vocab: [
+      ["der Name", "dair NAH-meh", "the name", "പേര്"],
+      ["der Beruf", "dair beh-ROOF", "the profession", "തൊഴിൽ"],
+      ["arbeiten", "AR-by-ten", "to work", "ജോലി ചെയ്യുക"],
+      ["die Firma", "dee FEER-mah", "the company", "കമ്പനി"],
+      ["die Erfahrung", "dee air-FAH-roong", "the experience", "പരിചയം"],
+      ["das Team", "das TEEM", "the team", "ടീം"],
+      ["der Kollege", "dair ko-LAY-geh", "the colleague (m)", "സഹപ്രവർത്തകൻ"],
+      ["die Kollegin", "dee ko-LAY-gin", "the colleague (f)", "സഹപ്രവർത്തക"],
+      ["das Büro", "das bew-RO", "the office", "ഓഫീസ്"],
+      ["die Abteilung", "dee AP-ty-loong", "the department", "വിഭാഗം"]
+    ],
+    grammar: {
+      title: "Verb Conjugation — Present Tense (ich, du, er/sie)",
+      rule: "Most German verbs follow a pattern. Remove <strong>-en</strong> from the infinitive to get the stem, then add endings: <strong>ich → -e</strong>, <strong>du → -st</strong>, <strong>er/sie/es → -t</strong>, <strong>wir → -en</strong>, <strong>ihr → -t</strong>, <strong>sie/Sie → -en</strong>",
+      examples: [
+        ["arbeiten: ich arbeite, du arbeitest, er arbeitet", "to work", "ജോലി ചെയ്യുക"],
+        ["kommen: ich komme, du kommst, er kommt", "to come", "വരിക"]
+      ]
+    },
+    sentences: [
+      ["Ich arbeite als Softwareentwickler.", "ikh AR-by-teh als ZOFT-vare-ent-vik-ler", "I work as a software developer.", "ഞാൻ സോഫ്റ്റ്‌വെയർ ഡെവലപ്പറായി ജോലി ചെയ്യുന്നു."],
+      ["Ich habe sechs Jahre Erfahrung.", "ikh HAH-beh zeks YAH-reh air-FAH-roong", "I have 6 years of experience.", "എനിക്ക് 6 വർഷത്തെ പരിചയമുണ്ട്."],
+      ["Ich arbeite mit Flutter und Dart.", "ikh AR-by-teh mit Flutter oont Dart", "I work with Flutter and Dart.", "ഞാൻ Flutter-ഉം Dart-ഉം ഉപയോഗിക്കുന്നു."],
+      ["Mein Team ist in Deutschland.", "mine TEEM ist in DOYCH-lahnt", "My team is in Germany.", "എന്റെ ടീം ജർമ്മനിയിലാണ്."],
+      ["Ich freue mich auf die Zusammenarbeit.", "ikh FROY-eh mikh owf dee tsoo-ZAH-men-ar-bite", "I look forward to working together.", "ഒരുമിച്ച് ജോലി ചെയ്യാൻ ഞാൻ ആഗ്രഹിക്കുന്നു."]
+    ],
+    practice: [
+      "🗣 Record a 1-minute self-introduction in German for a job interview",
+      "✍ Write a paragraph about your work experience in German",
+      "🔄 Conjugate: arbeiten, kommen, heißen, wohnen for all pronouns",
+      "💼 Practice: introduce yourself to an imaginary German hiring manager"
+    ]
+  },
+  {
+    day: 5, week: 1,
+    title: "Articles & Gender (der, die, das)",
+    subtitle: "Artikel — ലിംഗം",
+    video: "https://www.youtube.com/embed/UjM_ydt7xEA",
+    videoCaption: "German Articles Explained — Easy German",
+    vocab: [
+      ["der Mann", "dair MAHN", "the man", "പുരുഷൻ"],
+      ["die Frau", "dee FROW", "the woman", "സ്ത്രീ"],
+      ["das Kind", "das KINT", "the child", "കുട്ടി"],
+      ["der Computer", "dair kom-PYOO-ter", "the computer", "കമ്പ്യൂട്ടർ"],
+      ["die Tastatur", "dee TAS-tah-toor", "the keyboard", "കീബോർഡ്"],
+      ["das Handy", "das HEN-dee", "the mobile phone", "മൊബൈൽ ഫോൺ"],
+      ["der Tisch", "dair TISH", "the table", "മേശ"],
+      ["die Tür", "dee TEWR", "the door", "വാതിൽ"],
+      ["das Fenster", "das FEN-ster", "the window", "ജനാല"],
+      ["der Stuhl", "dair SHTOOL", "the chair", "കസേര"]
+    ],
+    grammar: {
+      title: "German has THREE genders",
+      rule: "Every noun has a gender: <strong>der</strong> (masculine), <strong>die</strong> (feminine), <strong>das</strong> (neuter). There are patterns: words ending in <strong>-ung, -heit, -keit, -schaft</strong> are feminine (die). Words ending in <strong>-chen, -lein</strong> are neuter (das). Many borrowed English words are neuter (das). You MUST memorize the article with each noun.",
+      examples: [
+        ["der Computer, die Software, das Programm", "tech gender examples", ""],
+        ["die Entwicklung (development) — -ung = always die", "", ""]
+      ]
+    },
+    sentences: [
+      ["Der Computer ist neu.", "dair kom-PYOO-ter ist noy", "The computer is new.", "കമ്പ്യൂട്ടർ പുതിയതാണ്."],
+      ["Die Software funktioniert gut.", "dee ZOFT-vare foonk-tsyo-NEERT goot", "The software works well.", "സോഫ്റ്റ്‌വെയർ നന്നായി പ്രവർത്തിക്കുന്നു."],
+      ["Das Büro ist groß.", "das bew-RO ist grohs", "The office is big.", "ഓഫീസ് വലുതാണ്."],
+      ["Wo ist die Tastatur?", "vo ist dee TAS-tah-toor", "Where is the keyboard?", "കീബോർഡ് എവിടെയാണ്?"],
+      ["Ich brauche das Handy.", "ikh BROW-kheh das HEN-dee", "I need the phone.", "എനിക്ക് ഫോൺ വേണം."]
+    ],
+    practice: [
+      "📝 Write 10 nouns with their articles from memory",
+      "🏷 Label items around your desk in German with sticky notes (include der/die/das)",
+      "🧠 Flashcard drill: cover the article column and test yourself",
+      "💡 Learn the gender rules: -ung, -keit, -heit → die; -chen, -lein → das"
+    ]
+  },
+  {
+    day: 6, week: 1,
+    title: "Daily Routine & Time",
+    subtitle: "Tagesablauf — ദിനചര്യ",
+    video: "https://www.youtube.com/embed/wBK_fMaGJBs",
+    videoCaption: "Daily Routine in German — Learn German with Anja",
+    vocab: [
+      ["aufstehen", "OWF-shtay-en", "to get up", "എഴുന്നേൽക്കുക"],
+      ["frühstücken", "FREW-shtew-ken", "to have breakfast", "പ്രഭാതഭക്ഷണം"],
+      ["arbeiten", "AR-by-ten", "to work", "ജോലി ചെയ്യുക"],
+      ["Mittagessen", "MIT-tahk-es-en", "lunch", "ഉച്ചഭക്ഷണം"],
+      ["Feierabend", "FY-er-ah-bent", "end of workday", "ജോലി കഴിയുന്ന സമയം"],
+      ["schlafen", "SHLAH-fen", "to sleep", "ഉറങ്ങുക"],
+      ["die Uhr", "dee OOR", "the clock / watch", "ഘടികാരം"],
+      ["halb", "HALP", "half", "അര"],
+      ["Viertel", "FEER-tel", "quarter", "കാൽ"],
+      ["um", "OOM", "at (time)", "-ന്"]
+    ],
+    grammar: {
+      title: "Telling Time in German",
+      rule: "German time uses 24-hour format officially. Informally: <strong>Es ist drei Uhr</strong> (It's 3 o'clock), <strong>halb vier</strong> (half to four = 3:30 — NOT half past!), <strong>Viertel nach drei</strong> (quarter past 3), <strong>Viertel vor vier</strong> (quarter to 4).",
+      examples: [
+        ["Es ist halb neun. = 8:30", "half to nine = 8:30", "എട്ടര"],
+        ["Um Viertel nach sieben. = at 7:15", "quarter past seven", "ഏഴും കാലും"]
+      ]
+    },
+    sentences: [
+      ["Ich stehe um sieben Uhr auf.", "ikh SHTAY-eh oom ZEE-ben oor owf", "I get up at 7.", "ഞാൻ 7 മണിക്ക് എഴുന്നേൽക്കും."],
+      ["Ich arbeite von neun bis sechs.", "ikh AR-by-teh fon noyn bis zeks", "I work from 9 to 6.", "ഞാൻ 9 മുതൽ 6 വരെ ജോലി ചെയ്യുന്നു."],
+      ["Das Meeting ist um halb drei.", "das MEE-ting ist oom halp dry", "The meeting is at 2:30.", "മീറ്റിംഗ് 2:30-ന്."],
+      ["Ich esse um zwölf Uhr Mittag.", "ikh ES-seh oom tsverlf oor MIT-tahk", "I eat lunch at noon.", "ഞാൻ 12-ന് ഉച്ചഭക്ഷണം കഴിക്കും."],
+      ["Feierabend ist um sechs.", "FY-er-ah-bent ist oom zeks", "Work ends at 6.", "ജോലി 6-ന് കഴിയും."]
+    ],
+    practice: [
+      "⏰ Describe your full daily routine in German (at least 8 sentences)",
+      "🕐 Say these times: 8:15, 9:30, 12:45, 3:00, 6:30, 10:15",
+      "📅 Tell a colleague your work schedule in German",
+      "✍ Write down what you do at each hour of your workday"
+    ]
+  },
+  {
+    day: 7, week: 1,
+    title: "Week 1 Review & Practice",
+    subtitle: "Wiederholung — ആവർത്തനം",
+    video: "https://www.youtube.com/embed/W0gNsNpWjSQ",
+    videoCaption: "German A1 Review — Learn German with Anja",
+    vocab: [
+      ["wiederholen", "VEE-der-ho-len", "to repeat / review", "ആവർത്തിക്കുക"],
+      ["üben", "EW-ben", "to practice", "പരിശീലിക്കുക"],
+      ["verstehen", "fer-SHTAY-en", "to understand", "മനസ്സിലാക്കുക"],
+      ["sprechen", "SHPREH-khen", "to speak", "സംസാരിക്കുക"],
+      ["schreiben", "SHRY-ben", "to write", "എഴുതുക"],
+      ["lesen", "LAY-zen", "to read", "വായിക്കുക"],
+      ["lernen", "LAIR-nen", "to learn", "പഠിക്കുക"],
+      ["die Frage", "dee FRAH-geh", "the question", "ചോദ്യം"],
+      ["die Antwort", "dee ANT-vort", "the answer", "ഉത്തരം"],
+      ["richtig", "RIKH-tikh", "correct", "ശരി"]
+    ],
+    grammar: {
+      title: "Week 1 Grammar Review",
+      rule: "Review: (1) <strong>Sie vs du</strong> — formal vs informal you. (2) <strong>Verb conjugation</strong> — ich -e, du -st, er -t. (3) <strong>Articles</strong> — der (m), die (f), das (n). (4) <strong>Time</strong> — halb = half TO the next hour. (5) <strong>Number reversal</strong> — 25 = fünfundzwanzig.",
+      examples: [
+        ["Review all verb forms: arbeiten, kommen, heißen, wohnen, sprechen", "", ""],
+        ["Can you say 1-30 without pausing?", "", ""]
+      ]
+    },
+    sentences: [
+      ["Ich habe diese Woche viel gelernt.", "ikh HAH-beh DEE-zeh VO-kheh feel ge-LAIRNT", "I learned a lot this week.", "ഈ ആഴ്ച ഞാൻ ഒരുപാട് പഠിച്ചു."],
+      ["Können wir das wiederholen?", "KER-nen veer das VEE-der-ho-len", "Can we repeat that?", "നമുക്ക് അത് ആവർത്തിക്കാമോ?"],
+      ["Ich muss mehr üben.", "ikh moos mair EW-ben", "I need to practice more.", "എനിക്ക് കൂടുതൽ പരിശീലിക്കണം."],
+      ["Das war eine gute Woche!", "das vahr AY-neh GOO-teh VO-kheh", "That was a good week!", "അത് നല്ല ആഴ്ചയായിരുന്നു!"],
+      ["Nächste Woche lernen wir mehr.", "NEKH-steh VO-kheh LAIR-nen veer mair", "Next week we learn more.", "അടുത്ത ആഴ്ച നമ്മൾ കൂടുതൽ പഠിക്കും."]
+    ],
+    practice: [
+      "📝 Take a written test: translate 20 words from Malayalam to German",
+      "🗣 Record yourself doing a 2-minute self-introduction in German",
+      "🔢 Write numbers 1-100 in German (focus on the reversal pattern)",
+      "⏰ Describe your entire daily routine with times",
+      "📋 Review ALL vocab from Days 1-6 using flashcards"
+    ]
+  },
+
+  // ====== WEEK 2: Building Blocks ======
+  {
+    day: 8, week: 2,
+    title: "Food, Drinks & Ordering",
+    subtitle: "Essen und Trinken — ഭക്ഷണവും പാനീയവും",
+    video: "https://www.youtube.com/embed/GBw4XzLRf2A",
+    videoCaption: "Ordering Food in German — Easy German",
+    vocab: [
+      ["das Wasser", "das VAS-ser", "the water", "വെള്ളം"],
+      ["der Kaffee", "dair KAH-feh", "the coffee", "കാപ്പി"],
+      ["das Brot", "das BROHT", "the bread", "റൊട്ടി"],
+      ["das Mittagessen", "das MIT-tahk-es-en", "the lunch", "ഉച്ചഭക്ഷണം"],
+      ["bestellen", "beh-SHTEL-en", "to order", "ഓർഡർ ചെയ്യുക"],
+      ["die Rechnung", "dee REKH-noong", "the bill", "ബിൽ"],
+      ["das Trinkgeld", "das TRINK-gelt", "the tip", "ടിപ്പ്"],
+      ["vegetarisch", "veh-geh-TAH-rish", "vegetarian", "സസ്യാഹാരം"],
+      ["lecker", "LEK-ker", "delicious", "രുചികരം"],
+      ["die Speisekarte", "dee SHPY-zeh-kar-teh", "the menu", "മെനു"]
+    ],
+    grammar: {
+      title: "Möchten (would like) — Polite Requests",
+      rule: "<strong>Ich möchte</strong> = I would like. This is the most polite way to order in German. Conjugation: ich möchte, du möchtest, er möchte, wir möchten, sie möchten. Use with accusative: Ich möchte <strong>einen</strong> Kaffee (masculine → einen).",
+      examples: [
+        ["Ich möchte einen Kaffee, bitte.", "I'd like a coffee, please.", "എനിക്ക് ഒരു കാപ്പി വേണം."],
+        ["Wir möchten bestellen.", "We'd like to order.", "ഞങ്ങൾ ഓർഡർ ചെയ്യാൻ ആഗ്രഹിക്കുന്നു."]
+      ]
+    },
+    sentences: [
+      ["Ich möchte einen Kaffee, bitte.", "ikh MERKH-teh AY-nen KAH-feh BIT-teh", "I'd like a coffee, please.", "എനിക്ക് ഒരു കാപ്പി വേണം."],
+      ["Haben Sie vegetarisches Essen?", "HAH-ben zee veh-geh-TAH-rish-es ES-en", "Do you have vegetarian food?", "സസ്യാഹാരം ഉണ്ടോ?"],
+      ["Die Rechnung, bitte.", "dee REKH-noong BIT-teh", "The bill, please.", "ബിൽ തരൂ."],
+      ["Das war sehr lecker!", "das vahr zair LEK-ker", "That was very delicious!", "വളരെ രുചിയായിരുന്നു!"],
+      ["Kann ich die Speisekarte haben?", "kahn ikh dee SHPY-zeh-kar-teh HAH-ben", "Can I have the menu?", "മെനു തരാമോ?"]
+    ],
+    practice: [
+      "🍽 Role-play ordering lunch at a German restaurant",
+      "✍ Write a dialogue between you and a waiter (5 exchanges)",
+      "📝 Learn 5 German dishes: Schnitzel, Bratwurst, Kartoffelsalat, Brezel, Currywurst",
+      "🗣 Practice: 'Ich möchte...' with 5 different food items"
+    ]
+  },
+  {
+    day: 9, week: 2,
+    title: "At the Office — Daily Work",
+    subtitle: "Im Büro — ഓഫീസിൽ",
+    video: "https://www.youtube.com/embed/sKnoeRJbQzk",
+    videoCaption: "German for Work & Office — GermanPod101",
+    vocab: [
+      ["der Bildschirm", "dair BILT-shirm", "the screen/monitor", "സ്ക്രീൻ"],
+      ["die Besprechung", "dee beh-SHPREKH-oong", "the meeting", "മീറ്റിംഗ്"],
+      ["die E-Mail", "dee EE-mayl", "the email", "ഇമെയിൽ"],
+      ["der Termin", "dair tehr-MEEN", "the appointment", "അപ്പോയിൻ്റ്മെൻ്റ്"],
+      ["das Projekt", "das pro-YEKT", "the project", "പ്രോജക്ട്"],
+      ["die Aufgabe", "dee OWF-gah-beh", "the task", "ടാസ്ക്"],
+      ["fertig", "FAIR-tikh", "finished / done", "തീർന്നു"],
+      ["dringend", "DRING-ent", "urgent", "അടിയന്തിരം"],
+      ["der Fehler", "dair FAY-ler", "the error / bug", "എറർ / ബഗ്"],
+      ["die Lösung", "dee LER-zoong", "the solution", "പരിഹാരം"]
+    ],
+    grammar: {
+      title: "Separable Verbs (Trennbare Verben)",
+      rule: "Many German verbs split into two parts. The prefix goes to the END of the sentence: <strong>anfangen</strong> (to start) → Ich <strong>fange</strong> um neun <strong>an</strong>. Common prefixes: an-, auf-, aus-, ein-, mit-, vor-, zu-. In subordinate clauses, they stay together.",
+      examples: [
+        ["anfangen: Wir fangen um neun an.", "We start at nine.", "ഞങ്ങൾ 9-ന് ആരംഭിക്കും."],
+        ["aufmachen: Ich mache die Datei auf.", "I open the file.", "ഞാൻ ഫയൽ തുറക്കുന്നു."]
+      ]
+    },
+    sentences: [
+      ["Ich habe eine Besprechung um zehn.", "ikh HAH-beh AY-neh beh-SHPREKH-oong oom tsayn", "I have a meeting at 10.", "എനിക്ക് 10-ന് മീറ്റിംഗ് ഉണ്ട്."],
+      ["Der Bug ist dringend.", "dair BUG ist DRING-ent", "The bug is urgent.", "ആ ബഗ് അടിയന്തിരമാണ്."],
+      ["Ich bin mit der Aufgabe fertig.", "ikh bin mit dair OWF-gah-beh FAIR-tikh", "I'm done with the task.", "ടാസ്ക് ഞാൻ തീർത്തു."],
+      ["Können wir das Projekt besprechen?", "KER-nen veer das pro-YEKT beh-SHPRE-khen", "Can we discuss the project?", "പ്രോജക്ട് ചർച്ച ചെയ്യാമോ?"],
+      ["Ich habe eine Lösung gefunden.", "ikh HAH-beh AY-neh LER-zoong geh-FOON-den", "I found a solution.", "ഒരു പരിഹാരം ഞാൻ കണ്ടെത്തി."]
+    ],
+    practice: [
+      "💻 Describe your typical workday at a German office in 8 sentences",
+      "✍ Write a short email to your German team lead about a bug",
+      "🗣 Practice: 'Ich fange an / Ich höre auf / Ich mache auf' in sentences",
+      "📝 List 10 things you do at work using German verbs"
+    ]
+  },
+  {
+    day: 10, week: 2,
+    title: "Accusative Case & Shopping",
+    subtitle: "Akkusativ — ആക്യുസേറ്റിവ്",
+    video: "https://www.youtube.com/embed/2SHjLxA2EYk",
+    videoCaption: "German Accusative Case — Learn German with Anja",
+    vocab: [
+      ["kaufen", "KOW-fen", "to buy", "വാങ്ങുക"],
+      ["brauchen", "BROW-khen", "to need", "ആവശ്യമുണ്ട്"],
+      ["haben", "HAH-ben", "to have", "ഉണ്ട്"],
+      ["suchen", "ZOO-khen", "to search for", "തിരയുക"],
+      ["finden", "FIN-den", "to find", "കണ്ടെത്തുക"],
+      ["der Laden", "dair LAH-den", "the shop", "കട"],
+      ["billig", "BIL-likh", "cheap", "വിലകുറഞ്ഞ"],
+      ["teuer", "TOY-er", "expensive", "വിലയേറിയ"],
+      ["groß", "GROHS", "big/large", "വലിയ"],
+      ["klein", "KLINE", "small", "ചെറിയ"]
+    ],
+    grammar: {
+      title: "The Accusative Case (Direct Object)",
+      rule: "The accusative answers 'what/whom' — the direct object. Only MASCULINE articles change: <strong>der → den</strong>, <strong>ein → einen</strong>. Feminine (die/eine), neuter (das/ein), and plural (die) stay the same. This is the most common case in daily speech.",
+      examples: [
+        ["Ich kaufe den Computer.", "I buy the computer (m→den).", "ഞാൻ കമ്പ്യൂട്ടർ വാങ്ങുന്നു."],
+        ["Ich brauche eine Tastatur.", "I need a keyboard (f stays eine).", "എനിക്ക് ഒരു കീബോർഡ് വേണം."]
+      ]
+    },
+    sentences: [
+      ["Ich brauche einen neuen Laptop.", "ikh BROW-kheh AY-nen NOY-en LAP-top", "I need a new laptop.", "എനിക്ക് ഒരു പുതിയ ലാപ്‌ടോപ്പ് വേണം."],
+      ["Hast du den Fehler gefunden?", "hast doo dain FAY-ler geh-FOON-den", "Did you find the bug?", "ബഗ് കണ്ടെത്തിയോ?"],
+      ["Ich suche einen guten Kaffee.", "ikh ZOO-kheh AY-nen GOO-ten KAH-feh", "I'm looking for a good coffee.", "നല്ല കാപ്പി തിരയുകയാണ്."],
+      ["Das ist zu teuer.", "das ist tsoo TOY-er", "That is too expensive.", "ഇത് വളരെ വിലയേറിയതാണ്."],
+      ["Ich kaufe das kleine Handy.", "ikh KOW-feh das KLY-neh HEN-dee", "I buy the small phone.", "ഞാൻ ചെറിയ ഫോൺ വാങ്ങുന്നു."]
+    ],
+    practice: [
+      "📝 Fill in: Ich kaufe __ Computer (der). Ich brauche __ Tastatur (die).",
+      "🛒 Describe buying 5 items, using correct articles: den/die/das/einen/eine/ein",
+      "✍ Write 5 sentences using 'brauchen' with accusative",
+      "🧠 Quiz yourself: which articles change in accusative? (Only masculine!)"
+    ]
+  },
+  {
+    day: 11, week: 2,
+    title: "Asking Questions & W-Words",
+    subtitle: "Fragen stellen — ചോദ്യങ്ങൾ",
+    video: "https://www.youtube.com/embed/vWeOsmKfw64",
+    videoCaption: "German Question Words — Learn German with Anja",
+    vocab: [
+      ["wer", "VAIR", "who", "ആര്"],
+      ["was", "VAS", "what", "എന്ത്"],
+      ["wo", "VO", "where", "എവിടെ"],
+      ["wann", "VAHN", "when", "എപ്പോൾ"],
+      ["warum", "vah-ROOM", "why", "എന്തുകൊണ്ട്"],
+      ["wie", "VEE", "how", "എങ്ങനെ"],
+      ["wie viel", "vee FEEL", "how much", "എത്ര"],
+      ["welcher", "VEL-kher", "which", "ഏത്"],
+      ["woher", "vo-HAIR", "from where", "എവിടെ നിന്ന്"],
+      ["wohin", "vo-HIN", "to where", "എങ്ങോട്ട്"]
+    ],
+    grammar: {
+      title: "Question Formation (W-Fragen & Ja/Nein-Fragen)",
+      rule: "Two question types: (1) <strong>W-questions</strong>: W-word + verb + subject → <em>Wo arbeitest du?</em> (2) <strong>Yes/No questions</strong>: Verb first → <em>Arbeitest du hier?</em> The verb is ALWAYS in position 2 for W-questions and position 1 for yes/no.",
+      examples: [
+        ["Wo ist der Meetingraum?", "Where is the meeting room?", "മീറ്റിംഗ് റൂം എവിടെ?"],
+        ["Haben Sie WLAN?", "Do you have WiFi?", "WiFi ഉണ്ടോ?"]
+      ]
+    },
+    sentences: [
+      ["Wo ist die nächste U-Bahn?", "vo ist dee NEKH-steh OO-bahn", "Where is the nearest metro?", "ഏറ്റവും അടുത്ത മെട്രോ എവിടെ?"],
+      ["Wann ist das Meeting?", "vahn ist das MEE-ting", "When is the meeting?", "മീറ്റിംഗ് എപ്പോഴാണ്?"],
+      ["Wie funktioniert das?", "vee foonk-tsyo-NEERT das", "How does this work?", "ഇത് എങ്ങനെ പ്രവർത്തിക്കും?"],
+      ["Was ist das Problem?", "vas ist das pro-BLAYM", "What is the problem?", "എന്താണ് പ്രശ്നം?"],
+      ["Warum funktioniert das nicht?", "vah-ROOM foonk-tsyo-NEERT das nikht", "Why doesn't this work?", "ഇത് എന്തുകൊണ്ട് പ്രവർത്തിക്കുന്നില്ല?"]
+    ],
+    practice: [
+      "❓ Form questions for these answers using W-words: 'Berlin', 'um 9 Uhr', 'gut'",
+      "🗣 Ask 5 questions you'd ask on your first day at a German office",
+      "✍ Write a Q&A dialogue: IT helpdesk conversation in German",
+      "🧠 Practice word order: W-word → Verb → Subject → Rest"
+    ]
+  },
+  {
+    day: 12, week: 2,
+    title: "Modal Verbs — Can, Must, Want",
+    subtitle: "Modalverben — മോഡൽ ക്രിയകൾ",
+    video: "https://www.youtube.com/embed/1yd7ARqfpg4",
+    videoCaption: "German Modal Verbs — Learn German with Anja",
+    vocab: [
+      ["können", "KER-nen", "can / to be able to", "കഴിയുക"],
+      ["müssen", "MEWS-en", "must / have to", "വേണം"],
+      ["wollen", "VOL-en", "to want to", "ആഗ്രഹിക്കുക"],
+      ["sollen", "ZOL-en", "should / supposed to", "വേണ്ടതാണ്"],
+      ["dürfen", "DEWR-fen", "may / to be allowed", "അനുവദിക്കുക"],
+      ["mögen", "MER-gen", "to like", "ഇഷ്ടപ്പെടുക"],
+      ["helfen", "HEL-fen", "to help", "സഹായിക്കുക"],
+      ["erklären", "air-KLAIR-en", "to explain", "വിശദീകരിക്കുക"],
+      ["verstehen", "fer-SHTAY-en", "to understand", "മനസ്സിലാക്കുക"],
+      ["probieren", "pro-BEER-en", "to try", "ശ്രമിക്കുക"]
+    ],
+    grammar: {
+      title: "Modal Verb Sentence Structure",
+      rule: "Modal verbs change the sentence structure: Modal verb takes position 2 (conjugated), main verb goes to the END in infinitive form. <strong>Ich kann programmieren</strong> (I can program). Modal conjugation is irregular — memorize ich/er forms: kann, muss, will, soll, darf, mag.",
+      examples: [
+        ["Ich kann gut programmieren.", "I can program well.", "എനിക്ക് നന്നായി പ്രോഗ്രാം ചെയ്യാം."],
+        ["Ich muss den Code fixen.", "I must fix the code.", "എനിക്ക് കോഡ് ശരിയാക്കണം."]
+      ]
+    },
+    sentences: [
+      ["Können Sie mir helfen?", "KER-nen zee meer HEL-fen", "Can you help me?", "എന്നെ സഹായിക്കാമോ?"],
+      ["Ich muss das bis morgen fertig machen.", "ikh moos das bis MOR-gen FAIR-tikh MAH-khen", "I must finish this by tomorrow.", "ഇത് നാളെക്ക് തീർക്കണം."],
+      ["Ich will in Deutschland arbeiten.", "ikh vil in DOYCH-lahnt AR-by-ten", "I want to work in Germany.", "ഞാൻ ജർമ്മനിയിൽ ജോലി ചെയ്യാൻ ആഗ്രഹിക്കുന്നു."],
+      ["Darf ich eine Frage stellen?", "darf ikh AY-neh FRAH-geh SHTEL-en", "May I ask a question?", "ഒരു ചോദ്യം ചോദിക്കാമോ?"],
+      ["Kannst du das bitte erklären?", "kahnst doo das BIT-teh air-KLAIR-en", "Can you explain that please?", "അത് വിശദീകരിക്കാമോ?"]
+    ],
+    practice: [
+      "🗣 Make 5 sentences with können about your skills",
+      "✍ Write what you must do today (müssen) and what you want (wollen)",
+      "💼 Role-play: ask your German boss for help using modal verbs",
+      "🧠 Conjugate all 6 modals for ich, du, er/sie"
+    ]
+  },
+  {
+    day: 13, week: 2,
+    title: "Directions & Transportation",
+    subtitle: "Wegbeschreibung — വഴി & ഗതാഗതം",
+    video: "https://www.youtube.com/embed/kIpx4L-F4sY",
+    videoCaption: "Asking for Directions in German — Easy German",
+    vocab: [
+      ["links", "LINKS", "left", "ഇടത്"],
+      ["rechts", "REKHTS", "right", "വലത്"],
+      ["geradeaus", "geh-RAH-deh-ows", "straight ahead", "നേരെ"],
+      ["die Straße", "dee SHTRAH-seh", "the street", "റോഡ്"],
+      ["die U-Bahn", "dee OO-bahn", "the metro/subway", "മെട്രോ"],
+      ["der Bahnhof", "dair BAHN-hof", "the train station", "ട്രെയിൻ സ്റ്റേഷൻ"],
+      ["die Haltestelle", "dee HAL-teh-shtel-eh", "the stop (bus/tram)", "സ്റ്റോപ്പ്"],
+      ["einsteigen", "AYN-shty-gen", "to board/get on", "കയറുക"],
+      ["aussteigen", "OWS-shty-gen", "to get off", "ഇറങ്ങുക"],
+      ["umsteigen", "OOM-shty-gen", "to transfer/change", "മാറുക"]
+    ],
+    grammar: {
+      title: "Imperative — Giving & Following Instructions",
+      rule: "For directions, Germans use imperative (command form). <strong>Sie-form</strong>: Verb + Sie → Gehen Sie links! <strong>du-form</strong>: verb stem → Geh links! <strong>ihr-form</strong>: verb + t → Geht links! For separable verbs: Steigen Sie ein!",
+      examples: [
+        ["Gehen Sie geradeaus!", "Go straight!", "നേരെ പോകൂ!"],
+        ["Steigen Sie am Hauptbahnhof aus!", "Get off at the main station!", "മെയിൻ സ്റ്റേഷനിൽ ഇറങ്ങൂ!"]
+      ]
+    },
+    sentences: [
+      ["Entschuldigung, wo ist der Bahnhof?", "ent-SHOOL-di-goong, vo ist dair BAHN-hof", "Excuse me, where is the station?", "ക്ഷമിക്കണം, സ്റ്റേഷൻ എവിടെ?"],
+      ["Gehen Sie die erste Straße rechts.", "GAY-en zee dee AIR-steh SHTRAH-seh rekhts", "Take the first street right.", "ആദ്യ റോഡിൽ വലത്തോട്ട് പോകൂ."],
+      ["Ich muss am Alexanderplatz umsteigen.", "ikh moos am ah-lek-SAN-der-plats OOM-shty-gen", "I need to transfer at Alexanderplatz.", "Alexanderplatz-ൽ ഞാൻ മാറണം."],
+      ["Welche Linie fährt zum Büro?", "VEL-kheh LEE-nee fairt tsoom BEW-ro", "Which line goes to the office?", "ഓഫീസിലേക്ക് ഏത് ലൈൻ?"],
+      ["Die U-Bahn kommt in fünf Minuten.", "dee OO-bahn komt in fewnf mi-NOO-ten", "The metro comes in 5 minutes.", "5 മിനിറ്റിൽ മെട്രോ വരും."]
+    ],
+    practice: [
+      "🗺 Describe the route from your home to a station in German",
+      "🚇 Practice: einsteigen, aussteigen, umsteigen in 3 sentences each",
+      "🗣 Role-play: ask a stranger for directions to the Hauptbahnhof",
+      "✍ Write directions from your office to the nearest café"
+    ]
+  },
+  {
+    day: 14, week: 2,
+    title: "Week 2 Review & Conversation",
+    subtitle: "Wiederholung Woche 2 — രണ്ടാം ആഴ്ച അവലോകനം",
+    video: "https://www.youtube.com/embed/73tAqcj1VKA",
+    videoCaption: "German A1 Conversation Practice — GermanPod101",
+    vocab: [
+      ["das Gespräch", "das geh-SHPREKH", "the conversation", "സംഭാഷണം"],
+      ["erzählen", "air-TSAY-len", "to tell/narrate", "പറയുക"],
+      ["beschreiben", "beh-SHRY-ben", "to describe", "വിവരിക്കുക"],
+      ["meinen", "MY-nen", "to mean/think", "ഉദ്ദേശിക്കുക"],
+      ["glauben", "GLOW-ben", "to believe", "വിശ്വസിക്കുക"],
+      ["wissen", "VIS-en", "to know (facts)", "അറിയുക"],
+      ["kennen", "KEN-en", "to know (people/places)", "പരിചയമുണ്ട്"],
+      ["stimmt", "SHTIMT", "correct / that's right", "ശരിയാണ്"],
+      ["genau", "geh-NOW", "exactly", "കൃത്യമായി"],
+      ["natürlich", "nah-TEWR-likh", "of course", "തീർച്ചയായും"]
+    ],
+    grammar: {
+      title: "Week 2 Grammar Review",
+      rule: "Review: (1) <strong>Accusative case</strong> — der→den, ein→einen (only masculine changes). (2) <strong>Modal verbs</strong> — können, müssen, wollen + infinitive at end. (3) <strong>Separable verbs</strong> — prefix goes to end. (4) <strong>Question formation</strong> — W-word + verb + subject OR verb-first for yes/no. (5) <strong>möchten</strong> for polite requests.",
+      examples: [
+        ["Combine: Ich muss um 8 aufstehen. (modal + separable)", "", ""],
+        ["Question: Wann kannst du den Code reviewen? (W + modal)", "", ""]
+      ]
+    },
+    sentences: [
+      ["Ich kenne Berlin schon ein bisschen.", "ikh KEN-eh ber-LEEN shohn ayn BIS-khen", "I know Berlin a little already.", "ബെർലിൻ അൽപ്പം പരിചയമുണ്ട്."],
+      ["Stimmt, das ist eine gute Idee.", "shtimt, das ist AY-neh GOO-teh ee-DAY", "Right, that's a good idea.", "ശരിയാണ്, നല്ല ആശയം."],
+      ["Genau, so mache ich das.", "geh-NOW, zo MAH-kheh ikh das", "Exactly, that's how I do it.", "കൃത്യമായി, അങ്ങനെയാണ് ഞാൻ ചെയ്യുന്നത്."],
+      ["Natürlich kann ich helfen!", "nah-TEWR-likh kahn ikh HEL-fen", "Of course I can help!", "തീർച്ചയായും സഹായിക്കാം!"],
+      ["Was meinen Sie damit?", "vas MY-nen zee dah-MIT", "What do you mean by that?", "അതുകൊണ്ട് എന്താണ് ഉദ്ദേശിക്കുന്നത്?"]
+    ],
+    practice: [
+      "📝 Comprehensive test: 30 words from Week 2 — German to Malayalam",
+      "🗣 Have a 3-minute conversation (with yourself!) about your workday",
+      "✍ Write a short story about going to a German restaurant and office",
+      "🎭 Role-play: order food, ask for directions, discuss a bug — all in German",
+      "📋 Review all vocab from Days 8-13 systematically"
+    ]
+  },
+
+  // ====== WEEK 3: Real Conversations ======
+  {
+    day: 15, week: 3,
+    title: "Weather & Small Talk",
+    subtitle: "Wetter & Smalltalk — കാലാവസ്ഥയും ചെറു സംസാരവും",
+    video: "https://www.youtube.com/embed/5pF2UhX5Hrc",
+    videoCaption: "German Weather & Small Talk — Easy German",
+    vocab: [
+      ["das Wetter", "das VET-ter", "the weather", "കാലാവസ്ഥ"],
+      ["sonnig", "ZON-ikh", "sunny", "വെയിൽ"],
+      ["kalt", "KAHLT", "cold", "തണുപ്പ്"],
+      ["warm", "VARM", "warm", "ചൂട്"],
+      ["es regnet", "es RAYG-net", "it's raining", "മഴ പെയ്യുന്നു"],
+      ["es schneit", "es SHNITE", "it's snowing", "മഞ്ഞ് പെയ്യുന്നു"],
+      ["der Winter", "dair VIN-ter", "the winter", "ശീതകാലം"],
+      ["der Sommer", "dair ZOM-mer", "the summer", "വേനൽക്കാലം"],
+      ["das Wochenende", "das VO-khen-en-deh", "the weekend", "വാരാന്ത്യം"],
+      ["der Urlaub", "dair OOR-lowp", "the vacation/holiday", "അവധി"]
+    ],
+    grammar: {
+      title: "Impersonal 'es' & Adjective Basics",
+      rule: "German uses <strong>es</strong> for impersonal expressions about weather: Es regnet, Es ist kalt, Es schneit. Adjectives before nouns need endings (we'll simplify): after <strong>ein/eine</strong> → add -er(m), -e(f), -es(n). After <strong>der/die/das</strong> → add -e. Predicate adjectives (after 'ist') have NO ending.",
+      examples: [
+        ["Es ist heute sehr kalt.", "It's very cold today.", "ഇന്ന് വളരെ തണുപ്പാണ്."],
+        ["Das ist ein schöner Tag.", "That's a beautiful day.", "മനോഹരമായ ദിവസം."]
+      ]
+    },
+    sentences: [
+      ["Wie ist das Wetter heute?", "vee ist das VET-ter HOY-teh", "How's the weather today?", "ഇന്ന് കാലാവസ്ഥ എങ്ങനെ?"],
+      ["In Kerala regnet es viel.", "in KEH-rah-lah RAYG-net es feel", "It rains a lot in Kerala.", "കേരളത്തിൽ ധാരാളം മഴ."],
+      ["Der Winter in Deutschland ist sehr kalt.", "dair VIN-ter in DOYCH-lahnt ist zair kahlt", "Winter in Germany is very cold.", "ജർമ്മനിയിലെ ശീതകാലം വളരെ തണുപ്പാണ്."],
+      ["Was machst du am Wochenende?", "vas makhst doo am VO-khen-en-deh", "What are you doing on the weekend?", "വാരാന്ത്യത്തിൽ എന്ത് ചെയ്യും?"],
+      ["Ich brauche Urlaub!", "ikh BROW-kheh OOR-lowp", "I need a vacation!", "എനിക്ക് അവധി വേണം!"]
+    ],
+    practice: [
+      "🌤 Describe today's weather in German (4 sentences)",
+      "🗣 Practice small talk: greet, ask about weather, weekend plans",
+      "✍ Write about Kerala's weather vs Germany's weather",
+      "☕ Role-play: coffee break conversation with a colleague"
+    ]
+  },
+  {
+    day: 16, week: 3,
+    title: "Housing & Living in Germany",
+    subtitle: "Wohnen — താമസം",
+    video: "https://www.youtube.com/embed/DU-2XAj21dM",
+    videoCaption: "Finding an Apartment in Germany — Easy German",
+    vocab: [
+      ["die Wohnung", "dee VO-noong", "the apartment", "അപ്പാർട്ട്മെന്റ്"],
+      ["die Miete", "dee MEE-teh", "the rent", "വാടക"],
+      ["das Zimmer", "das TSIM-mer", "the room", "മുറി"],
+      ["die Küche", "dee KEW-kheh", "the kitchen", "അടുക്കള"],
+      ["das Bad", "das BAHT", "the bathroom", "ബാത്ത്റൂം"],
+      ["möbliert", "mer-BLEERT", "furnished", "ഫർണിഷ്ഡ്"],
+      ["die Kaution", "dee kow-TSEE-ohn", "the deposit", "ഡെപ്പോസിറ്റ്"],
+      ["die Nebenkosten", "dee NAY-ben-kos-ten", "utilities", "യൂട്ടിലിറ്റി ചാർജ്"],
+      ["der Vermieter", "dair fer-MEE-ter", "the landlord", "ഉടമ"],
+      ["einziehen", "AYN-tsee-en", "to move in", "താമസം തുടങ്ങുക"]
+    ],
+    grammar: {
+      title: "Dative Case — Indirect Objects & Prepositions",
+      rule: "The dative answers 'to whom / where (location)'. Articles change: <strong>der→dem</strong>, <strong>die→der</strong>, <strong>das→dem</strong>, <strong>ein→einem</strong>, <strong>eine→einer</strong>. Common dative prepositions: in, an, auf, bei, mit, nach, von, zu, seit.",
+      examples: [
+        ["Ich wohne in der Stadt.", "I live in the city (die→der).", "ഞാൻ നഗരത്തിൽ താമസിക്കുന്നു."],
+        ["Ich arbeite bei einem Startup.", "I work at a startup.", "ഞാൻ ഒരു സ്റ്റാർട്ടപ്പിൽ ജോലി ചെയ്യുന്നു."]
+      ]
+    },
+    sentences: [
+      ["Ich suche eine Wohnung in Berlin.", "ikh ZOO-kheh AY-neh VO-noong in ber-LEEN", "I'm looking for an apartment in Berlin.", "ബെർലിനിൽ ഒരു അപ്പാർട്ട്മെന്റ് തിരയുകയാണ്."],
+      ["Wie hoch ist die Miete?", "vee hohkh ist dee MEE-teh", "How much is the rent?", "വാടക എത്ര?"],
+      ["Die Wohnung hat zwei Zimmer.", "dee VO-noong hat tsvai TSIM-mer", "The apartment has two rooms.", "രണ്ട് മുറികൾ ഉണ്ട്."],
+      ["Ist die Wohnung möbliert?", "ist dee VO-noong mer-BLEERT", "Is the apartment furnished?", "ഫർണിഷ്ഡ് ആണോ?"],
+      ["Wann kann ich einziehen?", "vahn kahn ikh AYN-tsee-en", "When can I move in?", "എപ്പോൾ താമസം തുടങ്ങാം?"]
+    ],
+    practice: [
+      "🏠 Write an email inquiring about an apartment in German",
+      "📝 Describe your dream apartment: rooms, furnished?, location",
+      "🗣 Role-play: call a landlord about a WG (shared flat)",
+      "✍ Practice dative with: in dem/der, bei einem/einer, mit dem/der"
+    ]
+  },
+  {
+    day: 17, week: 3,
+    title: "Past Tense — Perfekt",
+    subtitle: "Vergangenheit — ഭൂതകാലം",
+    video: "https://www.youtube.com/embed/h0DDh9JpDpQ",
+    videoCaption: "German Past Tense (Perfekt) — Learn German with Anja",
+    vocab: [
+      ["gestern", "GES-tern", "yesterday", "ഇന്നലെ"],
+      ["letzte Woche", "LETS-teh VO-kheh", "last week", "കഴിഞ്ഞ ആഴ്ച"],
+      ["gemacht", "geh-MAKHT", "done/made", "ചെയ്തു"],
+      ["gesehen", "geh-ZAY-en", "seen", "കണ്ടു"],
+      ["gegessen", "geh-GES-en", "eaten", "കഴിച്ചു"],
+      ["geschrieben", "geh-SHREE-ben", "written", "എഴുതി"],
+      ["gearbeitet", "geh-AR-by-tet", "worked", "ജോലി ചെയ്തു"],
+      ["gekommen", "geh-KOM-en", "come/came", "വന്നു"],
+      ["gegangen", "geh-GAHNG-en", "gone/went", "പോയി"],
+      ["gewesen", "geh-VAY-zen", "been (was)", "ആയിരുന്നു"]
+    ],
+    grammar: {
+      title: "Perfekt (Conversational Past Tense)",
+      rule: "The Perfekt = <strong>haben/sein</strong> (conjugated) + <strong>past participle</strong> (at end). Regular verbs: ge- + stem + -t (gemacht). Irregular: ge- + stem change + -en (gesehen). Use <strong>sein</strong> with movement/change verbs (gegangen, gekommen, gewesen). Use <strong>haben</strong> for everything else.",
+      examples: [
+        ["Ich habe den Code geschrieben.", "I wrote the code.", "ഞാൻ കോഡ് എഴുതി."],
+        ["Ich bin nach Berlin gefahren.", "I went to Berlin.", "ഞാൻ ബെർലിനിലേക്ക് പോയി."]
+      ]
+    },
+    sentences: [
+      ["Ich habe gestern viel gearbeitet.", "ikh HAH-beh GES-tern feel geh-AR-by-tet", "I worked a lot yesterday.", "ഇന്നലെ ഒരുപാട് ജോലി ചെയ്തു."],
+      ["Hast du den Bug gefixed?", "hast doo dain BUG geh-FIKST", "Did you fix the bug?", "ബഗ് ശരിയാക്കിയോ?"],
+      ["Wir sind letzte Woche nach München gefahren.", "veer zint LETS-teh VO-kheh nahkh MEWN-khen geh-FAH-ren", "We went to Munich last week.", "കഴിഞ്ഞ ആഴ്ച ഞങ്ങൾ മ്യൂണിക്കിലേക്ക് പോയി."],
+      ["Ich habe das Ticket schon gebucht.", "ikh HAH-beh das TI-ket shohn geh-BOOKHT", "I already booked the ticket.", "ടിക്കറ്റ് ഞാൻ ബുക്ക് ചെയ്തു."],
+      ["Sie hat mir eine E-Mail geschrieben.", "zee hat meer AY-neh EE-mayl geh-SHREE-ben", "She wrote me an email.", "അവൾ എനിക്ക് ഒരു ഇമെയിൽ അയച്ചു."]
+    ],
+    practice: [
+      "✍ Write what you did yesterday — 8 sentences in Perfekt",
+      "🗣 Tell someone about your last weekend using Perfekt",
+      "📝 Categorize: which verbs use sein vs haben?",
+      "🧠 Memorize 10 irregular past participles: gegessen, gesehen, geschrieben..."
+    ]
+  },
+  {
+    day: 18, week: 3,
+    title: "Phone Calls & Emails at Work",
+    subtitle: "Telefonieren & E-Mails — ഫോൺ & ഇമെയിൽ",
+    video: "https://www.youtube.com/embed/LFj1jX-MkeI",
+    videoCaption: "German Business Email & Phone — Business German",
+    vocab: [
+      ["anrufen", "AHN-roo-fen", "to call (phone)", "വിളിക്കുക"],
+      ["der Anruf", "dair AHN-roof", "the phone call", "ഫോൺ കോൾ"],
+      ["die Nachricht", "dee NAHKH-rikht", "the message", "സന്ദേശം"],
+      ["der Anhang", "dair AHN-hahng", "the attachment", "അറ്റാച്ച്മെന്റ്"],
+      ["senden", "ZEN-den", "to send", "അയയ്ക്കുക"],
+      ["der Betreff", "dair beh-TREF", "the subject (line)", "വിഷയം"],
+      ["Sehr geehrte/r", "zair geh-AIR-teh/ter", "Dear (formal)", "ബഹുമാനപ്പെട്ട"],
+      ["Mit freundlichen Grüßen", "mit FROYNT-li-khen GREW-sen", "Kind regards", "ആദരപൂർവ്വം"],
+      ["weiterleiten", "VY-ter-ly-ten", "to forward", "ഫോർവേഡ് ചെയ്യുക"],
+      ["zurückrufen", "tsoo-REWK-roo-fen", "to call back", "തിരിച്ചു വിളിക്കുക"]
+    ],
+    grammar: {
+      title: "German Email Format & Formal Writing",
+      rule: "German business emails follow strict format: (1) Subject line: <strong>Betreff:</strong> (2) Greeting: <strong>Sehr geehrte Frau.../Sehr geehrter Herr...</strong> (3) Body with Sie-form (4) Closing: <strong>Mit freundlichen Grüßen</strong>. For less formal: <strong>Liebe/r...</strong> and <strong>Viele Grüße</strong>.",
+      examples: [
+        ["Sehr geehrter Herr Schmidt,", "Dear Mr. Schmidt,", "ബഹുമാനപ്പെട്ട ശ്രീ ഷ്മിഡ്ട്,"],
+        ["Anbei finden Sie den Anhang.", "Please find the attachment.", "ഇതോടൊപ്പം അറ്റാച്ച്മെന്റ് ഉണ്ട്."]
+      ]
+    },
+    sentences: [
+      ["Ich rufe Sie morgen zurück.", "ikh ROO-feh zee MOR-gen tsoo-REWK", "I'll call you back tomorrow.", "നാളെ ഞാൻ തിരിച്ചു വിളിക്കാം."],
+      ["Können Sie mir die Datei senden?", "KER-nen zee meer dee dah-TY ZEN-den", "Can you send me the file?", "ഫയൽ അയയ്ക്കാമോ?"],
+      ["Ich habe Ihre Nachricht erhalten.", "ikh HAH-beh EE-reh NAHKH-rikht air-HAL-ten", "I received your message.", "നിങ്ങളുടെ സന്ദേശം ലഭിച്ചു."],
+      ["Bitte leiten Sie die E-Mail weiter.", "BIT-teh LY-ten zee dee EE-mayl VY-ter", "Please forward the email.", "ഇമെയിൽ ഫോർവേഡ് ചെയ്യൂ."],
+      ["Vielen Dank für Ihre schnelle Antwort.", "FEE-len DAHNK fewr EE-reh SHNEL-eh ANT-vort", "Thank you for your quick reply.", "വേഗത്തിലുള്ള മറുപടിക്ക് നന്ദി."]
+    ],
+    practice: [
+      "📧 Write a formal email to a German recruiter introducing yourself",
+      "📞 Role-play: answer a phone call from a colleague in German",
+      "✍ Write 3 emails: to boss, colleague, and HR — adjust formality",
+      "🗣 Practice: 'Ich möchte mit Herrn/Frau ... sprechen' for phone calls"
+    ]
+  },
+  {
+    day: 19, week: 3,
+    title: "Health & Emergencies",
+    subtitle: "Gesundheit & Notfälle — ആരോഗ്യം & അടിയന്തരം",
+    video: "https://www.youtube.com/embed/A3eL-512Ung",
+    videoCaption: "German at the Doctor — GermanPod101",
+    vocab: [
+      ["der Arzt", "dair ARTST", "the doctor", "ഡോക്ടർ"],
+      ["das Krankenhaus", "das KRAHN-ken-hows", "the hospital", "ആശുപത്രി"],
+      ["die Apotheke", "dee ah-po-TAY-keh", "the pharmacy", "ഫാർമസി"],
+      ["Kopfschmerzen", "KOPF-shmair-tsen", "headache", "തലവേദന"],
+      ["Fieber", "FEE-ber", "fever", "പനി"],
+      ["die Versicherung", "dee fer-ZIKH-er-oong", "the insurance", "ഇൻഷുറൻസ്"],
+      ["der Notfall", "dair NOHT-fal", "the emergency", "അടിയന്തരാവസ്ഥ"],
+      ["Hilfe!", "HIL-feh", "Help!", "സഹായം!"],
+      ["weh tun", "VAY toon", "to hurt", "വേദനിക്കുക"],
+      ["die Krankenkasse", "dee KRAHN-ken-kah-seh", "health insurance fund", "ഹെൽത്ത് ഇൻഷുറൻസ്"]
+    ],
+    grammar: {
+      title: "Reflexive Verbs & Body Parts",
+      rule: "Reflexive verbs use <strong>sich</strong> (myself, yourself, etc.): Ich fühle <strong>mich</strong> krank. The reflexive pronoun: mich, dich, sich, uns, euch, sich. Body parts use articles instead of possessives: <strong>Der</strong> Kopf tut mir weh (The head hurts me).",
+      examples: [
+        ["Ich fühle mich nicht gut.", "I don't feel well.", "എനിക്ക് സുഖമില്ല."],
+        ["Der Bauch tut mir weh.", "My stomach hurts.", "വയറ് വേദനിക്കുന്നു."]
+      ]
+    },
+    sentences: [
+      ["Ich brauche einen Arzt.", "ikh BROW-kheh AY-nen ARTST", "I need a doctor.", "എനിക്ക് ഒരു ഡോക്ടറെ വേണം."],
+      ["Ich habe Kopfschmerzen.", "ikh HAH-beh KOPF-shmair-tsen", "I have a headache.", "എനിക്ക് തലവേദനയുണ്ട്."],
+      ["Wo ist die nächste Apotheke?", "vo ist dee NEKH-steh ah-po-TAY-keh", "Where is the nearest pharmacy?", "ഏറ്റവും അടുത്ത ഫാർമസി എവിടെ?"],
+      ["Ich habe eine Krankenversicherung.", "ikh HAH-beh AY-neh KRAHN-ken-fer-ZIKH-er-oong", "I have health insurance.", "എനിക്ക് ഹെൽത്ത് ഇൻഷുറൻസ് ഉണ്ട്."],
+      ["Bitte rufen Sie einen Krankenwagen!", "BIT-teh ROO-fen zee AY-nen KRAHN-ken-vah-gen", "Please call an ambulance!", "ആംബുലൻസ് വിളിക്കൂ!"]
+    ],
+    practice: [
+      "🏥 Role-play: describe your symptoms to a German doctor",
+      "✍ Write sentences: what hurts? Head, stomach, back, throat",
+      "📞 Practice calling 112 (German emergency) — what would you say?",
+      "📝 Research: German health insurance system keywords (TK, AOK, Barmer)"
+    ]
+  },
+  {
+    day: 20, week: 3,
+    title: "Developer German — Tech Vocabulary",
+    subtitle: "Entwickler-Deutsch — ടെക് ജർമ്മൻ",
+    video: "https://www.youtube.com/embed/f4vhiWsmC-k",
+    videoCaption: "IT German Vocabulary — Business German Course",
+    vocab: [
+      ["die Datenbank", "dee DAH-ten-bahnk", "the database", "ഡാറ്റാബേസ്"],
+      ["die Schnittstelle", "dee SHNIT-shtel-eh", "the interface/API", "ഇന്റർഫേസ്"],
+      ["die Entwicklung", "dee ent-VIK-loong", "the development", "വികസനം"],
+      ["der Fehler", "dair FAY-ler", "the bug/error", "ബഗ്/എറർ"],
+      ["die Anforderung", "dee AHN-for-der-oong", "the requirement", "ആവശ്യകത"],
+      ["bereitstellen", "beh-RITE-shtel-en", "to deploy", "ഡിപ്ലോയ്"],
+      ["die Versionsverwaltung", "dee ver-ZYONS-fer-val-toong", "version control", "വേർഷൻ കൺട്രോൾ"],
+      ["testen", "TES-ten", "to test", "ടെസ്റ്റ്"],
+      ["die Leistung", "dee LY-stoong", "the performance", "പെർഫോമൻസ്"],
+      ["die Sicherheit", "dee ZIKH-er-hite", "the security", "സെക്യൂരിറ്റി"]
+    ],
+    grammar: {
+      title: "Compound Nouns (Komposita)",
+      rule: "German builds long words by combining nouns. The LAST word determines gender and meaning, earlier words modify it. <strong>Daten + Bank = Datenbank</strong> (database). <strong>Versions + Verwaltung = Versionsverwaltung</strong> (version control). Don't be intimidated — break them apart!",
+      examples: [
+        ["Software + Entwickler = Softwareentwickler (developer)", "", ""],
+        ["Kranken + Versicherung = Krankenversicherung (health insurance)", "", ""]
+      ]
+    },
+    sentences: [
+      ["Ich habe den Pull Request erstellt.", "ikh HAH-beh dain POOL ree-KWEST air-SHTELT", "I created the pull request.", "ഞാൻ PR ഉണ്ടാക്കി."],
+      ["Die Schnittstelle funktioniert nicht.", "dee SHNIT-shtel-eh foonk-tsyo-NEERT nikht", "The API doesn't work.", "API പ്രവർത്തിക്കുന്നില്ല."],
+      ["Wir müssen das bis zum Sprint-Ende bereitstellen.", "veer MEWS-en das bis tsoom SPRINT-EN-deh beh-RITE-shtel-en", "We need to deploy by sprint end.", "സ്പ്രിന്റ് അവസാനത്തോടെ ഡിപ്ലോയ് ചെയ്യണം."],
+      ["Gibt es Unit-Tests dafür?", "gipt es YOO-nit tests dah-FEWR", "Are there unit tests for that?", "അതിന് യൂണിറ്റ് ടെസ്റ്റ് ഉണ്ടോ?"],
+      ["Die Leistung muss besser werden.", "dee LY-stoong moos BES-ser VAIR-den", "Performance needs to improve.", "പെർഫോമൻസ് മെച്ചപ്പെടണം."]
+    ],
+    practice: [
+      "💻 Describe your current tech stack in German",
+      "✍ Write a standup update in German: what you did, what you'll do, blockers",
+      "🗣 Explain a technical concept (like APIs) in simple German",
+      "📝 Break down 5 compound words: Versionsverwaltung, Softwareentwicklung, Datenbank..."
+    ]
+  },
+  {
+    day: 21, week: 3,
+    title: "Week 3 Review & Role Play",
+    subtitle: "Wiederholung Woche 3 — മൂന്നാം ആഴ്ച അവലോകനം",
+    video: "https://www.youtube.com/embed/dOBqg0rSwJo",
+    videoCaption: "A1 German Complete Revision — Learn German",
+    vocab: [
+      ["zusammenfassen", "tsoo-ZAH-men-fah-sen", "to summarize", "സംഗ്രഹിക്കുക"],
+      ["verbessern", "fer-BES-ern", "to improve", "മെച്ചപ്പെടുത്തുക"],
+      ["vorbereiten", "FOR-beh-ry-ten", "to prepare", "തയ്യാറാക്കുക"],
+      ["das Ziel", "das TSEEL", "the goal", "ലക്ഷ്യം"],
+      ["der Fortschritt", "dair FORT-shrit", "the progress", "പുരോഗതി"],
+      ["zufrieden", "tsoo-FREE-den", "satisfied", "സന്തുഷ്ടം"],
+      ["stolz", "SHTOLTS", "proud", "അഭിമാനം"],
+      ["weitermachen", "VY-ter-mah-khen", "to continue", "തുടരുക"],
+      ["aufgeben", "OWF-gay-ben", "to give up", "ഉപേക്ഷിക്കുക"],
+      ["schaffen", "SHAH-fen", "to manage/achieve", "നേടുക"]
+    ],
+    grammar: {
+      title: "Week 3 Grammar Summary",
+      rule: "Review: (1) <strong>Dative case</strong> — der→dem, die→der, with in/an/bei/mit/von/zu. (2) <strong>Perfekt tense</strong> — haben/sein + past participle. (3) <strong>Reflexive verbs</strong> — sich fühlen, sich vorstellen. (4) <strong>Compound nouns</strong> — last word = gender. (5) <strong>Email format</strong> — Sehr geehrte/r ... Mit freundlichen Grüßen.",
+      examples: [
+        ["Ich habe mich auf das Interview vorbereitet.", "I prepared for the interview.", "ഞാൻ ഇന്റർവ്യൂവിന് തയ്യാറെടുത്തു."],
+        ["Ich bin stolz auf meinen Fortschritt.", "I'm proud of my progress.", "എന്റെ പുരോഗതിയിൽ അഭിമാനമുണ്ട്."]
+      ]
+    },
+    sentences: [
+      ["Ich bin mit meinem Fortschritt zufrieden.", "ikh bin mit MY-nem FORT-shrit tsoo-FREE-den", "I'm satisfied with my progress.", "എന്റെ പുരോഗതിയിൽ സന്തുഷ്ടനാണ്."],
+      ["Ich gebe nicht auf!", "ikh GAY-beh nikht owf", "I won't give up!", "ഞാൻ ഉപേക്ഷിക്കില്ല!"],
+      ["Ich muss mich besser vorbereiten.", "ikh moos mikh BES-ser FOR-beh-ry-ten", "I need to prepare better.", "നന്നായി തയ്യാറെടുക്കണം."],
+      ["Wir schaffen das zusammen!", "veer SHAH-fen das tsoo-ZAH-men", "We'll make it together!", "നമ്മൾ ഒരുമിച്ച് നേടും!"],
+      ["Lass uns weitermachen.", "lahs oons VY-ter-mah-khen", "Let's continue.", "നമുക്ക് തുടരാം."]
+    ],
+    practice: [
+      "📝 Full practice test: translate 40 words from all 3 weeks",
+      "🗣 Record: 5-minute monologue about yourself, work, and daily life",
+      "📧 Write a complete formal email applying for a dev job in Germany",
+      "🎭 Multi-role-play: doctor visit, restaurant, office meeting — in German",
+      "📋 Identify your 10 weakest vocab words and drill them"
+    ]
+  },
+
+  // ====== WEEK 4: Independence ======
+  {
+    day: 22, week: 4,
+    title: "Future Plans & Expressing Wishes",
+    subtitle: "Zukunftspläne — ഭാവി പദ്ധതികൾ",
+    video: "https://www.youtube.com/embed/4HPAH2-iibc",
+    videoCaption: "German Future Tense — Learn German with Anja",
+    vocab: [
+      ["planen", "PLAH-nen", "to plan", "ആസൂത്രണം ചെയ്യുക"],
+      ["hoffen", "HOF-fen", "to hope", "പ്രതീക്ഷിക്കുക"],
+      ["werden", "VAIR-den", "to become / will", "ആവുക"],
+      ["der Traum", "dair TROWM", "the dream", "സ്വപ്നം"],
+      ["die Zukunft", "dee TSOO-koonft", "the future", "ഭാവി"],
+      ["umziehen", "OOM-tsee-en", "to relocate/move", "മാറിത്താമസിക്കുക"],
+      ["die Karriere", "dee kah-ree-AY-reh", "the career", "കരിയർ"],
+      ["das Visum", "das VEE-zoom", "the visa", "വിസ"],
+      ["die Genehmigung", "dee geh-NAY-mi-goong", "the permit", "പെർമിറ്റ്"],
+      ["beantragen", "beh-AHN-trah-gen", "to apply for", "അപേക്ഷിക്കുക"]
+    ],
+    grammar: {
+      title: "Futur I — Future Tense",
+      rule: "Future tense: <strong>werden</strong> (conjugated) + infinitive at end. ich werde, du wirst, er wird, wir werden, sie werden. However, Germans often use <strong>present tense + time word</strong> for future: <em>Ich fliege morgen nach Berlin</em> (I fly to Berlin tomorrow).",
+      examples: [
+        ["Ich werde nach Deutschland umziehen.", "I will move to Germany.", "ഞാൻ ജർമ്മനിയിലേക്ക് മാറും."],
+        ["Ich beantrage nächste Woche das Visum.", "I'll apply for the visa next week.", "അടുത്ത ആഴ്ച വിസയ്ക്ക് അപേക്ഷിക്കും."]
+      ]
+    },
+    sentences: [
+      ["Ich werde bald nach Deutschland umziehen.", "ikh VAIR-deh bahlt nahkh DOYCH-lahnt OOM-tsee-en", "I will move to Germany soon.", "ഞാൻ ഉടൻ ജർമ്മനിയിലേക്ക് മാറും."],
+      ["Ich hoffe, einen guten Job zu finden.", "ikh HOF-feh AY-nen GOO-ten JOHP tsoo FIN-den", "I hope to find a good job.", "നല്ല ജോലി കിട്ടുമെന്ന് പ്രതീക്ഷിക്കുന്നു."],
+      ["Mein Traum ist, in München zu arbeiten.", "mine TROWM ist in MEWN-khen tsoo AR-by-ten", "My dream is to work in Munich.", "മ്യൂണിക്കിൽ ജോലി ചെയ്യുക എന്നതാണ് സ്വപ്നം."],
+      ["Ich muss das Visum beantragen.", "ikh moos das VEE-zoom beh-AHN-trah-gen", "I need to apply for the visa.", "വിസയ്ക്ക് അപേക്ഷിക്കണം."],
+      ["Nächstes Jahr werde ich B1 schaffen.", "NEKH-stes YAHR VAIR-deh ikh bay-AYNS SHAH-fen", "Next year I'll pass B1.", "അടുത്ത വർഷം B1 പാസാകും."]
+    ],
+    practice: [
+      "✍ Write your 5-year career plan in German (8 sentences)",
+      "🗣 Tell someone your plans for moving to Germany using 'werde'",
+      "📝 Practice 'hoffen + zu + infinitive' with 5 hopes",
+      "🎯 List what you need: Visum, Wohnung, Krankenversicherung, Bankkonto"
+    ]
+  },
+  {
+    day: 23, week: 4,
+    title: "Banking, Documents & Bureaucracy",
+    subtitle: "Behörden & Dokumente — ഔദ്യോഗിക ജോലികൾ",
+    video: "https://www.youtube.com/embed/2kMN5F-z_Ns",
+    videoCaption: "German Bureaucracy Guide — Simple Germany",
+    vocab: [
+      ["das Konto", "das KON-to", "the account", "അക്കൗണ്ട്"],
+      ["die Bank", "dee BAHNK", "the bank", "ബാങ്ക്"],
+      ["der Ausweis", "dair OWS-vise", "the ID card", "ഐഡി കാർഡ്"],
+      ["der Reisepass", "dair RY-zeh-pas", "the passport", "പാസ്‌പോർട്ട്"],
+      ["das Formular", "das for-moo-LAHR", "the form", "ഫോം"],
+      ["ausfüllen", "OWS-few-len", "to fill out", "പൂരിപ്പിക്കുക"],
+      ["unterschreiben", "OON-ter-shry-ben", "to sign", "ഒപ്പിടുക"],
+      ["die Anmeldung", "dee AHN-mel-doong", "the registration", "രജിസ്ട്രേഷൻ"],
+      ["das Einwohnermeldeamt", "das AYN-voh-ner-mel-deh-ahmt", "registration office", "രജിസ്ട്രേഷൻ ഓഫീസ്"],
+      ["die Steuernummer", "dee SHTOY-er-noo-mer", "the tax number", "ടാക്സ് നമ്പർ"]
+    ],
+    grammar: {
+      title: "weil & dass — Subordinate Clauses",
+      rule: "In subordinate clauses (with weil, dass, wenn, ob), the conjugated verb goes to the END. <strong>Ich lerne Deutsch, weil ich in Deutschland arbeiten will.</strong> (I learn German because I want to work in Germany.) The subordinate clause is separated by a comma.",
+      examples: [
+        ["Ich brauche ein Konto, weil ich in DE arbeite.", "I need an account because I work in Germany.", "ജർമ്മനിയിൽ ജോലി ചെയ്യുന്നതിനാൽ അക്കൗണ്ട് വേണം."],
+        ["Ich weiß, dass die Anmeldung wichtig ist.", "I know that registration is important.", "രജിസ്ട്രേഷൻ പ്രധാനമാണെന്ന് എനിക്കറിയാം."]
+      ]
+    },
+    sentences: [
+      ["Ich möchte ein Bankkonto eröffnen.", "ikh MERKH-teh ayn BAHNK-kon-to air-ERF-nen", "I'd like to open a bank account.", "ഒരു ബാങ്ക് അക്കൗണ്ട് തുറക്കണം."],
+      ["Ich brauche eine Anmeldung.", "ikh BROW-kheh AY-neh AHN-mel-doong", "I need a registration.", "രജിസ്ട്രേഷൻ വേണം."],
+      ["Wo muss ich unterschreiben?", "vo moos ikh OON-ter-shry-ben", "Where do I sign?", "എവിടെ ഒപ്പിടണം?"],
+      ["Ich habe meinen Reisepass dabei.", "ikh HAH-beh MY-nen RY-zeh-pas dah-BY", "I have my passport with me.", "പാസ്‌പോർട്ട് കൂടെയുണ്ട്."],
+      ["Bitte füllen Sie dieses Formular aus.", "BIT-teh FEW-len zee DEE-zes for-moo-LAHR ows", "Please fill out this form.", "ഈ ഫോം പൂരിപ്പിക്കൂ."]
+    ],
+    practice: [
+      "📝 Write sentences with 'weil' explaining why you're moving to Germany",
+      "🏦 Role-play: opening a bank account in German",
+      "✍ Fill out an imaginary Anmeldung form — all fields in German",
+      "🗣 Practice: 'Ich brauche...' for 5 documents you'll need in Germany"
+    ]
+  },
+  {
+    day: 24, week: 4,
+    title: "Job Interviews in German",
+    subtitle: "Vorstellungsgespräch — ജോബ് ഇന്റർവ്യൂ",
+    video: "https://www.youtube.com/embed/sVNJfIBLjcE",
+    videoCaption: "German Job Interview Tips — Lingster Academy",
+    vocab: [
+      ["das Vorstellungsgespräch", "das FOR-shtel-oongs-geh-shprekh", "the job interview", "ജോബ് ഇന്റർവ്യൂ"],
+      ["der Lebenslauf", "dair LAY-bens-lowf", "the CV/resume", "റെസ്യൂമെ"],
+      ["die Bewerbung", "dee beh-VAIR-boong", "the application", "അപേക്ഷ"],
+      ["die Stärke", "dee SHTAIR-keh", "the strength", "ശക്തി"],
+      ["die Schwäche", "dee SHVEH-kheh", "the weakness", "ദൗർബല്യം"],
+      ["die Gehaltsvorstellung", "dee geh-HALTS-for-shtel-oong", "salary expectation", "ശമ്പള പ്രതീക്ഷ"],
+      ["sich bewerben", "zikh beh-VAIR-ben", "to apply (for a job)", "ജോലിക്ക് അപേക്ഷിക്കുക"],
+      ["einstellen", "AYN-shtel-en", "to hire", "നിയമിക്കുക"],
+      ["die Probezeit", "dee PRO-beh-tsyte", "the trial period", "ട്രയൽ പിരീഡ്"],
+      ["sofort", "zo-FORT", "immediately", "ഉടനെ"]
+    ],
+    grammar: {
+      title: "Konjunktiv II — Subjunctive for Politeness",
+      rule: "Use <strong>würde + infinitive</strong> for polite expressions: Ich würde gerne... (I would like to...). <strong>hätte</strong> = would have, <strong>wäre</strong> = would be, <strong>könnte</strong> = could. These are essential for interviews!",
+      examples: [
+        ["Ich würde gerne bei Ihnen arbeiten.", "I would like to work for you.", "നിങ്ങളുടെ കമ്പനിയിൽ ജോലി ചെയ്യാൻ ഞാൻ ആഗ്രഹിക്കും."],
+        ["Ich hätte eine Frage.", "I would have a question.", "എനിക്കൊരു ചോദ്യമുണ്ട്."]
+      ]
+    },
+    sentences: [
+      ["Ich möchte mich als Flutter-Entwickler bewerben.", "ikh MERKH-teh mikh als FLUT-ter ent-VIK-ler beh-VAIR-ben", "I'd like to apply as a Flutter developer.", "Flutter ഡെവലപ്പറായി അപേക്ഷിക്കാൻ ആഗ്രഹിക്കുന്നു."],
+      ["Meine Stärke ist Clean Architecture.", "MY-neh SHTAIR-keh ist KLEEN ar-khi-tek-TOOR", "My strength is clean architecture.", "എന്റെ ശക്തി Clean Architecture ആണ്."],
+      ["Ich habe Erfahrung mit mobiler Entwicklung.", "ikh HAH-beh air-FAH-roong mit mo-BEE-ler ent-VIK-loong", "I have experience with mobile development.", "മൊബൈൽ ഡെവലപ്മെന്റിൽ പരിചയമുണ്ട്."],
+      ["Wann könnte ich anfangen?", "vahn KERN-teh ikh AHN-fahn-gen", "When could I start?", "എപ്പോൾ ജോലി തുടങ്ങാം?"],
+      ["Ich würde gerne mehr über das Team erfahren.", "ikh VEWR-deh GAIR-neh mair EW-ber das TEEM air-FAH-ren", "I'd like to learn more about the team.", "ടീമിനെ കുറിച്ച് കൂടുതൽ അറിയാൻ ആഗ്രഹിക്കുന്നു."]
+    ],
+    practice: [
+      "🎤 Full mock interview: introduce yourself, strengths, why Germany",
+      "✍ Write answers to: 'Erzählen Sie über sich' and 'Warum Deutschland?'",
+      "📝 Prepare 5 questions to ask YOUR interviewer in German",
+      "💼 Practice your Lebenslauf summary in German (2-minute pitch)"
+    ]
+  },
+  {
+    day: 25, week: 4,
+    title: "Connectors & Complex Sentences",
+    subtitle: "Konnektoren — സംയോജകങ്ങൾ",
+    video: "https://www.youtube.com/embed/jcRRNjp8xDM",
+    videoCaption: "German Conjunctions — Deutsch mit Marija",
+    vocab: [
+      ["und", "OONT", "and", "ഉം"],
+      ["aber", "AH-ber", "but", "പക്ഷേ"],
+      ["oder", "OH-der", "or", "അല്ലെങ്കിൽ"],
+      ["weil", "VILE", "because", "കാരണം"],
+      ["dass", "DAS", "that", "എന്ന്"],
+      ["wenn", "VEN", "if / when", "ആണെങ്കിൽ"],
+      ["obwohl", "op-VOHL", "although", "ആണെങ്കിലും"],
+      ["deshalb", "DES-halp", "therefore", "അതുകൊണ്ട്"],
+      ["trotzdem", "TROTS-daym", "nevertheless", "എന്നിരുന്നാലും"],
+      ["außerdem", "OW-ser-daym", "moreover/besides", "കൂടാതെ"]
+    ],
+    grammar: {
+      title: "Word Order with Connectors",
+      rule: "Three types: (1) <strong>Coordinating</strong> (und, aber, oder, denn) — no word order change. (2) <strong>Subordinating</strong> (weil, dass, wenn, ob, obwohl) — verb goes to END. (3) <strong>Adverbial</strong> (deshalb, trotzdem, außerdem) — verb stays in position 2, but subject and verb INVERT.",
+      examples: [
+        ["Ich lerne Deutsch, weil ich nach DE will. (verb→end)", "", ""],
+        ["Ich will nach DE. Deshalb lerne ich Deutsch. (inversion)", "", ""]
+      ]
+    },
+    sentences: [
+      ["Ich lerne Deutsch, weil ich in Deutschland arbeiten möchte.", "ikh LAIR-neh DOYCH, vile ikh in DOYCH-lahnt AR-by-ten MERKH-teh", "I learn German because I want to work in Germany.", "ജർമ്മനിയിൽ ജോലി ചെയ്യാൻ ആഗ്രഹിക്കുന്നതിനാൽ ജർമ്മൻ പഠിക്കുന്നു."],
+      ["Obwohl es schwer ist, mache ich weiter.", "op-VOHL es shvair ist, MAH-kheh ikh VY-ter", "Although it's hard, I continue.", "ബുദ്ധിമുട്ടാണെങ്കിലും ഞാൻ തുടരും."],
+      ["Ich kann Flutter und Dart, außerdem kenne ich React.", "ikh kahn FLUT-ter oont Dart, OW-ser-daym KEN-eh ikh React", "I know Flutter and Dart, besides I know React.", "Flutter-ഉം Dart-ഉം അറിയാം, React-ഉം അറിയാം."],
+      ["Wenn ich nach Berlin komme, suche ich eine Wohnung.", "ven ikh nahkh ber-LEEN KOM-eh, ZOO-kheh ikh AY-neh VO-noong", "When I come to Berlin, I'll look for an apartment.", "ബെർലിനിൽ വരുമ്പോൾ അപ്പാർട്ട്മെന്റ് തിരയും."],
+      ["Das Projekt ist komplex, aber ich schaffe das.", "das pro-YEKT ist kom-PLEKS, AH-ber ikh SHAH-feh das", "The project is complex, but I can do it.", "പ്രോജക്ട് സങ്കീർണ്ണമാണ്, പക്ഷേ എനിക്ക് കഴിയും."]
+    ],
+    practice: [
+      "✍ Connect these pairs with weil, aber, deshalb, wenn, obwohl",
+      "📝 Write 3 complex sentences about your career using connectors",
+      "🗣 Practice answering 'Warum?' questions with 'weil...' (verb at end!)",
+      "🧠 Drill: which connectors change word order? Make a cheat sheet"
+    ]
+  },
+  {
+    day: 26, week: 4,
+    title: "Culture & Life in Germany",
+    subtitle: "Kultur & Leben — സംസ്കാരവും ജീവിതവും",
+    video: "https://www.youtube.com/embed/avNi5uK_ySo",
+    videoCaption: "Culture Shock in Germany — Easy German",
+    vocab: [
+      ["die Kultur", "dee kool-TOOR", "the culture", "സംസ്കാരം"],
+      ["pünktlich", "PEWNKT-likh", "punctual", "സമയനിഷ്ഠ"],
+      ["die Mülltrennung", "dee MEWL-tren-oong", "waste separation", "മാലിന്യ വേർതിരിക്കൽ"],
+      ["die Ruhezeit", "dee ROO-eh-tsyte", "quiet hours", "നിശ്ശബ്ദ സമയം"],
+      ["der Feiertag", "dair FY-er-tahk", "the public holiday", "പൊതു അവധി"],
+      ["das Pfand", "das PFANT", "bottle deposit", "കുപ്പി ഡെപ്പോസിറ്റ്"],
+      ["die Bäckerei", "dee BEK-er-eye", "the bakery", "ബേക്കറി"],
+      ["der Verein", "dair fer-AYN", "the club/association", "ക്ലബ്"],
+      ["gemütlich", "geh-MEWT-likh", "cozy/comfortable", "സുഖകരം"],
+      ["die Gastfreundschaft", "dee GAST-froynt-shaft", "the hospitality", "ആതിഥ്യം"]
+    ],
+    grammar: {
+      title: "Useful Phrases & Idioms for Daily Life",
+      rule: "Cultural phrases to know: <strong>Das stimmt</strong> (That's right), <strong>Genau</strong> (Exactly), <strong>Na ja</strong> (Well...), <strong>Doch!</strong> (Yes! — contradicting a negative), <strong>Alles klar</strong> (All clear/Okay), <strong>Kein Problem</strong> (No problem), <strong>Mahlzeit!</strong> (Enjoy your meal — office greeting at lunch).",
+      examples: [
+        ["'Du kommst nicht?' — 'Doch!' (Yes I am!)", "", ""],
+        ["Mahlzeit! (said to colleagues at lunchtime)", "", ""]
+      ]
+    },
+    sentences: [
+      ["In Deutschland ist Pünktlichkeit sehr wichtig.", "in DOYCH-lahnt ist PEWNKT-likh-kite zair VIKH-tikh", "Punctuality is very important in Germany.", "ജർമ്മനിയിൽ സമയനിഷ്ഠ വളരെ പ്രധാനമാണ്."],
+      ["Man muss den Müll trennen.", "mahn moos dain mewl TREN-nen", "You must separate the waste.", "മാലിന്യം വേർതിരിക്കണം."],
+      ["Sonntags sind die Geschäfte geschlossen.", "ZOHN-tahks zint dee geh-SHEF-teh geh-SHLOS-en", "Shops are closed on Sundays.", "ഞായറാഴ്ച കടകൾ അടച്ചിരിക്കും."],
+      ["Die Ruhezeit ist von 22 bis 6 Uhr.", "dee ROO-eh-tsyte ist fon tsvy-oont-tsvan-tsikh bis zeks oor", "Quiet hours are from 10 PM to 6 AM.", "10 PM മുതൽ 6 AM വരെ നിശ്ശബ്ദ സമയം."],
+      ["Mahlzeit! Was gibt es heute?", "MAHL-tsyte! vas gipt es HOY-teh", "Enjoy your meal! What's there today?", "ഭക്ഷണം ആസ്വദിക്കൂ! ഇന്ന് എന്താണ്?"]
+    ],
+    practice: [
+      "📖 Research and write about 5 German cultural rules",
+      "🗣 Practice using Doch!, Genau, Na ja, Alles klar in mini-dialogues",
+      "✍ Compare Kerala culture vs German culture (5 differences)",
+      "🧠 Memorize: when to use Mahlzeit!, Prost!, Gesundheit!"
+    ]
+  },
+  {
+    day: 27, week: 4,
+    title: "Expressing Opinions & Feelings",
+    subtitle: "Meinungen & Gefühle — അഭിപ്രായങ്ങളും വികാരങ്ങളും",
+    video: "https://www.youtube.com/embed/t3HaLYx96YU",
+    videoCaption: "Expressing Opinions in German — Deutsch mit Marija",
+    vocab: [
+      ["die Meinung", "dee MY-noong", "the opinion", "അഭിപ്രായം"],
+      ["ich finde", "ikh FIN-deh", "I think/find", "ഞാൻ കരുതുന്നു"],
+      ["ich glaube", "ikh GLOW-beh", "I believe", "ഞാൻ വിശ്വസിക്കുന്നു"],
+      ["einverstanden", "AYN-fer-shtan-den", "agreed", "സമ്മതം"],
+      ["froh", "FROH", "happy/glad", "സന്തോഷം"],
+      ["traurig", "TROW-rikh", "sad", "ദുഃഖം"],
+      ["nervös", "ner-VERS", "nervous", "പരിഭ്രമം"],
+      ["aufgeregt", "OWF-geh-raykt", "excited", "ആവേശം"],
+      ["enttäuscht", "ent-TOYSHT", "disappointed", "നിരാശ"],
+      ["dankbar", "DAHNK-bar", "grateful", "നന്ദിയുള്ള"]
+    ],
+    grammar: {
+      title: "Expressing Opinions — Sentence Starters",
+      rule: "Key phrases: <strong>Ich finde, dass...</strong> (I find that...), <strong>Ich glaube, dass...</strong> (I believe that...), <strong>Meiner Meinung nach...</strong> (In my opinion...), <strong>Ich bin der Meinung, dass...</strong> (I am of the opinion that...). After dass → verb goes to END.",
+      examples: [
+        ["Ich finde, dass Deutschland toll ist.", "I think Germany is great.", "ജർമ്മനി മികച്ചതാണെന്ന് ഞാൻ കരുതുന്നു."],
+        ["Meiner Meinung nach ist Flutter super.", "In my opinion, Flutter is super.", "എന്റെ അഭിപ്രായത്തിൽ Flutter സൂപ്പർ ആണ്."]
+      ]
+    },
+    sentences: [
+      ["Ich finde, dass remote Arbeit toll ist.", "ikh FIN-deh das ree-MOHT AR-byte tol ist", "I think remote work is great.", "റിമോട്ട് ജോലി നല്ലതാണെന്ന് ഞാൻ കരുതുന്നു."],
+      ["Ich bin nervös wegen des Interviews.", "ikh bin ner-VERS VAY-gen des IN-ter-vyoos", "I'm nervous about the interview.", "ഇന്റർവ്യൂ ഓർത്ത് പരിഭ്രമമുണ്ട്."],
+      ["Ich bin dankbar für diese Chance.", "ikh bin DAHNK-bar fewr DEE-zeh SHAHN-seh", "I'm grateful for this opportunity.", "ഈ അവസരത്തിന് നന്ദിയുണ്ട്."],
+      ["Ich bin aufgeregt, nach Deutschland zu kommen!", "ikh bin OWF-geh-raykt nahkh DOYCH-lahnt tsoo KOM-en", "I'm excited to come to Germany!", "ജർമ്മനിയിലേക്ക് വരാൻ ആവേശമുണ്ട്!"],
+      ["Da bin ich einverstanden.", "dah bin ikh AYN-fer-shtan-den", "I agree with that.", "അതിനോട് ഞാൻ യോജിക്കുന്നു."]
+    ],
+    practice: [
+      "🗣 Express 5 opinions about: Germany, coding, food, weather, remote work",
+      "✍ Write how you feel about moving to Germany (use 5 emotion words)",
+      "📝 Practice agreeing and disagreeing: Einverstanden / Ich bin nicht sicher",
+      "🎭 Debate topic: 'Remote vs Office' — argue both sides in German"
+    ]
+  },
+  {
+    day: 28, week: 4,
+    title: "Writing & Speaking Practice",
+    subtitle: "Schreiben & Sprechen — എഴുത്തും സംസാരവും",
+    video: "https://www.youtube.com/embed/mVN7SDOxE14",
+    videoCaption: "German A2 Speaking Practice — GermanPod101",
+    vocab: [
+      ["der Absatz", "dair AP-zats", "the paragraph", "ഖണ്ഡിക"],
+      ["der Satz", "dair ZATS", "the sentence", "വാക്യം"],
+      ["die Übung", "dee EW-boong", "the exercise", "വ്യായാമം"],
+      ["die Prüfung", "dee PREW-foong", "the exam", "പരീക്ഷ"],
+      ["bestehen", "beh-SHTAY-en", "to pass (an exam)", "ജയിക്കുക"],
+      ["sich anmelden", "zikh AHN-mel-den", "to register", "രജിസ്റ്റർ ചെയ്യുക"],
+      ["die Sprachschule", "dee SHPRAHKH-shoo-leh", "the language school", "ഭാഷാ സ്കൂൾ"],
+      ["fließend", "FLEE-sent", "fluent", "ഒഴുക്കുള്ള"],
+      ["der Wortschatz", "dair VORT-shats", "the vocabulary", "വാക്കുകൾ"],
+      ["die Grammatik", "dee grah-MAH-tik", "the grammar", "വ്യാകരണം"]
+    ],
+    grammar: {
+      title: "Relative Clauses (Preview for A2)",
+      rule: "Relative clauses add detail: <strong>Der Mann, der programmiert, ist mein Kollege.</strong> (The man who programs is my colleague.) The relative pronoun (der/die/das) matches the gender of the noun it refers to. The verb goes to the END of the relative clause.",
+      examples: [
+        ["Die App, die ich entwickle, ist auf Flutter.", "The app that I develop is in Flutter.", "ഞാൻ ഉണ്ടാക്കുന്ന ആപ്പ് Flutter-ൽ ആണ്."],
+        ["Das Team, mit dem ich arbeite, ist toll.", "The team I work with is great.", "ഞാൻ ജോലി ചെയ്യുന്ന ടീം മികച്ചതാണ്."]
+      ]
+    },
+    sentences: [
+      ["Ich melde mich für die A2-Prüfung an.", "ikh MEL-deh mikh fewr dee ah-tsvai PREW-foong ahn", "I'm registering for the A2 exam.", "A2 പരീക്ഷയ്ക്ക് രജിസ്റ്റർ ചെയ്യുന്നു."],
+      ["Mein Ziel ist, fließend Deutsch zu sprechen.", "mine TSEEL ist FLEE-sent DOYCH tsoo SHPRE-khen", "My goal is to speak fluent German.", "ഒഴുക്കായി ജർമ്മൻ സംസാരിക്കുക എന്നതാണ് ലക്ഷ്യം."],
+      ["Ich brauche mehr Übung.", "ikh BROW-kheh mair EW-boong", "I need more practice.", "കൂടുതൽ പരിശീലനം വേണം."],
+      ["Mein Wortschatz wird jeden Tag größer.", "mine VORT-shats veert YAY-den TAHK GRER-ser", "My vocabulary grows every day.", "ദിവസവും വാക്കുകൾ കൂടുന്നു."],
+      ["Ich werde die Prüfung bestehen!", "ikh VAIR-deh dee PREW-foong beh-SHTAY-en", "I will pass the exam!", "ഞാൻ പരീക്ഷ ജയിക്കും!"]
+    ],
+    practice: [
+      "📝 Write a 150-word essay: 'Warum ich nach Deutschland will'",
+      "🗣 Record a 3-minute speech about your German learning journey",
+      "✍ Write 5 relative clause sentences about your work",
+      "🎯 Take a practice A1 test online (Goethe Institut sample)"
+    ]
+  },
+  {
+    day: 29, week: 4,
+    title: "Common Mistakes & Tips",
+    subtitle: "Häufige Fehler — സാധാരണ തെറ്റുകൾ",
+    video: "https://www.youtube.com/embed/IIRdpCZYfko",
+    videoCaption: "Common German Mistakes — Easy German",
+    vocab: [
+      ["der Fehler", "dair FAY-ler", "the mistake", "തെറ്റ്"],
+      ["vermeiden", "fer-MY-den", "to avoid", "ഒഴിവാക്കുക"],
+      ["verwechseln", "fer-VEK-seln", "to confuse/mix up", "തെറ്റിദ്ധരിക്കുക"],
+      ["beachten", "beh-AKH-ten", "to pay attention to", "ശ്രദ്ധിക്കുക"],
+      ["der Tipp", "dair TIP", "the tip/advice", "ടിപ്പ്"],
+      ["korrigieren", "ko-ri-GEER-en", "to correct", "തിരുത്തുക"],
+      ["der Unterschied", "dair OON-ter-sheed", "the difference", "വ്യത്യാസം"],
+      ["ähnlich", "AYN-likh", "similar", "സമാനമായ"],
+      ["falsch", "FALSH", "wrong/false", "തെറ്റ്"],
+      ["merken", "MAIR-ken", "to notice/remember", "ശ്രദ്ധിക്കുക"]
+    ],
+    grammar: {
+      title: "Top 10 Common Mistakes for Beginners",
+      rule: "1. Forgetting articles (ALWAYS learn noun + article). 2. halb drei = 2:30, NOT 3:30. 3. seit + present tense (not past). 4. Verb position in subordinate clauses. 5. sein vs haben in Perfekt. 6. Accusative only changes masculine. 7. Sie (formal) is always capitalized. 8. 'Ich bin warm' = wrong (use 'Mir ist warm'). 9. Separable prefix goes to end. 10. 'bekommen' = to get, NOT 'to become'.",
+      examples: [
+        ["❌ Ich bin warm → ✅ Mir ist warm", "It's warm to me", ""],
+        ["❌ Ich bekomme nervös → ✅ Ich werde nervös", "I'm getting nervous", ""]
+      ]
+    },
+    sentences: [
+      ["Man muss die Fehler beachten.", "mahn moos dee FAY-ler beh-AKH-ten", "You must pay attention to mistakes.", "തെറ്റുകൾ ശ്രദ്ധിക്കണം."],
+      ["Ich verwechsle oft 'sein' und 'haben'.", "ikh fer-VEK-sleh oft zine oont HAH-ben", "I often confuse 'sein' and 'haben'.", "'sein'-ഉം 'haben'-ഉം ഞാൻ പലപ്പോഴും തെറ്റിദ്ധരിക്കും."],
+      ["Können Sie mich bitte korrigieren?", "KER-nen zee mikh BIT-teh ko-ri-GEER-en", "Can you correct me, please?", "എന്നെ ദയവായി തിരുത്താമോ?"],
+      ["Der Unterschied ist wichtig.", "dair OON-ter-sheed ist VIKH-tikh", "The difference is important.", "വ്യത്യാസം പ്രധാനമാണ്."],
+      ["Aus Fehlern lernt man.", "ows FAY-lern lairnt mahn", "You learn from mistakes.", "തെറ്റുകളിൽ നിന്ന് പഠിക്കും."]
+    ],
+    practice: [
+      "📝 Review the top 10 mistakes — which ones do YOU make?",
+      "✍ Write 10 sentences avoiding common mistakes",
+      "🗣 Practice: 'Mir ist kalt/warm/schlecht' (NOT 'Ich bin...')",
+      "🧠 Create a personal 'Mistakes to Avoid' cheat sheet"
+    ]
+  },
+  {
+    day: 30, week: 4,
+    title: "Final Review & Next Steps",
+    subtitle: "Abschluss — അന്തിമ അവലോകനം",
+    video: "https://www.youtube.com/embed/iLW0R20lt9g",
+    videoCaption: "A1 to A2 German Roadmap — Learn German",
+    vocab: [
+      ["der Abschluss", "dair AP-shloos", "the completion", "പൂർത്തീകരണം"],
+      ["die Zusammenfassung", "dee tsoo-ZAH-men-fah-soong", "the summary", "സംഗ്രഹം"],
+      ["das Ergebnis", "das air-GAYB-nis", "the result", "ഫലം"],
+      ["erfolgreich", "air-FOLK-ryekh", "successful", "വിജയകരം"],
+      ["der nächste Schritt", "dair NEKH-steh SHRIT", "the next step", "അടുത്ത ചുവട്"],
+      ["die Herausforderung", "dee heh-ROWS-for-der-oong", "the challenge", "വെല്ലുവിളി"],
+      ["das Selbstvertrauen", "das ZELPST-fer-trow-en", "self-confidence", "ആത്മവിശ്വാസം"],
+      ["die Geduld", "dee geh-DOOLT", "the patience", "ക്ഷമ"],
+      ["herzlichen Glückwunsch!", "HERTS-li-khen GLEWK-voonsh", "congratulations!", "അഭിനന്ദനങ്ങൾ!"],
+      ["weiter so!", "VY-ter zo", "keep it up!", "ഇങ്ങനെ തുടരൂ!"]
+    ],
+    grammar: {
+      title: "Your A1 → A2 Grammar Checklist",
+      rule: "You should now know: ✅ Present tense conjugation ✅ Perfekt (past) ✅ Futur I ✅ Modal verbs ✅ Nominative, Accusative, Dative cases ✅ Separable verbs ✅ Subordinate clauses (weil, dass, wenn) ✅ Question formation ✅ Imperative ✅ Basic adjective endings. <strong>Next:</strong> Start A2 — Präteritum, Genitiv, Passiv, Konjunktiv II.",
+      examples: [
+        ["Your next step: Goethe A2 course or intensive class in Germany", "", ""],
+        ["Apps: Duolingo, Anki, Tandem for language exchange", "", ""]
+      ]
+    },
+    sentences: [
+      ["Herzlichen Glückwunsch! Du hast es geschafft!", "HERTS-li-khen GLEWK-voonsh! doo hast es geh-SHAHFT", "Congratulations! You made it!", "അഭിനന്ദനങ്ങൾ! നീ അത് നേടി!"],
+      ["Ich bin stolz auf meinen Fortschritt.", "ikh bin SHTOLTS owf MY-nen FORT-shrit", "I'm proud of my progress.", "എന്റെ പുരോഗതിയിൽ അഭിമാനമുണ്ട്."],
+      ["Deutsch lernen ist eine Reise, kein Ziel.", "DOYCH LAIR-nen ist AY-neh RY-zeh, kine TSEEL", "Learning German is a journey, not a destination.", "ജർമ്മൻ പഠനം ഒരു യാത്രയാണ്, ലക്ഷ്യമല്ല."],
+      ["Ich werde jeden Tag weiter üben.", "ikh VAIR-deh YAY-den TAHK VY-ter EW-ben", "I will continue practicing every day.", "ഓരോ ദിവസവും പരിശീലിച്ചു കൊണ്ടിരിക്കും."],
+      ["Auf nach Deutschland!", "owf nahkh DOYCH-lahnt", "Off to Germany!", "ജർമ്മനിയിലേക്ക് പോകാം!"]
+    ],
+    practice: [
+      "📝 Take the full A1 mock test (all 4 sections: reading, writing, listening, speaking)",
+      "🗣 Record your final 5-minute German self-introduction",
+      "✍ Write a letter to your future self in Germany — auf Deutsch!",
+      "🎯 Set your next 3 goals: A2 exam date, Sprachschule, tandem partner",
+      "🎉 Celebrate! Du hast 30 Tage Deutsch gelernt!"
+    ]
+  }
+];
+
+// ===== COMMON MISTAKES DATA =====
+const COMMON_MISTAKES = [
+  { wrong: "❌ Ich bin 30 Jahre.", right: "✅ Ich bin 30 Jahre alt.", explain: "Always add 'alt' (old) when stating age. Without it the sentence is incomplete." },
+  { wrong: "❌ Ich bin warm.", right: "✅ Mir ist warm.", explain: "Use dative (mir) for feelings of temperature. 'Ich bin warm' sounds like you're physically hot/attractive." },
+  { wrong: "❌ Es ist halb drei = 3:30", right: "✅ Es ist halb drei = 2:30", explain: "halb means half TO the next hour, not half past. halb drei = halfway to 3 = 2:30." },
+  { wrong: "❌ Ich bekomme nervös.", right: "✅ Ich werde nervös.", explain: "'bekommen' means 'to get/receive', NOT 'to become'. Use 'werden' for 'to become'." },
+  { wrong: "❌ Ich habe nach Berlin gegangen.", right: "✅ Ich bin nach Berlin gegangen.", explain: "Movement verbs (gehen, kommen, fahren, fliegen) use 'sein' in Perfekt, not 'haben'." },
+  { wrong: "❌ Ich kaufe der Computer.", right: "✅ Ich kaufe den Computer.", explain: "Direct objects (accusative) change masculine: der → den, ein → einen. Only masculine changes!" },
+  { wrong: "❌ Ich möchte gehen nach Hause.", right: "✅ Ich möchte nach Hause gehen.", explain: "With modal verbs, the infinitive always goes to the END of the sentence." },
+  { wrong: "❌ Weil ich bin müde.", right: "✅ Weil ich müde bin.", explain: "In subordinate clauses (weil, dass, wenn), the verb goes to the END." },
+  { wrong: "❌ Ich rufe an dich.", right: "✅ Ich rufe dich an.", explain: "With separable verbs, the prefix goes to the end and the object goes before it." },
+  { wrong: "❌ sie (formal) hat gesagt", right: "✅ Sie (always capitalized for formal) hat gesagt", explain: "Formal 'Sie' (you) is ALWAYS capitalized. Lowercase 'sie' means 'she' or 'they'." },
+  { wrong: "❌ Ich habe ein Frage.", right: "✅ Ich habe eine Frage.", explain: "'Frage' is feminine (die Frage), so the article must be 'eine', not 'ein'." },
+  { wrong: "❌ Seit 3 Jahren habe ich gelernt.", right: "✅ Seit 3 Jahren lerne ich.", explain: "'seit' (since/for) uses PRESENT tense in German, not past — the action is still ongoing." }
+];
+
+// ===== REVISION FLASHCARDS =====
+const FLASHCARDS = [];
+COURSE.forEach(day => {
+  day.vocab.forEach(v => {
+    FLASHCARDS.push({ de: v[0], phonetic: v[1], en: v[2], ml: v[3], day: day.day });
+  });
+});
+
+// ===== STATE =====
+let state = {
+  completedDays: JSON.parse(localStorage.getItem('de_completed') || '[]'),
+  notes: JSON.parse(localStorage.getItem('de_notes') || '{}'),
+  streak: parseInt(localStorage.getItem('de_streak') || '0'),
+  lastStudyDate: localStorage.getItem('de_lastStudy') || '',
+  currentPage: 'welcome',
+  revisionIndex: 0
+};
+
+function save() {
+  localStorage.setItem('de_completed', JSON.stringify(state.completedDays));
+  localStorage.setItem('de_notes', JSON.stringify(state.notes));
+  localStorage.setItem('de_streak', state.streak);
+  localStorage.setItem('de_lastStudy', state.lastStudyDate);
+}
+
+// ===== STREAK =====
+function updateStreak() {
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (state.lastStudyDate === today) return;
+  if (state.lastStudyDate === yesterday) {
+    state.streak++;
+  } else if (state.lastStudyDate !== today) {
+    state.streak = 1;
+  }
+  state.lastStudyDate = today;
+  save();
+}
+
+function renderStreak() {
+  document.getElementById('streakCount').textContent = state.streak;
+  const daysEl = document.getElementById('streakDays');
+  const dayNames = ['S','M','T','W','T','F','S'];
+  const today = new Date().getDay();
+  let html = '';
+  for (let i = 0; i < 7; i++) {
+    const isActive = i <= today && state.streak > 0;
+    html += `<div class="streak-dot ${isActive && state.streak >= (today - i + 1) ? 'active' : ''}">${dayNames[i]}</div>`;
+  }
+  daysEl.innerHTML = html;
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  const pct = Math.round((state.completedDays.length / 30) * 100);
+  document.getElementById('progressPercent').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ===== SIDEBAR NAV =====
+function renderSidebar() {
+  const nav = document.getElementById('sidebarNav');
+  let html = '';
+  html += `<div class="nav-item ${state.currentPage === 'welcome' ? 'active' : ''}" onclick="showPage('welcome')">
+    <span class="nav-check">🏠</span> Home
+  </div>`;
+
+  [1,2,3,4].forEach(week => {
+    html += `<div class="nav-section-title">Week ${week} ${week === 1 ? '— Foundations' : week === 2 ? '— Building' : week === 3 ? '— Real Talk' : '— Independence'}</div>`;
+    COURSE.filter(d => d.week === week).forEach(day => {
+      const completed = state.completedDays.includes(day.day);
+      const isActive = state.currentPage === 'day-' + day.day;
+      html += `<div class="nav-item ${isActive ? 'active' : ''} ${completed ? 'completed' : ''}" onclick="showPage('day-${day.day}')">
+        <span class="nav-check">${completed ? '✓' : ''}</span>
+        <span>Day ${day.day}: ${day.title.split(' — ')[0].substring(0, 22)}</span>
+      </div>`;
+    });
+  });
+
+  html += `<div class="nav-section-title">Extras</div>`;
+  html += `<div class="nav-item ${state.currentPage === 'mistakes' ? 'active' : ''}" onclick="showPage('mistakes')">
+    <span class="nav-check">⚠</span> Common Mistakes
+  </div>`;
+  html += `<div class="nav-item ${state.currentPage === 'revision' ? 'active' : ''}" onclick="showPage('revision')">
+    <span class="nav-check">⟳</span> Revision Mode
+  </div>`;
+
+  nav.innerHTML = html;
+}
+
+// ===== PAGE RENDERING =====
+function showPage(page) {
+  state.currentPage = page;
+  const content = document.getElementById('contentArea');
+
+  if (page === 'welcome') {
+    content.innerHTML = renderWelcome();
+    document.getElementById('breadcrumb').innerHTML = 'Home';
+  } else if (page === 'mistakes') {
+    content.innerHTML = renderMistakes();
+    document.getElementById('breadcrumb').innerHTML = '<strong>Common Mistakes</strong>';
+  } else if (page === 'revision') {
+    content.innerHTML = renderRevision();
+    document.getElementById('breadcrumb').innerHTML = '<strong>Revision Mode</strong>';
+  } else if (page.startsWith('day-')) {
+    const dayNum = parseInt(page.split('-')[1]);
+    const day = COURSE.find(d => d.day === dayNum);
+    content.innerHTML = renderDay(day);
+    document.getElementById('breadcrumb').innerHTML = `Week ${day.week} › <strong>Day ${day.day}</strong>`;
+  }
+
+  renderSidebar();
+  updateProgress();
+  renderStreak();
+
+  // Close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+
+  window.scrollTo({ top: 0 });
+}
+
+function renderWelcome() {
+  return `
+    <div class="welcome-hero">
+      <div class="welcome-flag">🇩🇪</div>
+      <h1 class="welcome-title">Willkommen, Mubashir!</h1>
+      <p class="welcome-desc">Your 30-day journey from zero to A2 German — built for a developer moving to Germany. Vocabulary, grammar, pronunciation, and real-life office German.</p>
+      <div class="welcome-stats">
+        <div class="stat-card">
+          <div class="stat-num">30</div>
+          <div class="stat-label">Days</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">300</div>
+          <div class="stat-label">Words</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">150</div>
+          <div class="stat-label">Sentences</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">${state.completedDays.length}</div>
+          <div class="stat-label">Completed</div>
+        </div>
+      </div>
+      <button class="welcome-start-btn" onclick="showPage('day-${state.completedDays.length < 30 ? state.completedDays.length + 1 : 1}')">
+        ${state.completedDays.length === 0 ? 'Start Learning →' : 'Continue Day ' + (state.completedDays.length + 1) + ' →'}
+      </button>
+    </div>
+    <div style="max-width:600px;margin:0 auto;">
+      <h3 style="font-family:var(--font-display);margin-bottom:12px;">How to Use This Course</h3>
+      <div class="practice-item"><span class="practice-icon">📅</span><span>Complete <strong>one lesson per day</strong> — each takes 30-45 minutes</span></div>
+      <div class="practice-item"><span class="practice-icon">✅</span><span>Mark lessons complete with the <strong>checkbox</strong> to track progress</span></div>
+      <div class="practice-item"><span class="practice-icon">🎬</span><span>Watch the <strong>YouTube video</strong> for each lesson for pronunciation</span></div>
+      <div class="practice-item"><span class="practice-icon">📝</span><span>Use the <strong>Notes section</strong> to write your own observations</span></div>
+      <div class="practice-item"><span class="practice-icon">⟳</span><span>Use <strong>Revision Mode</strong> to flashcard-drill all vocabulary</span></div>
+      <div class="practice-item"><span class="practice-icon">🔥</span><span>Keep your <strong>streak alive</strong> — study every day!</span></div>
+    </div>
+  `;
+}
+
+function getWeekClass(week) {
+  return week === 2 ? 'week2' : week === 3 ? 'week3' : week === 4 ? 'week4' : '';
+}
+
+function renderDay(day) {
+  const isComplete = state.completedDays.includes(day.day);
+  const noteKey = 'day-' + day.day;
+  const noteVal = state.notes[noteKey] || '';
+
+  let vocabRows = day.vocab.map(v => `
+    <tr>
+      <td><span class="vocab-german">${v[0]}</span><span class="vocab-phonetic">[${v[1]}]</span></td>
+      <td>${v[2]}</td>
+      <td class="vocab-malayalam">${v[3]}</td>
+    </tr>
+  `).join('');
+
+  let grammarExamples = day.grammar.examples.map(e => `
+    <div class="grammar-example">
+      <div class="de">${e[0]}</div>
+      ${e[1] ? `<div>${e[1]}</div>` : ''}
+      ${e[2] ? `<div class="ml">${e[2]}</div>` : ''}
+    </div>
+  `).join('');
+
+  let sentenceCards = day.sentences.map((s, i) => `
+    <div class="sentence-card">
+      <span class="sentence-num">${i + 1}</span>
+      <div>
+        <div class="sentence-de">${s[0]}</div>
+        <div class="sentence-phonetic">[${s[1]}]</div>
+        <div class="sentence-ml">${s[2]} — ${s[3]}</div>
+      </div>
+    </div>
+  `).join('');
+
+  let practiceItems = day.practice.map(p => `
+    <div class="practice-item">
+      <span class="practice-icon">${p.substring(0, 2)}</span>
+      <span>${p.substring(2)}</span>
+    </div>
+  `).join('');
+
+  const prevDay = day.day > 1 ? day.day - 1 : null;
+  const nextDay = day.day < 30 ? day.day + 1 : null;
+
+  return `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div>
+        <span class="lesson-day ${getWeekClass(day.week)}" style="display:inline-block;margin-bottom:6px;">WEEK ${day.week} · DAY ${day.day}</span>
+        <h1 class="page-title">${day.title}</h1>
+        <p class="page-subtitle">${day.subtitle}</p>
+      </div>
+      <div class="lesson-check ${isComplete ? 'checked' : ''}" onclick="toggleDay(${day.day})" title="Mark complete" style="width:36px;height:36px;font-size:18px;">
+        ${isComplete ? '✓' : ''}
+      </div>
+    </div>
+
+    <!-- Video -->
+    <div class="video-embed">
+      <iframe src="${day.video}" allowfullscreen loading="lazy"></iframe>
+      <div class="video-caption">🎬 ${day.videoCaption}</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="section-tabs" id="tabs-${day.day}">
+      <div class="section-tab active" onclick="switchTab(${day.day}, 'vocab', this)">Vocabulary</div>
+      <div class="section-tab" onclick="switchTab(${day.day}, 'grammar', this)">Grammar</div>
+      <div class="section-tab" onclick="switchTab(${day.day}, 'sentences', this)">Sentences</div>
+      <div class="section-tab" onclick="switchTab(${day.day}, 'practice', this)">Practice</div>
+    </div>
+
+    <!-- Vocab -->
+    <div class="section-content active" id="sec-${day.day}-vocab">
+      <table class="vocab-table">
+        <thead><tr><th>German</th><th>English</th><th>Malayalam</th></tr></thead>
+        <tbody>${vocabRows}</tbody>
+      </table>
+    </div>
+
+    <!-- Grammar -->
+    <div class="section-content" id="sec-${day.day}-grammar">
+      <div class="grammar-box">
+        <div class="grammar-title">${day.grammar.title}</div>
+        <div class="grammar-rule">${day.grammar.rule}</div>
+      </div>
+      ${grammarExamples}
+    </div>
+
+    <!-- Sentences -->
+    <div class="section-content" id="sec-${day.day}-sentences">
+      ${sentenceCards}
+    </div>
+
+    <!-- Practice -->
+    <div class="section-content" id="sec-${day.day}-practice">
+      ${practiceItems}
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-area">
+      <div class="notes-label">📝 Your Notes for Day ${day.day}</div>
+      <textarea class="notes-textarea" placeholder="Write your observations, difficult words, things to review..." oninput="saveNote('${noteKey}', this.value)">${noteVal}</textarea>
+    </div>
+
+    <!-- Navigation -->
+    <div style="display:flex;justify-content:space-between;margin-top:24px;padding-top:16px;border-top:1px solid var(--border);">
+      ${prevDay ? `<button class="rev-btn" onclick="showPage('day-${prevDay}')">← Day ${prevDay}</button>` : '<div></div>'}
+      <button class="rev-btn primary" onclick="toggleDay(${day.day})">${isComplete ? 'Mark Incomplete' : 'Complete Day ✓'}</button>
+      ${nextDay ? `<button class="rev-btn" onclick="showPage('day-${nextDay}')">Day ${nextDay} →</button>` : '<div></div>'}
+    </div>
+  `;
+}
+
+function renderMistakes() {
+  let cards = COMMON_MISTAKES.map(m => `
+    <div class="mistake-card">
+      <div class="mistake-wrong">${m.wrong}</div>
+      <div class="mistake-right">${m.right}</div>
+      <div class="mistake-explain">${m.explain}</div>
+    </div>
+  `).join('');
+
+  return `
+    <h1 class="page-title">⚠ Common Mistakes</h1>
+    <p class="page-subtitle">Häufige Fehler — Mistakes that Indian learners make most often</p>
+    ${cards}
+  `;
+}
+
+function renderRevision() {
+  if (FLASHCARDS.length === 0) return '<p>No flashcards yet.</p>';
+  const card = FLASHCARDS[state.revisionIndex % FLASHCARDS.length];
+  return `
+    <h1 class="page-title">⟳ Revision Mode</h1>
+    <p class="page-subtitle">Flashcard drill — tap to reveal, then navigate. Card ${state.revisionIndex + 1} of ${FLASHCARDS.length}</p>
+
+    <div class="revision-card">
+      <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:12px;">DAY ${card.day}</div>
+      <div class="revision-german">${card.de}</div>
+      <div style="font-family:var(--font-mono);font-size:13px;color:var(--accent-secondary);margin-bottom:12px;">[${card.phonetic}]</div>
+      <div class="revision-answer" id="revAnswer" onclick="this.classList.add('show')">
+        <div style="font-weight:600;">${card.en}</div>
+        <div style="color:var(--text-muted);font-size:14px;margin-top:4px;">${card.ml}</div>
+      </div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:8px;">👆 Tap to reveal answer</div>
+    </div>
+
+    <div class="revision-controls">
+      <button class="rev-btn" onclick="revPrev()">← Previous</button>
+      <button class="rev-btn" onclick="revRandom()">🔀 Random</button>
+      <button class="rev-btn primary" onclick="revNext()">Next →</button>
+    </div>
+
+    <div class="progress-box" style="margin-top:20px;">
+      <div class="progress-label">
+        <span>REVISION PROGRESS</span>
+        <span>${state.revisionIndex + 1} / ${FLASHCARDS.length}</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" style="width:${((state.revisionIndex + 1) / FLASHCARDS.length * 100).toFixed(1)}%"></div>
+      </div>
+    </div>
+  `;
+}
+
+// ===== ACTIONS =====
+function toggleDay(dayNum) {
+  const idx = state.completedDays.indexOf(dayNum);
+  if (idx === -1) {
+    state.completedDays.push(dayNum);
+    updateStreak();
+  } else {
+    state.completedDays.splice(idx, 1);
+  }
+  save();
+  showPage(state.currentPage);
+}
+
+function saveNote(key, val) {
+  state.notes[key] = val;
+  save();
+}
+
+function switchTab(dayNum, tabName, el) {
+  const tabs = el.parentElement.querySelectorAll('.section-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  ['vocab','grammar','sentences','practice'].forEach(name => {
+    const sec = document.getElementById('sec-' + dayNum + '-' + name);
+    if (sec) sec.classList.toggle('active', name === tabName);
+  });
+}
+
+function revNext() {
+  state.revisionIndex = (state.revisionIndex + 1) % FLASHCARDS.length;
+  showPage('revision');
+}
+
+function revPrev() {
+  state.revisionIndex = (state.revisionIndex - 1 + FLASHCARDS.length) % FLASHCARDS.length;
+  showPage('revision');
+}
+
+function revRandom() {
+  state.revisionIndex = Math.floor(Math.random() * FLASHCARDS.length);
+  showPage('revision');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeIcon').textContent = isDark ? '☀' : '🌙';
+  document.getElementById('themeLabel').textContent = isDark ? 'Light' : 'Dark';
+  localStorage.setItem('de_theme', isDark ? 'light' : 'dark');
+}
+
+// ===== INIT =====
+(function init() {
+  const savedTheme = localStorage.getItem('de_theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('themeIcon').textContent = '🌙';
+    document.getElementById('themeLabel').textContent = 'Dark';
+  }
+  showPage('welcome');
+})();
+</script>
+</body>
+</html>

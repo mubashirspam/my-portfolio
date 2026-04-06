@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlawlessEra — Full Stack Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8A6B2A;
+    --bg: #060608;
+    --surface: #0D0D12;
+    --surface2: #13131A;
+    --border: #1E1E2A;
+    --border2: #2A2A3A;
+    --text: #F0EDE8;
+    --text-dim: #8A8898;
+    --text-muted: #4A4A5A;
+    --green: #2ECC71;
+    --blue: #4A9EFF;
+    --red: #FF6B6B;
+    --purple: #9B59B6;
+    --orange: #E67E22;
+    --teal: #1ABC9C;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  code, .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+  }
+
+  /* HEADER */
+  header {
+    padding: 60px 40px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .logo-mark {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800;
+    color: var(--bg);
+  }
+
+  .logo-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .header-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+  }
+
+  .header-title span {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-meta {
+    margin-top: 16px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .badge-gold { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+  .badge-green { background: rgba(46,204,113,0.1); color: var(--green); border: 1px solid rgba(46,204,113,0.2); }
+  .badge-blue { background: rgba(74,158,255,0.1); color: var(--blue); border: 1px solid rgba(74,158,255,0.2); }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6,6,8,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* MAIN */
+  main { max-width: 1400px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* SECTION */
+  section {
+    margin-top: 64px;
+    scroll-margin-top: 60px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  /* OVERVIEW GRID */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .overview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .overview-card:hover {
+    border-color: var(--gold-dim);
+    transform: translateY(-2px);
+  }
+
+  .overview-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0.6;
+  }
+
+  .oc-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .oc-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+  .oc-value { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+  .oc-sub { font-size: 0.78rem; color: var(--text-dim); margin-top: 4px; }
+
+  /* ARCHITECTURE FLOWCHART */
+  .arch-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    overflow-x: auto;
+  }
+
+  .flow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    min-width: 800px;
+  }
+
+  /* LAYER */
+  .layer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .layer-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    align-self: flex-start;
+    padding-left: 4px;
+  }
+
+  .layer-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* NODES */
+  .node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 14px 20px;
+    border-radius: 10px;
+    border: 1px solid;
+    min-width: 120px;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    position: relative;
+    cursor: default;
+    transition: transform 0.15s;
+  }
+
+  .node:hover { transform: translateY(-3px); }
+
+  .node-icon { font-size: 1.2rem; margin-bottom: 2px; }
+  .node-name { font-size: 0.75rem; font-weight: 700; }
+  .node-tech { font-size: 0.62rem; font-family: 'JetBrains Mono', monospace; opacity: 0.75; }
+
+  .node-user { background: rgba(74,158,255,0.08); border-color: rgba(74,158,255,0.3); color: var(--blue); }
+  .node-cdn { background: rgba(230,126,34,0.08); border-color: rgba(230,126,34,0.3); color: var(--orange); }
+  .node-fe { background: rgba(201,168,76,0.08); border-color: rgba(201,168,76,0.3); color: var(--gold); }
+  .node-api { background: rgba(155,89,182,0.08); border-color: rgba(155,89,182,0.3); color: var(--purple); }
+  .node-svc { background: rgba(26,188,156,0.08); border-color: rgba(26,188,156,0.3); color: var(--teal); }
+  .node-db { background: rgba(46,204,113,0.08); border-color: rgba(46,204,113,0.3); color: var(--green); }
+  .node-ext { background: rgba(255,107,107,0.08); border-color: rgba(255,107,107,0.3); color: var(--red); }
+  .node-infra { background: rgba(74,158,255,0.06); border-color: rgba(74,158,255,0.2); color: #7BB8FF; }
+
+  /* ARROW */
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 4px 0;
+  }
+
+  .arrow-line {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, var(--border2), var(--gold-dim));
+  }
+
+  .arrow-head {
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--gold-dim);
+  }
+
+  .arrow-label {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  /* DIVIDER LINE with label */
+  .flow-divider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+  }
+
+  .flow-divider::before,
+  .flow-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .flow-divider span {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* TABLES */
+  .tech-table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  thead {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .td-layer { color: var(--gold); font-weight: 700; font-size: 0.8rem; }
+  .td-tech { font-weight: 700; }
+  .td-desc { color: var(--text-dim); font-size: 0.8rem; }
+
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .dot-green { background: var(--green); }
+  .dot-blue { background: var(--blue); }
+  .dot-gold { background: var(--gold); }
+  .dot-purple { background: var(--purple); }
+  .dot-red { background: var(--red); }
+  .dot-teal { background: var(--teal); }
+  .dot-orange { background: var(--orange); }
+
+  /* DATA FLOW */
+  .flow-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .flow-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at bottom right, rgba(201,168,76,0.06), transparent);
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--bg);
+    margin-bottom: 12px;
+  }
+
+  .step-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+  .step-desc { font-size: 0.78rem; color: var(--text-dim); line-height: 1.6; }
+
+  .step-flow {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .step-flow-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .step-flow-item .arrow-r { color: var(--gold); font-size: 0.65rem; }
+
+  /* API ENDPOINTS */
+  .endpoints-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .endpoint-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .eg-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .eg-body { padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+
+  .endpoint-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--surface2);
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .method {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .method-get { background: rgba(46,204,113,0.15); color: var(--green); }
+  .method-post { background: rgba(74,158,255,0.15); color: var(--blue); }
+  .method-put { background: rgba(230,126,34,0.15); color: var(--orange); }
+  .method-delete { background: rgba(255,107,107,0.15); color: var(--red); }
+
+  .ep-path { color: var(--text-dim); flex: 1; }
+
+  /* INFRA */
+  .infra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .infra-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .ic-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .ic-icon { font-size: 1.2rem; }
+
+  .ic-items { display: flex; flex-direction: column; gap: 5px; }
+
+  .ic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 0.73rem;
+    color: var(--text-dim);
+  }
+
+  .ic-item::before {
+    content: '→';
+    color: var(--gold-dim);
+    font-size: 0.65rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* SCALING PHASES */
+  .phases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phase-card.active {
+    border-color: rgba(201,168,76,0.4);
+  }
+
+  .phase-card.active::before {
+    content: 'CURRENT';
+    position: absolute;
+    top: 12px; right: 12px;
+    font-size: 0.58rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .phase-num {
+    font-size: 3rem;
+    font-weight: 800;
+    opacity: 0.07;
+    position: absolute;
+    bottom: 10px; right: 20px;
+    line-height: 1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .phase-title { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+  .phase-traffic { font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--gold); margin-bottom: 14px; }
+
+  .phase-items { display: flex; flex-direction: column; gap: 6px; }
+
+  .phase-item {
+    display: flex;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  .phase-item-icon { flex-shrink: 0; }
+
+  .phase-cost {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .phase-cost-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace; }
+  .phase-cost-val { font-size: 1rem; font-weight: 700; color: var(--gold); }
+
+  /* SEO SECTION */
+  .seo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .seo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .seo-score {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .seo-num { font-size: 2.4rem; font-weight: 800; color: var(--gold); line-height: 1; }
+  .seo-unit { font-size: 0.8rem; color: var(--text-muted); }
+
+  .seo-label { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+  .seo-desc { font-size: 0.75rem; color: var(--text-dim); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 16px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .footer-brand { color: var(--gold); font-weight: 600; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    header, main, nav { padding-left: 20px; padding-right: 20px; }
+    .arch-diagram { padding: 20px 16px; }
+    .flow-container { min-width: 600px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section { animation: fadeUp 0.5s ease both; }
+  section:nth-child(2) { animation-delay: 0.1s; }
+  section:nth-child(3) { animation-delay: 0.15s; }
+  section:nth-child(4) { animation-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-row">
+    <div class="logo-mark">FE</div>
+    <div class="logo-name">FlawlessEra</div>
+  </div>
+  <h1 class="header-title">Full Stack <span>Architecture</span><br>& System Design</h1>
+  <div class="header-meta">
+    <span class="badge badge-gold">⚡ Scalable to 1L/day</span>
+    <span class="badge badge-green">✓ Production Ready</span>
+    <span class="badge badge-blue">2026 Stack</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#overview">Overview</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#frontend">Frontend</a>
+  <a href="#backend">Backend</a>
+  <a href="#database">Database</a>
+  <a href="#dataflow">Data Flow</a>
+  <a href="#api">API Design</a>
+  <a href="#infra">Infra & DevOps</a>
+  <a href="#scaling">Scaling Phases</a>
+  <a href="#seo">SEO & Speed</a>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="section-label">Project Overview</div>
+    <h2 class="section-title">FlawlessEra — Ecommerce Platform</h2>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="oc-icon">🛍️</div>
+        <div class="oc-label">Product Type</div>
+        <div class="oc-value">Fashion & Perfume</div>
+        <div class="oc-sub">D2C Ecommerce, India Market</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">⚡</div>
+        <div class="oc-label">Architecture</div>
+        <div class="oc-value">Microservices</div>
+        <div class="oc-sub">API-first, serverless-ready</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">📈</div>
+        <div class="oc-label">Target Scale</div>
+        <div class="oc-value">1,00,000 / day</div>
+        <div class="oc-sub">Visits at Phase 3</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">🌐</div>
+        <div class="oc-label">Platforms</div>
+        <div class="oc-value">Web + Mobile</div>
+        <div class="oc-sub">Next.js + Flutter apps</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">💳</div>
+        <div class="oc-label">Payments</div>
+        <div class="oc-value">Razorpay</div>
+        <div class="oc-sub">UPI, Cards, COD, EMI</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">☁️</div>
+        <div class="oc-label">Cloud</div>
+        <div class="oc-value">AWS + Cloudflare</div>
+        <div class="oc-sub">Multi-region, CDN-first</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE FLOWCHART -->
+  <section id="architecture">
+    <div class="section-label">System Architecture</div>
+    <h2 class="section-title">Full Stack Flow Diagram</h2>
+
+    <div class="arch-diagram">
+      <div class="flow-container">
+
+        <!-- USER LAYER -->
+        <div class="layer">
+          <div class="layer-label">👤 Client Layer</div>
+          <div class="layer-row">
+            <div class="node node-user"><div class="node-icon">🌐</div><div class="node-name">Web Browser</div><div class="node-tech">Next.js 15</div></div>
+            <div class="node node-user"><div class="node-icon">📱</div><div class="node-name">Mobile App</div><div class="node-tech">Flutter</div></div>
+            <div class="node node-user"><div class="node-icon">📦</div><div class="node-name">Admin Panel</div><div class="node-tech">admin.flawlessera.store</div></div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">HTTPS Request</div></div>
+
+        <!-- CDN LAYER -->
+        <div class="layer">
+          <div class="layer-label">🌍 Edge / CDN Layer</div>
+          <div class="layer-row">
+            <div class="node node-cdn"><div class="node-icon">🛡️</div><div class="node-name">Cloudflare</div><div class="node-tech">DDoS + WAF</div></div>
+            <div class="node node-cdn"><div class="node-icon">⚡</div><div class="node-name">CDN</div><div class="node-tech">Static Assets</div></div>
+            <div class="node node-cdn"><div class="node-icon">🖼️</div><div class="node-name">Cloudinary</div><div class="node-tech">Image CDN</div></div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">Cached / Dynamic</div></div>
+
+        <!-- FRONTEND LAYER -->
+        <div class="layer">
+          <div class="layer-label">🎨 Frontend Layer</div>
+          <div class="layer-row">
+            <div class="node node-fe"><div class="node-icon">🖥️</div><div class="node-name">Next.js 15</div><div class="node-tech">SSR + SSG + ISR</div></div>
+            <div class="node node-fe"><div class="node-icon">🎯</div><div class="node-name">App Router</div><div class="node-tech">Server Components</div></div>
+            <div class="node node-fe"><div class="node-icon">📊</div><div class="node-name">Zustand</div><div class="node-tech">Client State</div></div>
+            <div class="node node-fe"><div class="node-icon">🔍</div><div class="node-name">Typesense UI</div><div class="node-tech">Search Layer</div></div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">REST / tRPC API Call</div></div>
+
+        <div class="flow-divider"><span>API Gateway — rate limiting · auth · routing · logging</span></div>
+
+        <!-- API GATEWAY -->
+        <div class="layer">
+          <div class="layer-label">🚪 API Gateway</div>
+          <div class="layer-row">
+            <div class="node node-api"><div class="node-icon">🔐</div><div class="node-name">Auth Guard</div><div class="node-tech">Better Auth + JWT</div></div>
+            <div class="node node-api"><div class="node-icon">⏱️</div><div class="node-name">Rate Limiter</div><div class="node-tech">Upstash Redis</div></div>
+            <div class="node node-api"><div class="node-icon">📋</div><div class="node-name">Logger</div><div class="node-tech">Sentry + Axiom</div></div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">Route to Services</div></div>
+
+        <!-- MICROSERVICES -->
+        <div class="layer">
+          <div class="layer-label">⚙️ Microservices Layer</div>
+          <div class="layer-row">
+            <div class="node node-svc"><div class="node-icon">🛒</div><div class="node-name">Product Service</div><div class="node-tech">Catalog, Variants</div></div>
+            <div class="node node-svc"><div class="node-icon">📦</div><div class="node-name">Order Service</div><div class="node-tech">Checkout, Tracking</div></div>
+            <div class="node node-svc"><div class="node-icon">👤</div><div class="node-name">User Service</div><div class="node-tech">Auth, Profile, RBAC</div></div>
+            <div class="node node-svc"><div class="node-icon">💳</div><div class="node-name">Payment Service</div><div class="node-tech">Razorpay Gateway</div></div>
+            <div class="node node-svc"><div class="node-icon">🔔</div><div class="node-name">Notify Service</div><div class="node-tech">Email, SMS, Push</div></div>
+            <div class="node node-svc"><div class="node-icon">🔍</div><div class="node-name">Search Service</div><div class="node-tech">Typesense Index</div></div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">Read / Write</div></div>
+
+        <!-- DATABASE LAYER -->
+        <div class="layer">
+          <div class="layer-label">🗄️ Data Layer</div>
+          <div class="layer-row">
+            <div class="node node-db"><div class="node-icon">🐘</div><div class="node-name">PostgreSQL</div><div class="node-tech">Neon Serverless</div></div>
+            <div class="node node-db"><div class="node-icon">⚡</div><div class="node-name">Redis</div><div class="node-tech">Upstash (Cache)</div></div>
+            <div class="node node-db"><div class="node-icon">🔎</div><div class="node-name">Typesense</div><div class="node-tech">Product Search</div></div>
+            <div class="node node-db"><div class="node-icon">📁</div><div class="node-name">AWS S3</div><div class="node-tech">Media Storage</div></div>
+            <div class="node node-db"><div class="node-icon">📊</div><div class="node-name">PostHog</div><div class="node-tech">Analytics</div></div>
+          </div>
+        </div>
+
+        <div class="arrow"><div class="arrow-line"></div><div class="arrow-head"></div><div class="arrow-label">Webhook / Event</div></div>
+
+        <!-- EXTERNAL SERVICES -->
+        <div class="layer">
+          <div class="layer-label">🔌 External Services</div>
+          <div class="layer-row">
+            <div class="node node-ext"><div class="node-icon">💰</div><div class="node-name">Razorpay</div><div class="node-tech">Payments</div></div>
+            <div class="node node-ext"><div class="node-icon">📧</div><div class="node-name">Resend</div><div class="node-tech">Transactional Email</div></div>
+            <div class="node node-ext"><div class="node-icon">📱</div><div class="node-name">MSG91</div><div class="node-tech">OTP / SMS</div></div>
+            <div class="node node-ext"><div class="node-icon">💬</div><div class="node-name">WhatsApp API</div><div class="node-tech">Order Notify</div></div>
+            <div class="node node-ext"><div class="node-icon">🚚</div><div class="node-name">Shiprocket</div><div class="node-tech">Logistics</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FRONTEND -->
+  <section id="frontend">
+    <div class="section-label">Frontend Architecture</div>
+    <h2 class="section-title">Web & Mobile Layer</h2>
+
+    <div class="tech-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Technology</th>
+            <th>Purpose</th>
+            <th>Why in 2026</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-layer">Framework</td>
+            <td class="td-tech"><span class="dot dot-gold"></span>Next.js 15</td>
+            <td class="td-desc">Core web framework</td>
+            <td class="td-desc">App Router, Server Components, ISR — best SEO + performance combo</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Language</td>
+            <td class="td-tech"><span class="dot dot-blue"></span>TypeScript 5</td>
+            <td class="td-desc">Type safety across FE+BE</td>
+            <td class="td-desc">Catches bugs at compile time, scales with team</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Styling</td>
+            <td class="td-tech"><span class="dot dot-teal"></span>Tailwind CSS v4</td>
+            <td class="td-desc">Utility-first CSS</td>
+            <td class="td-desc">Tiny bundle, consistent design system</td>
+          </tr>
+          <tr>
+            <td class="td-layer">UI Components</td>
+            <td class="td-tech"><span class="dot dot-purple"></span>shadcn/ui</td>
+            <td class="td-desc">Accessible components</td>
+            <td class="td-desc">Copy-paste, fully customizable, no bloat</td>
+          </tr>
+          <tr>
+            <td class="td-layer">State (Global)</td>
+            <td class="td-tech"><span class="dot dot-green"></span>Zustand</td>
+            <td class="td-desc">Cart, UI state</td>
+            <td class="td-desc">Simpler than Redux, perfect for ecommerce cart</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Data Fetching</td>
+            <td class="td-tech"><span class="dot dot-blue"></span>TanStack Query v5</td>
+            <td class="td-desc">Server state management</td>
+            <td class="td-desc">Cache, refetch, optimistic updates out of box</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Animation</td>
+            <td class="td-tech"><span class="dot dot-gold"></span>Framer Motion</td>
+            <td class="td-desc">Page transitions, product reveals</td>
+            <td class="td-desc">Best DX for React animations</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Forms</td>
+            <td class="td-tech"><span class="dot dot-red"></span>React Hook Form + Zod</td>
+            <td class="td-desc">Checkout, auth forms</td>
+            <td class="td-desc">Schema validation shared with backend</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Images</td>
+            <td class="td-tech"><span class="dot dot-orange"></span>next/image + Cloudinary</td>
+            <td class="td-desc">Product images, optimization</td>
+            <td class="td-desc">Auto WebP, lazy load, responsive sizes</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Search UI</td>
+            <td class="td-tech"><span class="dot dot-teal"></span>Typesense InstantSearch</td>
+            <td class="td-desc">Product search, filters</td>
+            <td class="td-desc">&lt; 50ms results, faceted filtering</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Mobile App</td>
+            <td class="td-tech"><span class="dot dot-blue"></span>Flutter (your stack)</td>
+            <td class="td-desc">iOS + Android</td>
+            <td class="td-desc">Clean Architecture + BLoC — your existing expertise</td>
+          </tr>
+          <tr>
+            <td class="td-layer">PWA</td>
+            <td class="td-tech"><span class="dot dot-green"></span>next-pwa</td>
+            <td class="td-desc">Offline support</td>
+            <td class="td-desc">Install on home screen, works offline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- BACKEND -->
+  <section id="backend">
+    <div class="section-label">Backend Architecture</div>
+    <h2 class="section-title">API & Services Layer</h2>
+
+    <div class="tech-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Technology</th>
+            <th>Responsibility</th>
+            <th>Endpoint Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-layer">API Runtime</td>
+            <td class="td-tech"><span class="dot dot-green"></span>Node.js + Hono.js</td>
+            <td class="td-desc">Edge-compatible HTTP server</td>
+            <td><code>/api/v1/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Auth Service</td>
+            <td class="td-tech"><span class="dot dot-blue"></span>Better Auth</td>
+            <td class="td-desc">OTP login, sessions, RBAC (admin/user/vendor)</td>
+            <td><code>/api/auth/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Product Service</td>
+            <td class="td-tech"><span class="dot dot-gold"></span>Hono + PostgreSQL</td>
+            <td class="td-desc">Catalog, variants, inventory, categories</td>
+            <td><code>/api/products/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Order Service</td>
+            <td class="td-tech"><span class="dot dot-teal"></span>Hono + PostgreSQL</td>
+            <td class="td-desc">Cart, checkout, order lifecycle, tracking</td>
+            <td><code>/api/orders/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Payment Service</td>
+            <td class="td-tech"><span class="dot dot-purple"></span>Razorpay SDK</td>
+            <td class="td-desc">Create order, verify, webhook, refund</td>
+            <td><code>/api/payments/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Notification Service</td>
+            <td class="td-tech"><span class="dot dot-orange"></span>Resend + MSG91 + WA</td>
+            <td class="td-desc">Email, OTP, WhatsApp order alerts</td>
+            <td><code>/api/notify/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Admin Service</td>
+            <td class="td-tech"><span class="dot dot-red"></span>tRPC</td>
+            <td class="td-desc">Dashboard APIs, reports, inventory manage</td>
+            <td><code>/trpc/*</code></td>
+          </tr>
+          <tr>
+            <td class="td-layer">Queue/Jobs</td>
+            <td class="td-tech"><span class="dot dot-blue"></span>BullMQ + Redis</td>
+            <td class="td-desc">Email queue, webhook retry, image processing</td>
+            <td>Background workers</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Type Safety</td>
+            <td class="td-tech"><span class="dot dot-gold"></span>Zod</td>
+            <td class="td-desc">Shared schemas FE↔BE, input validation</td>
+            <td>All routes</td>
+          </tr>
+          <tr>
+            <td class="td-layer">ORM</td>
+            <td class="td-tech"><span class="dot dot-green"></span>Drizzle ORM</td>
+            <td class="td-desc">Type-safe SQL queries, migrations</td>
+            <td>All DB access</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DATABASE -->
+  <section id="database">
+    <div class="section-label">Data Layer</div>
+    <h2 class="section-title">Database Architecture</h2>
+
+    <div class="tech-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Store</th>
+            <th>Technology</th>
+            <th>What Lives Here</th>
+            <th>Scaling Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-layer">Primary DB</td>
+            <td class="td-tech"><span class="dot dot-blue"></span>PostgreSQL (Neon)</td>
+            <td class="td-desc">Users, orders, products, addresses, payments</td>
+            <td class="td-desc">Serverless autoscale, read replicas, connection pooling</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Cache Layer</td>
+            <td class="td-tech"><span class="dot dot-red"></span>Redis (Upstash)</td>
+            <td class="td-desc">Sessions, cart, product cache, rate limits</td>
+            <td class="td-desc">Serverless, edge-native, TTL auto-expiry</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Search Index</td>
+            <td class="td-tech"><span class="dot dot-gold"></span>Typesense</td>
+            <td class="td-desc">Product search, filters, autocomplete</td>
+            <td class="td-desc">Self-hosted or Typesense Cloud, sync from PG</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Media Storage</td>
+            <td class="td-tech"><span class="dot dot-orange"></span>AWS S3 / Cloudflare R2</td>
+            <td class="td-desc">Product images, videos, receipts, exports</td>
+            <td class="td-desc">R2 = no egress cost, global CDN via Cloudflare</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Analytics</td>
+            <td class="td-tech"><span class="dot dot-purple"></span>PostHog</td>
+            <td class="td-desc">User events, funnels, conversions, heatmaps</td>
+            <td class="td-desc">Self-host option, GDPR compliant</td>
+          </tr>
+          <tr>
+            <td class="td-layer">Logs</td>
+            <td class="td-tech"><span class="dot dot-teal"></span>Axiom / Better Stack</td>
+            <td class="td-desc">API logs, error traces, performance</td>
+            <td class="td-desc">Structured logging, query by trace ID</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DATA FLOW -->
+  <section id="dataflow">
+    <div class="section-label">Request Lifecycle</div>
+    <h2 class="section-title">End-to-End Data Flow</h2>
+
+    <div class="flow-steps">
+
+      <div class="flow-step">
+        <div class="step-num">1</div>
+        <div class="step-title">User Visits Product Page</div>
+        <div class="step-desc">Browser hits flawlessera.store/products/[slug]</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> Cloudflare edge receives request</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Check CDN cache (static HTML)</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Cache HIT → serve in &lt; 50ms</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Cache MISS → Next.js SSR</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Server Side Render (SSR)</div>
+        <div class="step-desc">Next.js server component fetches product data</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> Check Redis cache first</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Cache MISS → query PostgreSQL</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Drizzle ORM typed query</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Store in Redis (TTL 5 min)</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Return full HTML to browser</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">3</div>
+        <div class="step-title">User Searches Products</div>
+        <div class="step-desc">Instant search as user types</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> Typesense InstantSearch UI</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Query hits Typesense directly</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Results in &lt; 50ms with filters</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> No PostgreSQL hit needed</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Add to Cart</div>
+        <div class="step-desc">Anon or logged-in cart management</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> Zustand updates local state instantly</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> API call → Order Service</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Cart persisted in Redis (session)</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Anon cart → merge on login</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">5</div>
+        <div class="step-title">Checkout + OTP Login</div>
+        <div class="step-desc">Anonymous phone-OTP flow (no forced signup)</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> Enter phone → MSG91 sends OTP</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Verify OTP → Better Auth session</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Silent user creation in PostgreSQL</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Cart merged → checkout continues</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">6</div>
+        <div class="step-title">Payment Processing</div>
+        <div class="step-desc">Razorpay integration flow</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> Create Razorpay order (backend)</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Open Razorpay checkout UI</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> User pays (UPI/Card/COD)</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Razorpay webhook → verify sig</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Order status updated in PG</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">7</div>
+        <div class="step-title">Post-Payment Notifications</div>
+        <div class="step-desc">Multi-channel order confirmation</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> BullMQ job triggered</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Resend → email confirmation</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> MSG91 → SMS confirmation</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> WhatsApp API → order details</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Shiprocket → shipment created</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="step-num">8</div>
+        <div class="step-title">Admin Dashboard</div>
+        <div class="step-desc">admin.flawlessera.store</div>
+        <div class="step-flow">
+          <div class="step-flow-item"><span class="arrow-r">→</span> tRPC typed API calls</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> RBAC — admin/vendor roles</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Product CRUD, inventory</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Order management, exports</div>
+          <div class="step-flow-item"><span class="arrow-r">→</span> Analytics via PostHog embed</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- API DESIGN -->
+  <section id="api">
+    <div class="section-label">API Design</div>
+    <h2 class="section-title">REST Endpoints Structure</h2>
+
+    <div class="endpoints-grid">
+
+      <div class="endpoint-group">
+        <div class="eg-header"><span class="dot dot-gold"></span> Products</div>
+        <div class="eg-body">
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/products</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/products/:slug</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/products (admin)</span></div>
+          <div class="endpoint-item"><span class="method method-put">PUT</span><span class="ep-path">/api/products/:id (admin)</span></div>
+          <div class="endpoint-item"><span class="method method-delete">DEL</span><span class="ep-path">/api/products/:id (admin)</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/products/variants/:id</span></div>
+        </div>
+      </div>
+
+      <div class="endpoint-group">
+        <div class="eg-header"><span class="dot dot-teal"></span> Orders</div>
+        <div class="eg-body">
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/cart/add</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/cart/:sessionId</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/checkout</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/orders/:id</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/orders/user/:userId</span></div>
+          <div class="endpoint-item"><span class="method method-put">PUT</span><span class="ep-path">/api/orders/:id/status</span></div>
+        </div>
+      </div>
+
+      <div class="endpoint-group">
+        <div class="eg-header"><span class="dot dot-blue"></span> Auth</div>
+        <div class="eg-body">
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/auth/otp/send</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/auth/otp/verify</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/auth/logout</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/auth/session</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/users/me</span></div>
+          <div class="endpoint-item"><span class="method method-put">PUT</span><span class="ep-path">/api/users/me</span></div>
+        </div>
+      </div>
+
+      <div class="endpoint-group">
+        <div class="eg-header"><span class="dot dot-purple"></span> Payments</div>
+        <div class="eg-body">
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/payments/create</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/payments/verify</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/webhooks/razorpay</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/payments/refund</span></div>
+        </div>
+      </div>
+
+      <div class="endpoint-group">
+        <div class="eg-header"><span class="dot dot-orange"></span> Search</div>
+        <div class="eg-body">
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/search?q=&filters=</span></div>
+          <div class="endpoint-item"><span class="method method-get">GET</span><span class="ep-path">/api/search/suggest?q=</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/search/reindex (admin)</span></div>
+        </div>
+      </div>
+
+      <div class="endpoint-group">
+        <div class="eg-header"><span class="dot dot-red"></span> Webhooks</div>
+        <div class="eg-body">
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/webhooks/razorpay</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/webhooks/shiprocket</span></div>
+          <div class="endpoint-item"><span class="method method-post">POST</span><span class="ep-path">/api/webhooks/whatsapp</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INFRA & DEVOPS -->
+  <section id="infra">
+    <div class="section-label">Infrastructure & DevOps</div>
+    <h2 class="section-title">Cloud & Deployment</h2>
+
+    <div class="infra-grid">
+
+      <div class="infra-card">
+        <div class="ic-header"><span class="ic-icon">🌐</span> Hosting</div>
+        <div class="ic-items">
+          <div class="ic-item">Vercel — Next.js frontend (auto-scaling)</div>
+          <div class="ic-item">Railway — Node.js backend services</div>
+          <div class="ic-item">Cloudflare Pages — Admin subdomain</div>
+          <div class="ic-item">Vercel Edge — API routes at edge</div>
+        </div>
+      </div>
+
+      <div class="infra-card">
+        <div class="ic-header"><span class="ic-icon">🛡️</span> Security</div>
+        <div class="ic-items">
+          <div class="ic-item">Cloudflare WAF — DDoS, bot protection</div>
+          <div class="ic-item">JWT + HTTP-only cookies (sessions)</div>
+          <div class="ic-item">Zod schema validation all inputs</div>
+          <div class="ic-item">RBAC — admin/user/vendor roles</div>
+          <div class="ic-item">Razorpay webhook HMAC signature verify</div>
+        </div>
+      </div>
+
+      <div class="infra-card">
+        <div class="ic-header"><span class="ic-icon">🔄</span> CI/CD Pipeline</div>
+        <div class="ic-items">
+          <div class="ic-item">GitHub → push to main</div>
+          <div class="ic-item">GitHub Actions → run tests</div>
+          <div class="ic-item">Preview deploy on PR (Vercel)</div>
+          <div class="ic-item">Auto deploy on merge to main</div>
+          <div class="ic-item">Neon DB branches for staging</div>
+        </div>
+      </div>
+
+      <div class="infra-card">
+        <div class="ic-header"><span class="ic-icon">📊</span> Monitoring</div>
+        <div class="ic-items">
+          <div class="ic-item">Sentry — error tracking, alerts</div>
+          <div class="ic-item">Better Stack — uptime monitoring</div>
+          <div class="ic-item">PostHog — product analytics</div>
+          <div class="ic-item">Axiom — structured API logs</div>
+          <div class="ic-item">Vercel Analytics — Core Web Vitals</div>
+        </div>
+      </div>
+
+      <div class="infra-card">
+        <div class="ic-header"><span class="ic-icon">⚡</span> Performance</div>
+        <div class="ic-items">
+          <div class="ic-item">Next.js ISR — static pages, revalidate</div>
+          <div class="ic-item">Redis cache — product & category data</div>
+          <div class="ic-item">Cloudflare CDN — global edge cache</div>
+          <div class="ic-item">Cloudinary auto-optimize images</div>
+          <div class="ic-item">DB connection pooling (Neon)</div>
+        </div>
+      </div>
+
+      <div class="infra-card">
+        <div class="ic-header"><span class="ic-icon">🗂️</span> Environments</div>
+        <div class="ic-items">
+          <div class="ic-item">development — local with .env.local</div>
+          <div class="ic-item">staging — PR previews, Neon branch DB</div>
+          <div class="ic-item">production — flawlessera.store</div>
+          <div class="ic-item">admin — admin.flawlessera.store</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCALING PHASES -->
+  <section id="scaling">
+    <div class="section-label">Growth Strategy</div>
+    <h2 class="section-title">Scaling Phases</h2>
+
+    <div class="phases">
+
+      <div class="phase-card active">
+        <div class="phase-num">1</div>
+        <div class="phase-title">Phase 1 — Launch</div>
+        <div class="phase-traffic">0 → 10,000 visits/day</div>
+        <div class="phase-items">
+          <div class="phase-item"><span class="phase-item-icon">✅</span> Next.js 15 on Vercel</div>
+          <div class="phase-item"><span class="phase-item-icon">✅</span> Neon Free / Pro tier</div>
+          <div class="phase-item"><span class="phase-item-icon">✅</span> Upstash Redis (serverless)</div>
+          <div class="phase-item"><span class="phase-item-icon">✅</span> Cloudinary free tier</div>
+          <div class="phase-item"><span class="phase-item-icon">✅</span> Railway backend</div>
+          <div class="phase-item"><span class="phase-item-icon">✅</span> Razorpay live</div>
+        </div>
+        <div class="phase-cost">
+          <div class="phase-cost-label">Monthly Cost</div>
+          <div class="phase-cost-val">₹8–12K</div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">2</div>
+        <div class="phase-title">Phase 2 — Growth</div>
+        <div class="phase-traffic">10K → 50,000 visits/day</div>
+        <div class="phase-items">
+          <div class="phase-item"><span class="phase-item-icon">⬆️</span> Vercel Pro plan</div>
+          <div class="phase-item"><span class="phase-item-icon">⬆️</span> Neon Pro + read replicas</div>
+          <div class="phase-item"><span class="phase-item-icon">⬆️</span> Typesense Cloud (search)</div>
+          <div class="phase-item"><span class="phase-item-icon">⬆️</span> Cloudflare Pro (WAF)</div>
+          <div class="phase-item"><span class="phase-item-icon">⬆️</span> PostHog analytics</div>
+          <div class="phase-item"><span class="phase-item-icon">🆕</span> Flutter mobile app launch</div>
+        </div>
+        <div class="phase-cost">
+          <div class="phase-cost-label">Monthly Cost</div>
+          <div class="phase-cost-val">₹25–40K</div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-num">3</div>
+        <div class="phase-title">Phase 3 — Scale</div>
+        <div class="phase-traffic">50K → 1,00,000 visits/day</div>
+        <div class="phase-items">
+          <div class="phase-item"><span class="phase-item-icon">🚀</span> Migrate to AWS ECS (backend)</div>
+          <div class="phase-item"><span class="phase-item-icon">🚀</span> AWS RDS PostgreSQL</div>
+          <div class="phase-item"><span class="phase-item-icon">🚀</span> ElastiCache (Redis cluster)</div>
+          <div class="phase-item"><span class="phase-item-icon">🚀</span> Cloudflare Enterprise</div>
+          <div class="phase-item"><span class="phase-item-icon">🚀</span> Kubernetes orchestration</div>
+          <div class="phase-item"><span class="phase-item-icon">🚀</span> Multi-region deployment</div>
+        </div>
+        <div class="phase-cost">
+          <div class="phase-cost-label">Monthly Cost</div>
+          <div class="phase-cost-val">₹1–1.5L</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEO & SPEED -->
+  <section id="seo">
+    <div class="section-label">Performance & SEO</div>
+    <h2 class="section-title">Speed & Search Optimization</h2>
+
+    <div class="seo-grid">
+
+      <div class="seo-card">
+        <div class="seo-score"><div class="seo-num">95+</div><div class="seo-unit">/100</div></div>
+        <div class="seo-label">Lighthouse Score</div>
+        <div class="seo-desc">Next.js SSG + Cloudflare CDN delivers pre-rendered HTML. No JS-heavy first paint.</div>
+      </div>
+
+      <div class="seo-card">
+        <div class="seo-score"><div class="seo-num">&lt;1.5</div><div class="seo-unit">sec LCP</div></div>
+        <div class="seo-label">Largest Contentful Paint</div>
+        <div class="seo-desc">Cloudinary auto-serves WebP/AVIF images with correct sizes. next/image handles lazy loading.</div>
+      </div>
+
+      <div class="seo-card">
+        <div class="seo-score"><div class="seo-num">&lt;50</div><div class="seo-unit">ms search</div></div>
+        <div class="seo-label">Product Search Speed</div>
+        <div class="seo-desc">Typesense returns results as user types. No PostgreSQL hit on search queries.</div>
+      </div>
+
+      <div class="seo-card">
+        <div class="seo-score"><div class="seo-num">99.9</div><div class="seo-unit">% uptime</div></div>
+        <div class="seo-label">Availability Target</div>
+        <div class="seo-desc">Cloudflare absorbs traffic spikes. Vercel auto-scales. Redis cache protects DB from overload.</div>
+      </div>
+
+      <div class="seo-card">
+        <div class="seo-score"><div class="seo-num">SSR</div><div class="seo-unit">+ISR</div></div>
+        <div class="seo-label">SEO Rendering Strategy</div>
+        <div class="seo-desc">Category & product pages use ISR (revalidate every 5 min). Blog/static pages use SSG. Cart/checkout = CSR only.</div>
+      </div>
+
+      <div class="seo-card">
+        <div class="seo-score"><div class="seo-num">OG</div><div class="seo-unit">+JSON-LD</div></div>
+        <div class="seo-label">Structured Data</div>
+        <div class="seo-desc">Product schema (JSON-LD) for Google Shopping. Open Graph for WhatsApp/Instagram share previews.</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>
+    <span class="footer-brand">FlawlessEra Architecture</span> — Built for 1L visits/day
+  </div>
+  <div>Next.js 15 · Hono · PostgreSQL · Redis · Typesense · AWS · Cloudflare</div>
+  <div>2026 Stack · Scalable · SEO-first · India Market</div>
+</footer>
+
+</body>
+</html>

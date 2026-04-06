@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnForge AI — Generate Your Learning Path</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05050a;
+  --surface: #0d0d17;
+  --surface2: #12121f;
+  --border: #1c1c2e;
+  --border2: #252540;
+  --accent: #6c63ff;
+  --accent-glow: rgba(108,99,255,0.3);
+  --accent2: #ff6584;
+  --accent3: #43e8d8;
+  --accent4: #ffd166;
+  --text: #eeeef5;
+  --muted: #5a5a7a;
+  --muted2: #3a3a5a;
+  --green: #06d6a0;
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Cabinet Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid rgba(108,99,255,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.15s ease;
+}
+
+/* BG GRID */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* GLOW ORBS */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-1 { width:600px;height:600px;background:rgba(108,99,255,0.08);top:-200px;left:-200px; }
+.orb-2 { width:400px;height:400px;background:rgba(255,101,132,0.06);bottom:-100px;right:-100px; }
+.orb-3 { width:300px;height:300px;background:rgba(67,232,216,0.05);top:50%;left:50%;transform:translate(-50%,-50%); }
+
+/* ═══ LANDING PAGE ═══ */
+#landingPage {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5,5,10,0.8);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.5px;
+}
+
+.logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--accent);
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+}
+.nav-cta:hover { background: #7c75ff !important; transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 60px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(108,99,255,0.12);
+  border: 1px solid rgba(108,99,255,0.3);
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  margin-bottom: 32px;
+  animation: fadeSlideDown 0.6s ease both;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+@keyframes fadeSlideDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeSlideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+  animation: fadeSlideUp 0.7s 0.1s ease both;
+}
+
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  animation: fadeSlideUp 0.7s 0.2s ease both;
+}
+
+/* MAIN INPUT BOX */
+.generate-box {
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 8px 8px 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 0 60px rgba(108,99,255,0.1);
+  animation: fadeSlideUp 0.7s 0.3s ease both;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.generate-box:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 80px rgba(108,99,255,0.2);
+}
+
+.generate-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.generate-box input::placeholder { color: var(--muted); }
+
+.gen-btn {
+  background: linear-gradient(135deg, var(--accent), #8b83ff);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.gen-btn:hover { transform: scale(1.03); box-shadow: 0 8px 30px rgba(108,99,255,0.4); }
+.gen-btn:active { transform: scale(0.98); }
+
+.gen-btn svg { width:18px;height:18px; }
+
+.hero-examples {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  animation: fadeSlideUp 0.7s 0.4s ease both;
+}
+
+.ex-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.ex-pill {
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--surface);
+}
+
+.ex-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(108,99,255,0.08);
+}
+
+/* FEATURES ROW */
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  width: 100%;
+  margin-top: 64px;
+  animation: fadeIn 0.8s 0.5s ease both;
+}
+
+.feat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.feat-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+
+.feat-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.feat-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.feat-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ═══ APP PAGE ═══ */
+#appPage {
+  display: none;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#appPage.visible { display: flex; }
+
+/* APP HEADER */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,5,10,0.9);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-title-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.back-btn:hover { border-color: var(--border2); color: var(--text); }
+
+.app-topic-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.app-topic-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: rgba(108,99,255,0.15);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(108,99,255,0.2);
+}
+
+.app-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s;
+  color: var(--text);
+}
+
+.icon-btn:hover { border-color: var(--accent); }
+
+/* PROGRESS BAR */
+.global-progress {
+  height: 3px;
+  background: var(--border);
+}
+
+.global-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+/* APP TABS */
+.app-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  overflow-x: auto;
+}
+
+.app-tab {
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-tab:hover { color: var(--text); }
+.app-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.tab-count {
+  font-size: 10px;
+  background: var(--border2);
+  padding: 2px 7px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+}
+
+.app-tab.active .tab-count {
+  background: rgba(108,99,255,0.2);
+  color: var(--accent);
+}
+
+/* APP BODY */
+.app-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.app-panel { display: none; height: 100%; }
+.app-panel.active { display: block; }
+
+/* ═══ LOADING STATE ═══ */
+#loadingState {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(5,5,10,0.95);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+  backdrop-filter: blur(20px);
+}
+
+#loadingState.visible { display: flex; }
+
+.loading-logo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.loading-bar-wrap {
+  width: 300px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  border-radius: 2px;
+  animation: loadingAnim 2.5s ease infinite;
+}
+
+@keyframes loadingAnim {
+  0% { width: 0%; margin-left: 0%; }
+  50% { width: 60%; margin-left: 20%; }
+  100% { width: 0%; margin-left: 100%; }
+}
+
+.loading-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.loading-step {
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+.loading-step.active { opacity: 1; color: var(--text); }
+.loading-step.done { opacity: 0.4; color: var(--green); }
+.loading-step.done::before { content: '✓ '; }
+.loading-step.active::before { content: '→ '; color: var(--accent); }
+
+/* ═══ COURSE PANEL ═══ */
+#panelCourse {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  height: calc(100vh - 120px);
+  overflow: hidden;
+}
+
+.course-sidebar {
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 20px;
+  background: var(--surface);
+}
+
+.course-sidebar::-webkit-scrollbar { width: 4px; }
+.course-sidebar::-webkit-scrollbar-track { background: transparent; }
+.course-sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.sidebar-header {
+  margin-bottom: 16px;
+}
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.sidebar-progress-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.sidebar-progress-wrap {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.sidebar-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  transition: width 0.4s;
+}
+
+.phase-block {
+  margin-bottom: 8px;
+}
+
+.phase-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  color: var(--text);
+}
+
+.phase-btn:hover { border-color: var(--border2); background: var(--surface2); }
+.phase-btn.active-phase { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+
+.phase-num-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: var(--border);
+  padding: 3px 7px;
+  border-radius: 5px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.phase-btn.active-phase .phase-num-badge {
+  background: rgba(108,99,255,0.2);
+  color: var(--accent);
+}
+
+.phase-btn-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.phase-check {
+  font-size: 12px;
+  color: var(--green);
+}
+
+.lesson-list-side {
+  list-style: none;
+  padding: 6px 0 6px 8px;
+  display: none;
+}
+
+.phase-block.open .lesson-list-side { display: block; }
+
+.lesson-side-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+}
+
+.lesson-side-item:hover { background: var(--surface2); }
+.lesson-side-item.active-lesson { background: rgba(108,99,255,0.1); border-color: rgba(108,99,255,0.2); }
+
+.lesson-check-box {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--border2);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.lesson-side-item.done .lesson-check-box {
+  background: var(--green);
+  border-color: var(--green);
+  color: #000;
+}
+
+.lesson-side-text {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.lesson-side-item.active-lesson .lesson-side-text { color: var(--text); }
+.lesson-side-item.done .lesson-side-text { text-decoration: line-through; opacity: 0.6; }
+
+/* COURSE MAIN */
+.course-main {
+  overflow-y: auto;
+  padding: 40px;
+}
+
+.course-main::-webkit-scrollbar { width: 4px; }
+.course-main::-webkit-scrollbar-track { background: transparent; }
+.course-main::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.lesson-view {
+  max-width: 720px;
+}
+
+.lesson-breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lesson-view-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.lesson-meta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.lesson-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+}
+
+.lesson-badge.type-video { background: rgba(255,101,132,0.1); color: var(--accent2); border-color: rgba(255,101,132,0.2); }
+.lesson-badge.type-doc { background: rgba(67,232,216,0.1); color: var(--accent3); border-color: rgba(67,232,216,0.2); }
+.lesson-badge.type-practice { background: rgba(6,214,160,0.1); color: var(--green); border-color: rgba(6,214,160,0.2); }
+.lesson-badge.type-concept { background: rgba(255,209,102,0.1); color: var(--accent4); border-color: rgba(255,209,102,0.2); }
+
+.lesson-content-body {
+  color: #c0c0d0;
+  line-height: 1.85;
+  font-size: 15px;
+}
+
+.lesson-content-body h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 28px 0 12px;
+}
+
+.lesson-content-body p { margin-bottom: 16px; }
+
+.lesson-content-body ul {
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.lesson-content-body ul li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+}
+
+.lesson-content-body ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.code-block {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--accent3);
+  margin: 16px 0;
+  overflow-x: auto;
+}
+
+.lesson-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #8b83ff);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(108,99,255,0.3); }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ═══ ROADMAP PANEL ═══ */
+#panelRoadmap {
+  padding: 32px;
+  overflow-y: auto;
+  height: calc(100vh - 120px);
+}
+
+#panelRoadmap::-webkit-scrollbar { width: 4px; }
+#panelRoadmap::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.roadmap-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.roadmap-title-area {
+  margin-bottom: 32px;
+}
+
+.roadmap-heading {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.roadmap-sub {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* VISUAL ROADMAP */
+.roadmap-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.roadmap-visual::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 40px;
+  bottom: 40px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+.rm-node {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  padding-bottom: 0;
+}
+
+.rm-node-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 58px;
+}
+
+.rm-circle {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 2px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.rm-node:hover .rm-circle {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(108,99,255,0.3);
+}
+
+.rm-line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  min-height: 32px;
+}
+
+.rm-content {
+  flex: 1;
+  padding: 12px 0 32px;
+}
+
+.rm-phase-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.rm-node-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.rm-node-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.rm-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rm-skill {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.rm-skill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ═══ MINDMAP PANEL ═══ */
+#panelMindmap {
+  height: calc(100vh - 120px);
+  overflow: hidden;
+  position: relative;
+}
+
+.mindmap-canvas {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.mindmap-wrap {
+  position: relative;
+  min-width: 900px;
+  min-height: 600px;
+}
+
+/* SVG connections */
+.mindmap-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mm-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 20px;
+  padding: 20px 28px;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 0 60px rgba(108,99,255,0.4);
+}
+
+.mm-center-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+.mm-center-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+}
+
+.mm-node {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 5;
+  max-width: 160px;
+  text-align: center;
+}
+
+.mm-node:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(108,99,255,0.2);
+  transform: scale(1.05);
+}
+
+.mm-node-icon { font-size: 18px; display: block; margin-bottom: 4px; }
+
+.mm-node-text {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.mm-node-count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ═══ RESOURCES PANEL ═══ */
+#panelResources {
+  padding: 32px;
+  overflow-y: auto;
+  height: calc(100vh - 120px);
+}
+
+#panelResources::-webkit-scrollbar { width: 4px; }
+#panelResources::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.res-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.res-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.res-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.res-type-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.res-type-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 4px 9px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.res-free { background: rgba(6,214,160,0.15); color: var(--green); }
+.res-paid { background: rgba(255,209,102,0.15); color: var(--accent4); }
+.res-tool { background: rgba(108,99,255,0.15); color: var(--accent); }
+.res-community { background: rgba(255,101,132,0.15); color: var(--accent2); }
+
+.res-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+.res-name { font-family: var(--font-display); font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.res-url { font-family: var(--font-mono); font-size: 10px; color: var(--accent3); margin-bottom: 8px; }
+.res-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.res-priority { font-size: 11px; color: var(--muted); margin-top: 10px; }
+
+.res-section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 auto 16px;
+  max-width: 1100px;
+  letter-spacing: -0.5px;
+}
+
+.res-section-title:not(:first-child) { margin-top: 32px; }
+
+/* ═══ QUIZ PANEL ═══ */
+#panelQuiz {
+  padding: 40px 32px;
+  overflow-y: auto;
+  height: calc(100vh - 120px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.quiz-container {
+  width: 100%;
+  max-width: 640px;
+}
+
+.quiz-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.quiz-heading {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.quiz-sub { font-size: 14px; color: var(--muted); }
+
+.quiz-q-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.quiz-question {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.quiz-option {
+  padding: 16px 20px;
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  background: var(--surface);
+  text-align: left;
+  color: var(--text);
+}
+
+.quiz-option:hover {
+  border-color: var(--accent);
+  background: rgba(108,99,255,0.08);
+}
+
+.quiz-option.selected { border-color: var(--accent); background: rgba(108,99,255,0.15); }
+.quiz-option.correct { border-color: var(--green); background: rgba(6,214,160,0.1); color: var(--green); }
+.quiz-option.wrong { border-color: var(--accent2); background: rgba(255,101,132,0.1); color: var(--accent2); }
+
+.quiz-feedback {
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: none;
+  line-height: 1.6;
+}
+
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct-fb { background: rgba(6,214,160,0.1); border: 1px solid rgba(6,214,160,0.3); color: var(--green); }
+.quiz-feedback.wrong-fb { background: rgba(255,101,132,0.1); border: 1px solid rgba(255,101,132,0.3); color: var(--accent2); }
+
+.quiz-progress-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.q-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border2);
+  transition: all 0.3s;
+}
+
+.q-dot.done { background: var(--green); }
+.q-dot.active { background: var(--accent); transform: scale(1.3); }
+
+.quiz-result {
+  text-align: center;
+  display: none;
+}
+
+.quiz-result.show { display: block; }
+
+.result-score {
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 16px 0;
+}
+
+.result-msg { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+
+/* EMPTY STATE */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  gap: 12px;
+}
+
+.empty-icon { font-size: 48px; opacity: 0.5; }
+.empty-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--text); }
+.empty-desc { font-size: 14px; max-width: 320px; line-height: 1.6; }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9999;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  white-space: nowrap;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  #panelCourse { grid-template-columns: 1fr; }
+  .course-sidebar { display: none; }
+  .course-main { padding: 24px 20px; }
+  #panelRoadmap, #panelResources { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- GLOW ORBS -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ═══ LOADING ═══ -->
+<div id="loadingState">
+  <div class="loading-logo">⚡ LearnForge AI</div>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+  <div class="loading-steps">
+    <div class="loading-step" id="ls1">Analyzing your topic</div>
+    <div class="loading-step" id="ls2">Building course structure</div>
+    <div class="loading-step" id="ls3">Generating lesson content</div>
+    <div class="loading-step" id="ls4">Creating visual roadmap</div>
+    <div class="loading-step" id="ls5">Collecting resources & tools</div>
+    <div class="loading-step" id="ls6">Generating quiz questions</div>
+  </div>
+</div>
+
+<!-- ═══ LANDING PAGE ═══ -->
+<div id="landingPage">
+  <nav>
+    <div class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      LearnForge AI
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Examples</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#" class="nav-cta" onclick="document.querySelector('.generate-box input').focus()">Try Free →</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      AI-Powered Learning Platform — Free to Try
+    </div>
+
+    <h1>Learn Anything.<br><span class="gradient-text">In Minutes.</span></h1>
+
+    <p class="hero-sub">Type any technology or skill. LearnForge AI instantly generates a full course, visual roadmap, mind map, curated resources, and quiz — all in one place.</p>
+
+    <div class="generate-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--muted);flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="mainInput" placeholder="e.g. Three.js for React developers..." maxlength="100">
+      <button class="gen-btn" onclick="startGenerate()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Generate Course
+      </button>
+    </div>
+
+    <div class="hero-examples">
+      <span class="ex-label">Try:</span>
+      <span class="ex-pill" onclick="setExample('Three.js for React developers')">Three.js</span>
+      <span class="ex-pill" onclick="setExample('Flutter mobile development')">Flutter</span>
+      <span class="ex-pill" onclick="setExample('Next.js 15 full stack')">Next.js 15</span>
+      <span class="ex-pill" onclick="setExample('GSAP animations')">GSAP</span>
+      <span class="ex-pill" onclick="setExample('Supabase backend')">Supabase</span>
+      <span class="ex-pill" onclick="setExample('React Native')">React Native</span>
+    </div>
+
+    <div class="features-row">
+      <div class="feat-card">
+        <span class="feat-icon">📚</span>
+        <div class="feat-title">Full Course</div>
+        <div class="feat-desc">Phases, lessons, explanations, and code examples generated instantly</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🗺️</span>
+        <div class="feat-title">Visual Roadmap</div>
+        <div class="feat-desc">See your complete learning journey from zero to expert visually</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🧠</span>
+        <div class="feat-title">Mind Map</div>
+        <div class="feat-desc">All concepts connected visually — understand the big picture</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🔗</span>
+        <div class="feat-title">Resources</div>
+        <div class="feat-desc">Best YouTube channels, docs, tools, and communities curated by AI</div>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">✅</span>
+        <div class="feat-title">Progress Tracking</div>
+        <div class="feat-desc">Check off lessons, track your progress, see how far you've come</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP PAGE ═══ -->
+<div id="appPage">
+  <div class="app-header">
+    <div class="app-title-area">
+      <button class="back-btn" onclick="goBack()">←</button>
+      <div>
+        <div class="app-topic-name" id="appTopicName">Topic</div>
+        <div style="display:flex;gap:6px;margin-top:3px">
+          <span class="app-topic-tag" id="appTopicTag">Generated</span>
+          <span class="app-topic-tag" style="background:rgba(6,214,160,0.1);color:var(--green);border-color:rgba(6,214,160,0.2)" id="progressTag">0% complete</span>
+        </div>
+      </div>
+    </div>
+    <div class="app-actions">
+      <button class="icon-btn" title="Reset progress" onclick="resetProgress()">↺</button>
+      <button class="icon-btn" title="Share" onclick="showToast('🔗 Link copied!')">⬆</button>
+    </div>
+  </div>
+
+  <div class="global-progress">
+    <div class="global-progress-fill" id="globalProgressFill"></div>
+  </div>
+
+  <div class="app-tabs">
+    <button class="app-tab active" onclick="switchAppTab('Course',this)" id="tabCourse">
+      📚 Course <span class="tab-count" id="countCourse">0</span>
+    </button>
+    <button class="app-tab" onclick="switchAppTab('Roadmap',this)">
+      🗺️ Roadmap
+    </button>
+    <button class="app-tab" onclick="switchAppTab('Mindmap',this)">
+      🧠 Mind Map
+    </button>
+    <button class="app-tab" onclick="switchAppTab('Resources',this)">
+      🔗 Resources <span class="tab-count" id="countRes">0</span>
+    </button>
+    <button class="app-tab" onclick="switchAppTab('Quiz',this)">
+      ✅ Quiz <span class="tab-count" id="countQuiz">0</span>
+    </button>
+  </div>
+
+  <div class="app-body">
+    <div class="app-panel active" id="panelCourse">
+      <div class="course-sidebar" id="courseSidebar"></div>
+      <div class="course-main" id="courseMain">
+        <div class="empty-state">
+          <div class="empty-icon">📖</div>
+          <div class="empty-title">Select a Lesson</div>
+          <div class="empty-desc">Choose any lesson from the sidebar to start learning</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-panel" id="panelRoadmap">
+      <div class="roadmap-container">
+        <div class="roadmap-title-area">
+          <div class="roadmap-heading" id="roadmapHeading">Your Learning Roadmap</div>
+          <div class="roadmap-sub">Follow this path from beginner to expert</div>
+        </div>
+        <div class="roadmap-visual" id="roadmapVisual"></div>
+      </div>
+    </div>
+
+    <div class="app-panel" id="panelMindmap">
+      <div class="mindmap-canvas">
+        <div class="mindmap-wrap" id="mindmapWrap">
+          <svg class="mindmap-svg" id="mindmapSvg"></svg>
+          <div class="mm-center" id="mmCenter">
+            <div class="mm-center-text" id="mmCenterText">Topic</div>
+            <div class="mm-center-sub">Core Concept</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-panel" id="panelResources">
+      <div id="resourcesContent"></div>
+    </div>
+
+    <div class="app-panel" id="panelQuiz">
+      <div class="quiz-container" id="quizContainer">
+        <div class="empty-state">
+          <div class="empty-icon">🎯</div>
+          <div class="empty-title">Quiz Loading...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Done</div>
+
+<script>
+// ─── CURSOR ───────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 4 + 'px';
+  cursor.style.top = my - 4 + 'px';
+});
+
+function animateCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  cursorRing.style.left = rx - 16 + 'px';
+  cursorRing.style.top = ry - 16 + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.addEventListener('mousedown', () => cursor.style.transform = 'scale(2)');
+document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+
+// ─── STATE ────────────────────────────────────────────
+let currentTopic = '';
+let courseData = null;
+let checkedLessons = {};
+let currentLesson = null;
+let quizState = { q: 0, score: 0, answered: false };
+
+// ─── UTILS ────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function setExample(text) {
+  document.getElementById('mainInput').value = text;
+  document.getElementById('mainInput').focus();
+}
+
+function goBack() {
+  document.getElementById('appPage').classList.remove('visible');
+  document.getElementById('landingPage').style.display = 'flex';
+}
+
+function switchAppTab(name, btn) {
+  document.querySelectorAll('.app-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.app-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel' + name).classList.add('active');
+}
+
+function resetProgress() {
+  checkedLessons = {};
+  localStorage.removeItem('lf_progress_' + currentTopic);
+  renderSidebar();
+  updateGlobalProgress();
+  showToast('↺ Progress reset');
+}
+
+// ─── MAIN GENERATE ────────────────────────────────────
+function startGenerate() {
+  const topic = document.getElementById('mainInput').value.trim();
+  if (!topic) {
+    document.getElementById('mainInput').focus();
+    showToast('⚠ Please enter a topic first');
+    return;
+  }
+  currentTopic = topic;
+  checkedLessons = JSON.parse(localStorage.getItem('lf_progress_' + topic) || '{}');
+  showLoading();
+  generateCourseData(topic);
+}
+
+document.getElementById('mainInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startGenerate();
+});
+
+// ─── LOADING ANIMATION ────────────────────────────────
+function showLoading() {
+  document.getElementById('loadingState').classList.add('visible');
+  const steps = ['ls1','ls2','ls3','ls4','ls5','ls6'];
+  steps.forEach(s => {
+    document.getElementById(s).className = 'loading-step';
+  });
+  let i = 0;
+  function nextStep() {
+    if (i > 0) document.getElementById(steps[i-1]).className = 'loading-step done';
+    if (i < steps.length) {
+      document.getElementById(steps[i]).className = 'loading-step active';
+      i++;
+      setTimeout(nextStep, 380);
+    }
+  }
+  nextStep();
+}
+
+function hideLoading() {
+  document.getElementById('loadingState').classList.remove('visible');
+}
+
+// ─── AI GENERATION ────────────────────────────────────
+async function generateCourseData(topic) {
+  const prompt = `You are LearnForge AI. Generate a complete learning course for: "${topic}"
+
+Return ONLY valid JSON (no markdown, no explanation) in this exact structure:
+{
+  "topic": "${topic}",
+  "tagline": "short tagline about this technology",
+  "phases": [
+    {
+      "id": "p1",
+      "title": "Phase title",
+      "emoji": "emoji",
+      "duration": "time estimate",
+      "lessons": [
+        {
+          "id": "l1",
+          "title": "Lesson title",
+          "type": "concept|video|practice|doc",
+          "duration": "15 min",
+          "content": {
+            "intro": "2-3 sentence intro paragraph",
+            "sections": [
+              {"heading": "Section title", "body": "Detailed explanation paragraph. Be educational and thorough."},
+              {"heading": "Key Points", "body": "Important things to understand about this topic."},
+              {"heading": "Practice Task", "body": "What the student should build or do to practice this."}
+            ],
+            "codeExample": "// Relevant code snippet (3-8 lines)"
+          }
+        }
+      ]
+    }
+  ],
+  "roadmap": [
+    {
+      "phase": "Phase label",
+      "title": "Node title",
+      "emoji": "emoji",
+      "desc": "1-2 sentence description",
+      "skills": ["skill1", "skill2", "skill3", "skill4"]
+    }
+  ],
+  "mindmap": {
+    "center": "${topic}",
+    "branches": [
+      {"label": "Branch name", "emoji": "emoji", "count": "X topics", "color": "#hexcolor"},
+      {"label": "Branch name", "emoji": "emoji", "count": "X topics", "color": "#hexcolor"},
+      {"label": "Branch name", "emoji": "emoji", "count": "X topics", "color": "#hexcolor"},
+      {"label": "Branch name", "emoji": "emoji", "count": "X topics", "color": "#hexcolor"},
+      {"label": "Branch name", "emoji": "emoji", "count": "X topics", "color": "#hexcolor"},
+      {"label": "Branch name", "emoji": "emoji", "count": "X topics", "color": "#hexcolor"}
+    ]
+  },
+  "resources": {
+    "courses": [
+      {"icon": "emoji", "name": "Resource name", "url": "website.com", "href": "https://website.com", "desc": "Why it's great", "type": "free|paid"}
+    ],
+    "youtube": [
+      {"icon": "emoji", "name": "Channel name", "url": "youtube.com/@channel", "href": "https://youtube.com/@channel", "desc": "What they cover", "type": "free"}
+    ],
+    "tools": [
+      {"icon": "emoji", "name": "Tool name", "url": "tool.com", "href": "https://tool.com", "desc": "What it does", "type": "tool"}
+    ],
+    "communities": [
+      {"icon": "emoji", "name": "Community", "url": "site.com", "href": "https://site.com", "desc": "Description", "type": "community"}
+    ]
+  },
+  "quiz": [
+    {
+      "q": "Question text?",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "answer": 0,
+      "explanation": "Why this answer is correct - educational explanation"
+    }
+  ]
+}
+
+Requirements:
+- 3 phases minimum, each with 4-6 lessons
+- Roadmap: 5-6 nodes showing progression
+- Mindmap: exactly 6 branches  
+- Resources: 3 each of courses, youtube, tools, communities
+- Quiz: exactly 8 questions, varied difficulty
+- Make lesson content genuinely educational and detailed
+- codeExample should be real, relevant code for the topic`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const rawText = data.content?.map(b => b.text || '').join('');
+
+    let jsonText = rawText.trim();
+    if (jsonText.startsWith('```')) {
+      jsonText = jsonText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    }
+
+    courseData = JSON.parse(jsonText);
+    setTimeout(() => {
+      hideLoading();
+      launchApp();
+    }, 400);
+
+  } catch (err) {
+    console.error(err);
+    hideLoading();
+    // Use fallback demo data
+    courseData = generateFallbackData(topic);
+    launchApp();
+  }
+}
+
+// ─── FALLBACK DATA ────────────────────────────────────
+function generateFallbackData(topic) {
+  return {
+    topic,
+    tagline: `Master ${topic} from zero to production`,
+    phases: [
+      {
+        id: 'p1', title: 'Foundation', emoji: '🏗️', duration: '1-2 weeks',
+        lessons: [
+          { id: 'l1', title: `What is ${topic}?`, type: 'concept', duration: '20 min',
+            content: {
+              intro: `${topic} is a powerful technology that enables developers to build incredible experiences. Understanding its fundamentals is the first step to mastery.`,
+              sections: [
+                { heading: 'Core Concept', body: `${topic} works by providing a structured way to handle complex operations in web development. It has become an industry standard because of its reliability, performance, and developer experience.` },
+                { heading: 'Why Learn This?', body: `Learning ${topic} opens doors to higher-paying projects, international clients, and the ability to build products that stand out. It is increasingly required for modern web development roles.` },
+                { heading: 'Your First Task', body: `Set up your development environment. Install all required dependencies and create your first "Hello World" project to verify everything works correctly.` }
+              ],
+              codeExample: `// Getting started with ${topic}\n// Install: npm install\n// Run: npm run dev\nconsole.log("${topic} is ready!");`
+            }
+          },
+          { id: 'l2', title: 'Setup & Installation', type: 'practice', duration: '30 min',
+            content: {
+              intro: `Setting up your environment correctly from the start saves hours of debugging later. Follow these steps carefully.`,
+              sections: [
+                { heading: 'Prerequisites', body: `Before installing, ensure you have Node.js 18+, a modern code editor (VS Code recommended), and basic JavaScript knowledge.` },
+                { heading: 'Installation Steps', body: `Run the installation commands in your terminal. Verify the installation was successful by checking the version number.` },
+                { heading: 'First Project', body: `Create a new project using the official starter template. This gives you a properly configured base to build upon.` }
+              ],
+              codeExample: `npm create my-app\ncd my-app\nnpm install\nnpm run dev`
+            }
+          },
+          { id: 'l3', title: 'Core Concepts', type: 'doc', duration: '45 min',
+            content: {
+              intro: `Understanding the core concepts will help you write better code and debug issues faster.`,
+              sections: [
+                { heading: 'Key Architecture', body: `The architecture follows a component-based approach where each piece of functionality is isolated and reusable. This makes code easier to maintain and test.` },
+                { heading: 'Data Flow', body: `Data flows in one direction through the application. Understanding this pattern is crucial for building predictable, bug-free applications.` },
+                { heading: 'Practice Exercise', body: `Build a small component that demonstrates the core concept. Focus on understanding the pattern rather than building something complex.` }
+              ],
+              codeExample: `// Core pattern example\nconst component = {\n  state: {},\n  render() { return "Hello World"; }\n};`
+            }
+          }
+        ]
+      },
+      {
+        id: 'p2', title: 'Building Real Projects', emoji: '⚡', duration: '2-3 weeks',
+        lessons: [
+          { id: 'l4', title: 'Your First Real Project', type: 'practice', duration: '60 min',
+            content: {
+              intro: `Now that you understand the basics, it's time to build something real. This project will reinforce everything you've learned.`,
+              sections: [
+                { heading: 'Project Overview', body: `Build a functional application that uses all the core concepts. This should be something you can add to your portfolio.` },
+                { heading: 'Step by Step', body: `Break the project into small, manageable steps. Complete each step before moving to the next. Don't skip the planning phase.` },
+                { heading: 'Deployment', body: `Deploy your project to Vercel or Netlify so it has a live URL. This is essential for showing your work to potential clients.` }
+              ],
+              codeExample: `// Project structure\n/src\n  /components\n  /pages\n  /utils\n  main.js`
+            }
+          },
+          { id: 'l5', title: 'Advanced Patterns', type: 'concept', duration: '50 min',
+            content: {
+              intro: `Advanced patterns separate good developers from great ones. These techniques are used in production codebases worldwide.`,
+              sections: [
+                { heading: 'Design Patterns', body: `Learn the most common design patterns used with this technology. These patterns solve recurring problems in elegant, maintainable ways.` },
+                { heading: 'Performance', body: `Performance optimization is critical for production applications. Learn the key techniques to keep your application fast and responsive.` },
+                { heading: 'Code Challenge', body: `Refactor an existing piece of code using the patterns you've learned. Notice how the code becomes more readable and maintainable.` }
+              ],
+              codeExample: `// Advanced pattern\nconst optimized = useMemo(\n  () => expensiveCalc(data),\n  [data]\n);`
+            }
+          }
+        ]
+      },
+      {
+        id: 'p3', title: 'Production & Portfolio', emoji: '🚀', duration: '1-2 weeks',
+        lessons: [
+          { id: 'l6', title: 'Production Best Practices', type: 'doc', duration: '40 min',
+            content: {
+              intro: `Shipping to production requires thinking about error handling, performance, security, and maintainability.`,
+              sections: [
+                { heading: 'Error Handling', body: `Implement proper error boundaries and fallback states. Users should never see a white screen or cryptic error messages.` },
+                { heading: 'Testing', body: `Write tests for your critical paths. Even basic tests catch 80% of bugs before they reach users.` },
+                { heading: 'Checklist', body: `Before shipping: test on mobile, check performance score, verify all environment variables, test the critical user flows.` }
+              ],
+              codeExample: `// Error boundary\ntry {\n  await criticalOperation();\n} catch (error) {\n  logError(error);\n  showFallback();\n}`
+            }
+          },
+          { id: 'l7', title: 'Build Your Portfolio Project', type: 'practice', duration: '3-4 hours',
+            content: {
+              intro: `Your portfolio project should demonstrate mastery of this technology and impress potential clients or employers.`,
+              sections: [
+                { heading: 'Project Ideas', body: `Choose a project that solves a real problem, has visual impact, and showcases the unique capabilities of this technology.` },
+                { heading: 'Documentation', body: `Write a good README explaining what the project does, how to run it, and the technical decisions you made.` },
+                { heading: 'Share It', body: `Post your project on GitHub, share it on Twitter/X with relevant hashtags, and add it to your portfolio site.` }
+              ],
+              codeExample: `// README template\n# Project Name\n## What it does\n## Tech stack\n## How to run\nnpm install && npm run dev`
+            }
+          }
+        ]
+      }
+    ],
+    roadmap: [
+      { phase: 'WEEK 1', title: 'Setup & Basics', emoji: '🌱', desc: 'Install, configure, and understand core concepts', skills: ['Installation', 'Core concepts', 'First project', 'Dev tools'] },
+      { phase: 'WEEK 2-3', title: 'Core Features', emoji: '⚡', desc: 'Build real projects using all major features', skills: ['Components', 'State management', 'Data fetching', 'Routing'] },
+      { phase: 'WEEK 4-5', title: 'Advanced Patterns', emoji: '🔥', desc: 'Level up with advanced techniques and patterns', skills: ['Performance', 'Design patterns', 'Testing', 'Optimization'] },
+      { phase: 'WEEK 6', title: 'Production', emoji: '🚀', desc: 'Deploy and ship production-quality applications', skills: ['Deployment', 'Error handling', 'Monitoring', 'CI/CD'] },
+      { phase: 'ONGOING', title: 'Mastery', emoji: '🏆', desc: 'Build portfolio projects and get clients', skills: ['Portfolio', 'Open source', 'Community', 'Freelancing'] }
+    ],
+    mindmap: {
+      center: topic,
+      branches: [
+        { label: 'Core Concepts', emoji: '🧱', count: '6 topics', color: '#6c63ff' },
+        { label: 'Tools & Setup', emoji: '🛠️', count: '4 topics', color: '#ff6584' },
+        { label: 'Patterns', emoji: '🔄', count: '5 topics', color: '#43e8d8' },
+        { label: 'Performance', emoji: '⚡', count: '4 topics', color: '#ffd166' },
+        { label: 'Ecosystem', emoji: '🌐', count: '5 topics', color: '#06d6a0' },
+        { label: 'Career', emoji: '💼', count: '3 topics', color: '#ff8906' }
+      ]
+    },
+    resources: {
+      courses: [
+        { icon: '🎓', name: `Official ${topic} Docs`, url: 'docs.example.com', href: '#', desc: 'Always start with official documentation. Best reference available.', type: 'free' },
+        { icon: '📹', name: 'Udemy Top Course', url: 'udemy.com', href: 'https://udemy.com', desc: 'Comprehensive video course. Wait for a sale — prices drop to ₹500.', type: 'paid' },
+        { icon: '🆓', name: 'freeCodeCamp', url: 'freecodecamp.org', href: 'https://freecodecamp.org', desc: 'Free full-length YouTube course covering all fundamentals.', type: 'free' }
+      ],
+      youtube: [
+        { icon: '▶️', name: 'Fireship', url: 'youtube.com/@Fireship', href: 'https://youtube.com/@Fireship', desc: 'Quick, high-quality explainers on every major technology.', type: 'free' },
+        { icon: '▶️', name: 'Traversy Media', url: 'youtube.com/@TraversyMedia', href: 'https://youtube.com/@TraversyMedia', desc: 'Project-based tutorials. Great for learning by building.', type: 'free' },
+        { icon: '▶️', name: 'Kevin Powell', url: 'youtube.com/@KevinPowell', href: 'https://youtube.com/@KevinPowell', desc: 'Deep dives and best practices for web developers.', type: 'free' }
+      ],
+      tools: [
+        { icon: '💻', name: 'VS Code', url: 'code.visualstudio.com', href: 'https://code.visualstudio.com', desc: 'Best code editor. Install the relevant extensions for this technology.', type: 'tool' },
+        { icon: '🚀', name: 'Vercel', url: 'vercel.com', href: 'https://vercel.com', desc: 'Deploy your projects instantly. Free tier is generous.', type: 'tool' },
+        { icon: '🐙', name: 'GitHub', url: 'github.com', href: 'https://github.com', desc: 'Version control and portfolio. Every project should be here.', type: 'tool' }
+      ],
+      communities: [
+        { icon: '💬', name: 'Discord Community', url: 'discord.com', href: 'https://discord.com', desc: 'Find the official Discord server for this technology. Great for quick help.', type: 'community' },
+        { icon: '🟠', name: 'Reddit', url: 'reddit.com', href: 'https://reddit.com', desc: 'Subreddit for discussions, showcasing projects, and getting feedback.', type: 'community' },
+        { icon: '𝕏', name: 'Twitter/X', url: 'twitter.com', href: 'https://twitter.com', desc: 'Follow key developers in this space. Great for staying updated.', type: 'community' }
+      ]
+    },
+    quiz: [
+      { q: `What is the primary purpose of ${topic}?`, options: ['Building user interfaces', 'Database management', 'Server configuration', 'Network protocols'], answer: 0, explanation: `${topic} is primarily used for building user-facing applications and interfaces.` },
+      { q: 'Which command installs project dependencies?', options: ['npm start', 'npm install', 'npm build', 'npm run'], answer: 1, explanation: '"npm install" reads package.json and installs all listed dependencies.' },
+      { q: 'What does "component-based architecture" mean?', options: ['Using components from other apps', 'Building UI as reusable, isolated pieces', 'A type of database structure', 'A server architecture pattern'], answer: 1, explanation: 'Component-based means building your UI from small, reusable, self-contained pieces.' },
+      { q: 'What is the best way to learn a new technology?', options: ['Read documentation only', 'Watch videos only', 'Build real projects while learning', 'Memorize syntax'], answer: 2, explanation: 'Building real projects forces you to solve real problems, which is the fastest path to mastery.' },
+      { q: 'Why is version control important?', options: ['It makes code run faster', 'It tracks changes and allows collaboration', 'It compresses files', 'It improves security'], answer: 1, explanation: 'Version control (Git) lets you track history, revert mistakes, and collaborate with others.' },
+      { q: 'What should you do before deploying to production?', options: ['Nothing, just deploy', 'Test on mobile and check performance', 'Delete all comments', 'Minify all variable names manually'], answer: 1, explanation: 'Always test on real devices and check performance metrics before shipping to users.' },
+      { q: 'What makes a good portfolio project?', options: ['Complex code nobody understands', 'Solves a real problem and has live URL', 'Maximum lines of code', 'Uses as many libraries as possible'], answer: 1, explanation: 'A good portfolio project demonstrates problem-solving and is accessible via a live link.' },
+      { q: 'How do you stay updated with technology changes?', options: ['Ignore updates', 'Follow official docs, community, and key developers', 'Buy new books every month', 'Only watch YouTube'], answer: 1, explanation: 'Following official channels, communities, and respected practitioners keeps you current without overwhelm.' }
+    ]
+  };
+}
+
+// ─── LAUNCH APP ───────────────────────────────────────
+function launchApp() {
+  document.getElementById('landingPage').style.display = 'none';
+  document.getElementById('appPage').classList.add('visible');
+
+  // Set header
+  document.getElementById('appTopicName').textContent = courseData.topic;
+  document.getElementById('appTopicTag').textContent = courseData.tagline || 'AI Generated';
+
+  // Count totals
+  const totalLessons = courseData.phases.reduce((s,p) => s + p.lessons.length, 0);
+  document.getElementById('countCourse').textContent = totalLessons;
+  document.getElementById('countRes').textContent =
+    Object.values(courseData.resources).reduce((s,a) => s + a.length, 0);
+  document.getElementById('countQuiz').textContent = courseData.quiz.length;
+
+  // Render all panels
+  renderSidebar();
+  renderRoadmap();
+  renderMindmap();
+  renderResources();
+  renderQuiz();
+  updateGlobalProgress();
+
+  // Activate first tab
+  switchAppTab('Course', document.getElementById('tabCourse'));
+}
+
+// ─── COURSE SIDEBAR ───────────────────────────────────
+function renderSidebar() {
+  const total = courseData.phases.reduce((s,p) => s + p.lessons.length, 0);
+  const done = Object.values(checkedLessons).filter(Boolean).length;
+
+  let html = `
+    <div class="sidebar-header">
+      <div class="sidebar-title">Course Content</div>
+      <div class="sidebar-progress-text">${done}/${total} lessons complete</div>
+      <div class="sidebar-progress-wrap">
+        <div class="sidebar-progress-fill" style="width:${total>0?(done/total*100):0}%"></div>
+      </div>
+    </div>`;
+
+  courseData.phases.forEach((phase, pi) => {
+    const phDone = phase.lessons.filter(l => checkedLessons[l.id]).length;
+    const allDone = phDone === phase.lessons.length;
+
+    html += `<div class="phase-block" id="phaseBlock${pi}">
+      <button class="phase-btn" onclick="togglePhaseBlock(${pi})">
+        <span class="phase-num-badge">P${pi+1}</span>
+        <span style="font-size:16px">${phase.emoji}</span>
+        <span class="phase-btn-title">${phase.title}</span>
+        <span class="phase-check">${allDone ? '✓' : `${phDone}/${phase.lessons.length}`}</span>
+      </button>
+      <ul class="lesson-list-side">`;
+
+    phase.lessons.forEach(l => {
+      const done = checkedLessons[l.id];
+      html += `<li class="lesson-side-item${done?' done':''}" id="side_${l.id}"
+        onclick="selectLesson('${l.id}','${phase.id}')">
+        <div class="lesson-check-box">${done?'✓':''}</div>
+        <span class="lesson-side-text">${l.title}</span>
+      </li>`;
+    });
+
+    html += `</ul></div>`;
+  });
+
+  document.getElementById('courseSidebar').innerHTML = html;
+
+  // Open first phase
+  const first = document.getElementById('phaseBlock0');
+  if (first) first.classList.add('open');
+}
+
+function togglePhaseBlock(idx) {
+  document.getElementById('phaseBlock' + idx).classList.toggle('open');
+}
+
+// ─── SELECT LESSON ────────────────────────────────────
+function selectLesson(lessonId, phaseId) {
+  // Remove active from all
+  document.querySelectorAll('.lesson-side-item').forEach(el => el.classList.remove('active-lesson'));
+  const sideEl = document.getElementById('side_' + lessonId);
+  if (sideEl) sideEl.classList.add('active-lesson');
+
+  // Find lesson
+  let lesson = null, phase = null;
+  courseData.phases.forEach(p => {
+    p.lessons.forEach(l => {
+      if (l.id === lessonId) { lesson = l; phase = p; }
+    });
+  });
+  if (!lesson) return;
+
+  currentLesson = lesson;
+  const content = lesson.content;
+
+  let sectionsHtml = content.sections.map(s =>
+    `<h3>${s.heading}</h3><p>${s.body}</p>`
+  ).join('');
+
+  const html = `
+    <div class="lesson-view">
+      <div class="lesson-breadcrumb">
+        <span>${phase.emoji} ${phase.title}</span>
+        <span>›</span>
+        <span>${lesson.title}</span>
+      </div>
+      <div class="lesson-view-title">${lesson.title}</div>
+      <div class="lesson-meta-row">
+        <span class="lesson-badge type-${lesson.type}">${lesson.type}</span>
+        <span class="lesson-badge">⏱ ${lesson.duration}</span>
+      </div>
+      <div class="lesson-content-body">
+        <p>${content.intro}</p>
+        ${sectionsHtml}
+        ${content.codeExample ? `<div class="code-block">${escapeHtml(content.codeExample)}</div>` : ''}
+      </div>
+      <div class="lesson-actions">
+        <button class="btn-primary" onclick="markDone('${lesson.id}')">
+          ${checkedLessons[lesson.id] ? '↩ Mark Incomplete' : '✓ Mark Complete'}
+        </button>
+        <button class="btn-secondary" onclick="nextLesson('${lesson.id}')">Next Lesson →</button>
+      </div>
+    </div>`;
+
+  document.getElementById('courseMain').innerHTML = html;
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function markDone(id) {
+  checkedLessons[id] = !checkedLessons[id];
+  localStorage.setItem('lf_progress_' + currentTopic, JSON.stringify(checkedLessons));
+  renderSidebar();
+  updateGlobalProgress();
+  if (currentLesson && currentLesson.id === id) {
+    selectLesson(id, '');
+  }
+  showToast(checkedLessons[id] ? '✓ Marked complete!' : '↩ Marked incomplete');
+}
+
+function nextLesson(currentId) {
+  const allLessons = courseData.phases.flatMap(p => p.lessons);
+  const idx = allLessons.findIndex(l => l.id === currentId);
+  if (idx < allLessons.length - 1) {
+    const next = allLessons[idx + 1];
+    const phase = courseData.phases.find(p => p.lessons.some(l => l.id === next.id));
+    selectLesson(next.id, phase.id);
+  } else {
+    showToast('🎉 Course complete!');
+  }
+}
+
+function updateGlobalProgress() {
+  const total = courseData.phases.reduce((s,p) => s + p.lessons.length, 0);
+  const done = Object.values(checkedLessons).filter(Boolean).length;
+  const pct = total > 0 ? Math.round(done/total*100) : 0;
+  document.getElementById('globalProgressFill').style.width = pct + '%';
+  document.getElementById('progressTag').textContent = pct + '% complete';
+}
+
+// ─── ROADMAP ──────────────────────────────────────────
+function renderRoadmap() {
+  document.getElementById('roadmapHeading').textContent = courseData.topic + ' — Learning Roadmap';
+
+  const html = courseData.roadmap.map((node, i) => `
+    <div class="rm-node">
+      <div class="rm-node-left">
+        <div class="rm-circle">${node.emoji}</div>
+        ${i < courseData.roadmap.length - 1 ? '<div class="rm-line"></div>' : ''}
+      </div>
+      <div class="rm-content">
+        <div class="rm-phase-label">${node.phase}</div>
+        <div class="rm-node-title">${node.title}</div>
+        <div class="rm-node-desc">${node.desc}</div>
+        <div class="rm-skills">${node.skills.map(s => `<span class="rm-skill">${s}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('roadmapVisual').innerHTML = html;
+}
+
+// ─── MINDMAP ──────────────────────────────────────────
+function renderMindmap() {
+  const mm = courseData.mindmap;
+  document.getElementById('mmCenterText').textContent = mm.center;
+
+  const wrap = document.getElementById('mindmapWrap');
+  const svg = document.getElementById('mindmapSvg');
+
+  // Remove old nodes
+  wrap.querySelectorAll('.mm-node').forEach(n => n.remove());
+
+  const cx = 450, cy = 300;
+  const radius = 200;
+  const branches = mm.branches;
+
+  wrap.style.width = '900px';
+  wrap.style.height = '600px';
+  svg.setAttribute('viewBox', '0 0 900 600');
+
+  let svgLines = '';
+  const nodePositions = [];
+
+  branches.forEach((b, i) => {
+    const angle = (i / branches.length) * Math.PI * 2 - Math.PI / 2;
+    const nx = cx + Math.cos(angle) * radius;
+    const ny = cy + Math.sin(angle) * radius;
+    nodePositions.push({ x: nx, y: ny, b });
+
+    // SVG line
+    svgLines += `<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}"
+      stroke="${b.color}" stroke-width="1.5" stroke-opacity="0.4"
+      stroke-dasharray="4 4"/>`;
+
+    // Node div
+    const node = document.createElement('div');
+    node.className = 'mm-node';
+    node.style.left = (nx - 70) + 'px';
+    node.style.top = (ny - 40) + 'px';
+    node.style.borderColor = b.color + '44';
+    node.innerHTML = `
+      <span class="mm-node-icon">${b.emoji}</span>
+      <div class="mm-node-text">${b.label}</div>
+      <div class="mm-node-count">${b.count}</div>`;
+    node.addEventListener('mouseenter', () => node.style.borderColor = b.color);
+    node.addEventListener('mouseleave', () => node.style.borderColor = b.color + '44');
+    wrap.appendChild(node);
+  });
+
+  svg.innerHTML = svgLines;
+}
+
+// ─── RESOURCES ────────────────────────────────────────
+function renderResources() {
+  const r = courseData.resources;
+  const sections = [
+    { title: '🎓 Courses & Tutorials', items: r.courses },
+    { title: '▶️ YouTube Channels', items: r.youtube },
+    { title: '🛠️ Tools', items: r.tools },
+    { title: '💬 Communities', items: r.communities }
+  ];
+
+  let html = '';
+  sections.forEach(sec => {
+    html += `<div class="res-section-title">${sec.title}</div>
+    <div class="res-grid">`;
+    sec.items.forEach(item => {
+      html += `<a class="res-card" href="${item.href}" target="_blank">
+        <div class="res-type-bar">
+          <span class="res-type-badge res-${item.type}">${item.type}</span>
+        </div>
+        <span class="res-icon">${item.icon}</span>
+        <div class="res-name">${item.name}</div>
+        <div class="res-url">${item.url}</div>
+        <div class="res-desc">${item.desc}</div>
+      </a>`;
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('resourcesContent').innerHTML = html;
+}
+
+// ─── QUIZ ─────────────────────────────────────────────
+function renderQuiz() {
+  quizState = { q: 0, score: 0, answered: false };
+  showQuestion();
+}
+
+function showQuestion() {
+  const quiz = courseData.quiz;
+  const q = quizState.q;
+
+  if (q >= quiz.length) {
+    showResult();
+    return;
+  }
+
+  const item = quiz[q];
+  const dots = quiz.map((_, i) => {
+    let cls = 'q-dot';
+    if (i < q) cls += ' done';
+    if (i === q) cls += ' active';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  const opts = item.options.map((o, i) =>
+    `<button class="quiz-option" onclick="selectAnswer(${i})">${o}</button>`
+  ).join('');
+
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-header">
+      <div class="quiz-heading">Knowledge Check</div>
+      <div class="quiz-sub">Test what you've learned about ${courseData.topic}</div>
+    </div>
+    <div class="quiz-progress-dots">${dots}</div>
+    <div class="quiz-q-num">Question ${q+1} of ${quiz.length}</div>
+    <div class="quiz-question">${item.q}</div>
+    <div class="quiz-options" id="quizOpts">${opts}</div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="btn-primary" id="nextQBtn" onclick="nextQuestion()" style="display:none;margin:0 auto">
+      ${q < quiz.length - 1 ? 'Next Question →' : 'See Results →'}
+    </button>`;
+}
+
+function selectAnswer(idx) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+
+  const quiz = courseData.quiz;
+  const item = quiz[quizState.q];
+  const correct = item.answer;
+  const opts = document.querySelectorAll('.quiz-option');
+
+  opts.forEach((o, i) => {
+    o.style.pointerEvents = 'none';
+    if (i === correct) o.classList.add('correct');
+    if (i === idx && idx !== correct) o.classList.add('wrong');
+    if (i === idx && idx === correct) o.classList.add('selected');
+  });
+
+  const fb = document.getElementById('quizFeedback');
+  if (idx === correct) {
+    quizState.score++;
+    fb.className = 'quiz-feedback correct-fb show';
+    fb.innerHTML = '✓ Correct! ' + item.explanation;
+  } else {
+    fb.className = 'quiz-feedback wrong-fb show';
+    fb.innerHTML = '✗ Not quite. ' + item.explanation;
+  }
+
+  document.getElementById('nextQBtn').style.display = 'flex';
+}
+
+function nextQuestion() {
+  quizState.q++;
+  quizState.answered = false;
+  showQuestion();
+}
+
+function showResult() {
+  const total = courseData.quiz.length;
+  const score = quizState.score;
+  const pct = Math.round(score/total*100);
+  const msg = pct >= 80 ? '🎉 Excellent! You\'re ready for the next level.' :
+               pct >= 60 ? '👍 Good work! Review the missed topics.' :
+               '📚 Keep studying. Go back and review the lessons.';
+
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-header">
+      <div class="quiz-heading">Quiz Complete!</div>
+    </div>
+    <div class="quiz-result show">
+      <div class="result-score">${pct}%</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px">${score} / ${total} correct</div>
+      <div class="result-msg">${msg}</div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:24px">
+        <button class="btn-primary" onclick="renderQuiz()">↺ Retake Quiz</button>
+        <button class="btn-secondary" onclick="switchAppTab('Course',document.querySelector('.app-tab'))">Back to Course</button>
+      </div>
+    </div>`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Mastery — 90-Day CLB 9 Course</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['"DM Serif Display"', 'serif'],
+        body: ['"Plus Jakarta Sans"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      },
+      colors: {
+        brand: {
+          50: '#f0f7ff',
+          100: '#dfeeff',
+          200: '#b8dcff',
+          300: '#79c0ff',
+          400: '#329dff',
+          500: '#0077ed',
+          600: '#005cc5',
+          700: '#0048a0',
+          800: '#003d84',
+          900: '#00326d',
+          950: '#001f45',
+        },
+        accent: {
+          warm: '#FF6B35',
+          gold: '#F7B731',
+          green: '#20BF6B',
+          coral: '#FC5C65',
+          purple: '#8854D0',
+        },
+        surface: {
+          0: '#FFFFFF',
+          1: '#F8FAFC',
+          2: '#F1F5F9',
+          3: '#E2E8F0',
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .font-display { font-family: 'DM Serif Display', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* Smooth scrolling */
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+  /* Accordion transitions */
+  .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .accordion-content.open { max-height: 15000px; }
+  .accordion-arrow { transition: transform 0.3s ease; }
+  .accordion-arrow.rotated { transform: rotate(180deg); }
+
+  /* Card hover */
+  .skill-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12); }
+
+  /* Progress bar animation */
+  .progress-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  /* Sticky nav shadow */
+  .nav-scrolled { box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04); }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #0077ed 0%, #8854D0 50%, #FF6B35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hero pattern */
+  .hero-pattern {
+    background-image: radial-gradient(circle at 20% 50%, rgba(0,119,237,0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(136,84,208,0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 60% 80%, rgba(255,107,53,0.04) 0%, transparent 50%);
+  }
+
+  /* Tab styling */
+  .tab-btn { position: relative; }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #0077ed;
+    border-radius: 2px;
+  }
+
+  /* Video container */
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+    border-radius: 12px;
+  }
+
+  /* Week card */
+  .week-card { border-left: 4px solid transparent; transition: all 0.2s ease; }
+  .week-card:hover { border-left-color: #0077ed; background: #f8fafc; }
+
+  /* Checkbox styling */
+  .custom-check {
+    appearance: none;
+    width: 20px; height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  .custom-check:checked {
+    background: #0077ed;
+    border-color: #0077ed;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Floating badge */
+  .float-badge {
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print { display: none !important; }
+    .accordion-content { max-height: none !important; }
+  }
+
+  /* Responsive video grid */
+  @media (max-width: 640px) {
+    .video-container { border-radius: 8px; }
+  }
+</style>
+</head>
+<body class="bg-white text-slate-800 antialiased">
+
+<!-- ========== NAVIGATION ========== -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-slate-100 no-print">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16">
+      <a href="#hero" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-sm">IM</span>
+        </div>
+        <span class="font-display text-lg text-slate-900">IELTS Mastery</span>
+      </a>
+      <div class="hidden md:flex items-center gap-1 text-sm font-medium">
+        <a href="#overview" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Overview</a>
+        <a href="#roadmap" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Roadmap</a>
+        <a href="#skills" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Skills</a>
+        <a href="#daily-plan" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Daily Plan</a>
+        <a href="#practice" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Practice</a>
+        <a href="#progress" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Progress</a>
+        <a href="#tips" class="px-3 py-2 text-slate-600 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-colors">Tips</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pb-4">
+    <a href="#overview" class="block py-2 text-slate-600 hover:text-brand-600">Overview</a>
+    <a href="#roadmap" class="block py-2 text-slate-600 hover:text-brand-600">Roadmap</a>
+    <a href="#skills" class="block py-2 text-slate-600 hover:text-brand-600">Skills</a>
+    <a href="#daily-plan" class="block py-2 text-slate-600 hover:text-brand-600">Daily Plan</a>
+    <a href="#practice" class="block py-2 text-slate-600 hover:text-brand-600">Practice</a>
+    <a href="#progress" class="block py-2 text-slate-600 hover:text-brand-600">Progress</a>
+    <a href="#tips" class="block py-2 text-slate-600 hover:text-brand-600">Tips</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero" class="hero-pattern pt-28 pb-20 sm:pt-36 sm:pb-28 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 float-badge">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0l2.09 5.527L16 6.18l-4.364 3.89L12.764 16 8 12.527 3.236 16l1.128-5.93L0 6.18l5.91-.653z"/></svg>
+      90-Day Structured Program
+    </div>
+    <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl text-slate-900 leading-tight mb-6">
+      Your Path to<br>
+      <span class="gradient-text">IELTS CLB 9</span>
+    </h1>
+    <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+      A complete, self-paced preparation course for IELTS General Training. Master all four skills with proven strategies, daily practice plans, and expert techniques — in just 3 months.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+      <a href="#overview" class="w-full sm:w-auto px-8 py-3.5 bg-brand-600 text-white font-semibold rounded-xl hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/20 text-center">
+        Start Learning →
+      </a>
+      <a href="#roadmap" class="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition-colors border border-slate-200 text-center">
+        View Roadmap
+      </a>
+    </div>
+    <!-- Target scores -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+      <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+        <div class="text-2xl font-bold text-brand-600">8.0+</div>
+        <div class="text-xs text-slate-500 font-medium mt-1">Listening</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+        <div class="text-2xl font-bold text-accent-purple">7.0+</div>
+        <div class="text-xs text-slate-500 font-medium mt-1">Reading</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+        <div class="text-2xl font-bold text-accent-warm">7.0+</div>
+        <div class="text-xs text-slate-500 font-medium mt-1">Writing</div>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-slate-100 shadow-sm">
+        <div class="text-2xl font-bold text-accent-green">7.0+</div>
+        <div class="text-xs text-slate-500 font-medium mt-1">Speaking</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COURSE OVERVIEW ========== -->
+<section id="overview" class="py-16 sm:py-24 px-4 bg-surface-1">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">Course Overview</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Everything you need to know about this course and the IELTS General Training exam.</p>
+    </div>
+
+    <!-- What is IELTS GT -->
+    <div class="bg-white rounded-2xl border border-slate-100 p-6 sm:p-8 mb-8 shadow-sm">
+      <h3 class="font-display text-2xl text-slate-900 mb-4">What is IELTS General Training?</h3>
+      <p class="text-slate-600 leading-relaxed mb-4">IELTS General Training is designed for those migrating to English-speaking countries (particularly Canada, Australia, UK) or for work/training purposes. The test measures your ability to communicate in English across all four language skills: Listening, Reading, Writing, and Speaking.</p>
+      <div class="grid sm:grid-cols-2 gap-4 mt-6">
+        <div class="bg-surface-1 rounded-xl p-5">
+          <div class="font-semibold text-slate-900 mb-2">Test Duration</div>
+          <p class="text-sm text-slate-600">2 hours 45 minutes total — Listening (30 min), Reading (60 min), Writing (60 min), Speaking (11–14 min on a separate day).</p>
+        </div>
+        <div class="bg-surface-1 rounded-xl p-5">
+          <div class="font-semibold text-slate-900 mb-2">Scoring</div>
+          <p class="text-sm text-slate-600">Each skill scored on Band 1–9. Your Overall Band Score is the average of all four. CLB 9 requires L:8.0, R:7.0, W:7.0, S:7.0.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Course structure cards -->
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-4">
+          <svg width="24" height="24" fill="none" stroke="#0077ed" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h4 class="font-semibold text-slate-900 mb-2">Month 1: Foundation</h4>
+        <p class="text-sm text-slate-600 leading-relaxed">Build core skills. Learn test formats, timing, and basic strategies. Daily vocabulary building and grammar review.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4">
+          <svg width="24" height="24" fill="none" stroke="#8854D0" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h4 class="font-semibold text-slate-900 mb-2">Month 2: Intensive</h4>
+        <p class="text-sm text-slate-600 leading-relaxed">Deep-dive into each skill. Timed practice tests. Targeted work on weak areas. Advanced strategies and techniques.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+        <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-4">
+          <svg width="24" height="24" fill="none" stroke="#FF6B35" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h4 class="font-semibold text-slate-900 mb-2">Month 3: Mastery</h4>
+        <p class="text-sm text-slate-600 leading-relaxed">Full mock tests under exam conditions. Fine-tune timing. Perfect weak areas. Build exam-day confidence and stamina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 3-MONTH ROADMAP ========== -->
+<section id="roadmap" class="py-16 sm:py-24 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">12-Week Roadmap</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Your complete week-by-week plan. Click each week to expand daily tasks.</p>
+    </div>
+
+    <!-- Month 1 -->
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 bg-blue-50 text-brand-700 px-4 py-1.5 rounded-full text-sm font-bold mb-4">
+        Month 1 — Foundation Building
+      </div>
+
+      <!-- Week 1 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-brand-50 text-brand-600 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W1</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 1: Understand the Test</div>
+              <div class="text-sm text-slate-500">Focus: All Skills Overview · 2-3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Take a diagnostic test (Cambridge IELTS 17/18). Record scores for each section. Identify your weakest skill.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Study the Listening test format: 4 sections, question types (multiple choice, map labelling, form completion, matching). Listen to 1 full practice test.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Study the Reading test format: Section 1 (ads/notices), Section 2 (workplace), Section 3 (general text). Do 1 full practice reading test.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Study the Writing test format: Task 1 (letter) and Task 2 (essay). Read 3 sample band 7+ answers. Note the structure and vocabulary used.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Study the Speaking test format: Part 1 (introduction), Part 2 (cue card), Part 3 (discussion). Record yourself answering 5 Part 1 questions.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Vocabulary: Learn 30 high-frequency IELTS words (Quizlet or flashcards). Start a personal vocabulary notebook. Review spelling.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Review the week. Create your study schedule. Set up your study space. Gather resources (Cambridge books, apps). Light review only.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-brand-50 text-brand-600 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W2</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 2: Listening Deep Dive</div>
+              <div class="text-sm text-slate-500">Focus: Listening · 2-3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Practice Section 1 & 2 (social/survival contexts). Focus on form completion and multiple choice. Do 3 practice exercises.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Practice Section 3 & 4 (academic contexts). Focus on matching and sentence completion. Listen twice: first for gist, then for detail.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Spelling practice: Learn common tricky spellings (accommodation, environment, government). Practice dictation exercises for 30 minutes.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Map/plan/diagram labelling practice. Study directional vocabulary (adjacent to, opposite, next to). Do 4 map-based exercises.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Full listening practice test under timed conditions. Review ALL wrong answers — understand why you got them wrong.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Listen to BBC podcasts/TED Talks (15 min each). Practice note-taking while listening. Add 20 new vocabulary words.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Review the week's mistakes. Re-do exercises you found difficult. Write down common traps and your strategies to avoid them.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-brand-50 text-brand-600 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W3</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 3: Reading Mastery Begins</div>
+              <div class="text-sm text-slate-500">Focus: Reading · 2-3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Section 1 practice: ads, notices, timetables. Learn skimming & scanning techniques. Do 4 Section 1 exercises under time pressure (20 min).</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Section 2 practice: workplace documents, job descriptions. Practice True/False/Not Given questions. Learn the difference between False and Not Given.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Section 3 practice: longer texts. Practice matching headings & paragraph information. Learn to identify topic sentences (usually first/last sentence).</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Summary/sentence completion exercises. Practice identifying paraphrases — IELTS never uses the same words as the text. Build paraphrase awareness.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Full reading test under 60-minute time limit. Aim: Section 1 in 15 min, Section 2 in 20 min, Section 3 in 25 min. Review all errors.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Read 2 English articles (BBC/Guardian). Practice identifying main ideas, supporting details, and writer's opinion. 30 new vocabulary words.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Review week. Identify which question types are hardest. Create a cheat sheet of reading strategies for each question type.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-brand-50 text-brand-600 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W4</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 4: Writing Fundamentals</div>
+              <div class="text-sm text-slate-500">Focus: Writing · 2-3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Study Task 1 letter formats: formal, semi-formal, informal. Learn opening/closing conventions. Read 5 sample band 7+ letters.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Write your first Task 1 letter (formal complaint). Time yourself: 20 minutes. Count words (min 150). Compare with model answer.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Study Task 2 essay structure: Introduction (paraphrase + thesis), 2 body paragraphs (topic sentence + explain + example), Conclusion. Read 5 model essays.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Write your first Task 2 essay (agree/disagree type). Time: 40 min. Min 250 words. Focus on clear paragraphing and coherent arguments.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Learn linking words and cohesive devices: Furthermore, Nevertheless, In contrast, As a result. Practice using them in sentences. Avoid overuse.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Grammar focus: Complex sentences, relative clauses, conditionals, passive voice. Write 10 complex sentences on IELTS topics.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-brand-600 w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Review both pieces of writing. Check for: task achievement, grammar errors, vocabulary range, paragraphing. Rewrite the weaker one.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Month 2 -->
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 bg-purple-50 text-accent-purple px-4 py-1.5 rounded-full text-sm font-bold mb-4">
+        Month 2 — Intensive Practice
+      </div>
+
+      <!-- Week 5 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-purple-50 text-accent-purple rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W5</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 5: Speaking Confidence</div>
+              <div class="text-sm text-slate-500">Focus: Speaking · 2-3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Part 1 practice: Record answers to 15 common Part 1 topics (home, work, studies, weather, food). Aim for 3-4 sentence answers. Review recordings.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Part 2 practice: Do 3 cue cards. Use the 1-minute prep time wisely — write keywords only, not full sentences. Speak for 2 full minutes each.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Part 3 practice: Practice extending answers with reasons, examples, and comparisons. Learn phrases: "That's an interesting question...", "I'd say that..."</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Pronunciation work: Practice word stress, sentence stress, and intonation with YouTube videos. Record and compare. Focus on clarity, not accent.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Full mock speaking test (record everything). Part 1: 4-5 min, Part 2: 3-4 min, Part 3: 4-5 min. Listen back and note errors.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Learn 20 idiomatic expressions and phrasal verbs for speaking (break down, come across, look into). Practice using them naturally in sentences.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Review recordings from the week. Score yourself on fluency, vocabulary, grammar, pronunciation. Identify 3 things to improve next week.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 6 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-purple-50 text-accent-purple rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W6</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 6: Advanced Listening + Reading</div>
+              <div class="text-sm text-slate-500">Focus: Listening & Reading · 3-4 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Listening: 2 full practice tests back-to-back. Focus on Section 3 & 4 (hardest). Practice predicting answers before audio plays.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Reading: 2 full tests. Strict 60-minute timing. Practice time management: if stuck on a question for 2 min, move on and return later.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Error analysis day: Categorize ALL mistakes from Mon/Tue. Are they vocabulary gaps? Comprehension? Time pressure? Spelling? Create targeted drills.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Listening: Practice at 1.25x speed on YouTube/podcasts. When you return to normal speed, it feels easier. Do 2 Section 4 exercises.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Reading: Focus on True/False/Not Given (the hardest question type). Do 10 exercises. Learn: FALSE = text says opposite; NOT GIVEN = text doesn't mention it.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Vocabulary expansion: Learn 30 academic words from the AWL (Academic Word List). Create example sentences. Test yourself with flashcards.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Rest day. Light English immersion only: watch an English movie/series (with English subtitles). Note 10 new expressions.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 7 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-purple-50 text-accent-purple rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W7</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 7: Writing Excellence</div>
+              <div class="text-sm text-slate-500">Focus: Writing · 3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Write 2 Task 1 letters (formal + informal) in 20 min each. Focus on covering all bullet points and using appropriate tone.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Write 1 Task 2 essay (discussion type: discuss both views). Plan for 5 min, write for 35 min. Aim for 280+ words.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Grammar clinic: Study 5 complex structures (cleft sentences, inversions, participle clauses). Rewrite yesterday's essay using 3 of them.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Write 1 Task 2 essay (problem/solution type). Focus on clear paragraph structure and real-world examples. Compare with band 8 model answer.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Vocabulary for writing: Learn 20 formal alternatives (e.g., help → facilitate, get → obtain, about → regarding). Practice in context.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Write both Task 1 and Task 2 under full exam conditions (60 min total). This is critical for time management practice.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Self-edit all writing from this week. Check for: task response, grammar, vocabulary range, coherence/cohesion. Rewrite your weakest piece.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 8 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-purple-50 text-accent-purple rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W8</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 8: Full Skill Integration</div>
+              <div class="text-sm text-slate-500">Focus: All Skills · 3-4 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Full mock: Listening + Reading (2.5 hrs). Simulate real test conditions — no pauses, no phone, proper timing. Score yourself.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Full mock: Writing (1 hr) + Speaking (15 min recorded). Use real IELTS prompts. Time strictly. Score against band descriptors.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Deep review of Monday's and Tuesday's mock. Categorize every error. Create a personal "mistake log" document. Identify patterns.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Targeted weakness practice: Spend 2 hours on your lowest-scoring skill only. Use specific drills for your worst question types.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Second targeted weakness session. Plus: 30 min speaking practice, 30 min vocabulary review, 20 min grammar exercises.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Mid-course assessment: Take another full practice test. Compare scores with Week 1 diagnostic. Measure improvement. Adjust plan if needed.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-purple w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Rest and reflect. Journal your progress. Celebrate improvements. Plan adjustments for Month 3 based on mid-course scores.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Month 3 -->
+    <div>
+      <div class="inline-flex items-center gap-2 bg-orange-50 text-accent-warm px-4 py-1.5 rounded-full text-sm font-bold mb-4">
+        Month 3 — Exam Mastery
+      </div>
+
+      <!-- Week 9 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-orange-50 text-accent-warm rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W9</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 9: Mock Test Week 1</div>
+              <div class="text-sm text-slate-500">Focus: Full Tests · 3-4 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Full mock test: Listening + Reading under strict exam conditions. Use answer sheet. No extra time. Pencil only (if paper-based).</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Full mock test: Writing Task 1 + Task 2. Use the exam word counter tool below. Time: exactly 60 minutes total.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Speaking mock test (recorded). Then: detailed review of all 4 skills from Mon/Tue. Update your mistake log.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Weakness blitz: 3 hours on your two weakest question types across all skills. Drill, drill, drill. Use Cambridge practice materials.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Second full listening test (different Cambridge book). Goal: 35+/40 correct. Practice transferring answers to answer sheet quickly.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Second full reading test + writing test. Simulate morning exam energy: start at 9 AM. Build test-day stamina.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Light review only. Walk, rest, sleep well. Review vocabulary flashcards (30 min). Listen to English podcast before bed.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 10 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-orange-50 text-accent-warm rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W10</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 10: Mock Test Week 2 + Refinement</div>
+              <div class="text-sm text-slate-500">Focus: Full Tests + Weak Areas · 3-4 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Complete Cambridge IELTS book test (e.g., Book 16 or 17). Full Listening + Reading. Record exact scores for tracking.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Complete Writing test. Then record a full Speaking mock. Focus on fluency — don't pause for more than 2 seconds.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Comprehensive error review. By now your mistake log should show clear patterns. Spend 3 hours creating targeted exercises for your top 5 error patterns.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Speed drills: Listening at 1.25x speed (30 min). Reading Section 3 in 20 min (3 passages). Writing Task 2 in 35 min. Quick-fire Speaking Part 1.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Writing clinic: Write 2 Task 1 letters and 1 Task 2 essay. Focus on hitting all scoring criteria. Use the band descriptors as a checklist.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Third full mock test (all 4 skills in one day). This is the closest simulation to exam day. Start at your actual test time.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Review Saturday's mock. Compare scores across all mock tests. You should see improvement. Celebrate progress, note remaining gaps.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 11 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-orange-50 text-accent-warm rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W11</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 11: Final Polish</div>
+              <div class="text-sm text-slate-500">Focus: Fine-tuning · 2-3 hrs/day</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Final full mock test. Best Cambridge book you haven't used yet. Treat it exactly like exam day (dress, timing, no interruptions).</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Review and score the mock. Final mistake analysis. Write down your top 10 exam strategies (one-page cheat sheet for last-day review).</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Speaking practice: Record yourself doing 5 complete Part 2 cue cards. Listen and refine. Practice confident body language and eye contact.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Writing: Write 1 perfect Task 1 letter and 1 perfect Task 2 essay. Take your time. This is about quality, not speed. Memorize useful phrases.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Fri</span><span class="text-slate-600">Light practice: 1 Listening section, 1 Reading section. Review vocabulary flashcards. Read your strategy cheat sheet 3 times.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Sat</span><span class="text-slate-600">Very light day. Review your cheat sheet. Listen to English music/podcasts. Pack your exam bag (ID, pencils, eraser, water).</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-warm w-14 flex-shrink-0">Sun</span><span class="text-slate-600">No study. Rest completely. Go for a walk. Sleep early. Trust your preparation. You've done the work.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 12 -->
+      <div class="accordion-item mb-3">
+        <button onclick="toggleAccordion(this)" class="week-card w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-accent-green/10 text-accent-green rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">W12</div>
+            <div>
+              <div class="font-semibold text-slate-900">Week 12: Exam Week 🎯</div>
+              <div class="text-sm text-slate-500">Focus: Confidence + Exam Day · Light study</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-3">
+            <div class="grid gap-2 text-sm">
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0">Mon</span><span class="text-slate-600">Light review: Read your strategy cheat sheet. Do 1 short Listening exercise. Review your best writing samples. Stay calm and focused.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0">Tue</span><span class="text-slate-600">Light Speaking practice only (15 min). Review 10 favourite idioms. Read 1 article for pleasure. No heavy studying — your brain needs to rest.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0">Wed</span><span class="text-slate-600">Quick vocabulary flashcard review (20 min). Review your mistake log — avoid these traps on exam day. Prepare your exam bag again.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0">Thu</span><span class="text-slate-600">Pre-exam day: Read strategy cheat sheet one final time. Set 2 alarms. Prepare clothes. Eat well. Sleep by 10 PM. No studying after 6 PM.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0 bg-accent-green/20 rounded px-1">EXAM</span><span class="text-slate-600 font-medium">Exam Day: Wake up early. Eat a good breakfast. Arrive 30 min early. Stay calm. Trust your preparation. Read instructions carefully. You've got this! 🎓</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0">Sat</span><span class="text-slate-600">If speaking is on a different day: Review Part 1 topics, do 2 cue cards, practice Part 3 answers. Stay confident and natural.</span></div>
+              <div class="flex gap-3 items-start"><span class="font-semibold text-accent-green w-14 flex-shrink-0">Sun</span><span class="text-slate-600">Celebrate! You've completed a rigorous 12-week program. Results come in 13 days. Rest, reflect, and be proud of your commitment.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SKILL SECTIONS ========== -->
+<section id="skills" class="py-16 sm:py-24 px-4 bg-surface-1">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">Master All Four Skills</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Detailed strategies, techniques, practice tasks, and video lessons for each IELTS skill.</p>
+    </div>
+
+    <!-- Skill tabs -->
+    <div class="flex overflow-x-auto gap-2 mb-8 pb-2 no-print" id="skill-tabs">
+      <button onclick="showSkill('listening')" class="tab-btn active px-5 py-2.5 text-sm font-semibold rounded-lg bg-white border border-slate-200 text-brand-600 whitespace-nowrap" data-tab="listening">🎧 Listening</button>
+      <button onclick="showSkill('reading')" class="tab-btn px-5 py-2.5 text-sm font-semibold rounded-lg bg-white border border-slate-200 text-slate-600 whitespace-nowrap" data-tab="reading">📖 Reading</button>
+      <button onclick="showSkill('writing')" class="tab-btn px-5 py-2.5 text-sm font-semibold rounded-lg bg-white border border-slate-200 text-slate-600 whitespace-nowrap" data-tab="writing">✍️ Writing</button>
+      <button onclick="showSkill('speaking')" class="tab-btn px-5 py-2.5 text-sm font-semibold rounded-lg bg-white border border-slate-200 text-slate-600 whitespace-nowrap" data-tab="speaking">🗣️ Speaking</button>
+    </div>
+
+    <!-- ===== LISTENING SKILL ===== -->
+    <div id="skill-listening" class="skill-panel">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-500 to-brand-600 px-6 sm:px-8 py-6">
+          <h3 class="font-display text-2xl sm:text-3xl text-white mb-2">Listening — Target: Band 8.0+</h3>
+          <p class="text-blue-100 text-sm">30 minutes + 10 minutes transfer time · 40 questions · 4 sections</p>
+        </div>
+        <div class="p-6 sm:p-8 space-y-8">
+          <!-- Format -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Test Format</h4>
+            <div class="bg-surface-1 rounded-xl p-5 space-y-3 text-sm text-slate-600">
+              <p><span class="font-semibold text-slate-800">Section 1:</span> A conversation in an everyday social context (e.g., booking a hotel, asking for information). Easiest section.</p>
+              <p><span class="font-semibold text-slate-800">Section 2:</span> A monologue in a social context (e.g., a tour guide describing a location, a radio announcement).</p>
+              <p><span class="font-semibold text-slate-800">Section 3:</span> A conversation between 2–4 people in an educational/training context (e.g., university tutorial discussion).</p>
+              <p><span class="font-semibold text-slate-800">Section 4:</span> A monologue on an academic subject (e.g., a university lecture). Hardest section — no break in the middle.</p>
+              <p class="text-slate-800 font-medium">Question types: Multiple choice, matching, plan/map/diagram labelling, form/note/table/flow-chart/summary completion, sentence completion.</p>
+            </div>
+          </div>
+
+          <!-- Strategies -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Strategies for Band 8+</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">1. Read Ahead</div>
+                <p class="text-sm text-slate-600">Use every second of reading time to preview questions. Underline keywords. Predict answer types (name? number? place?). This is the single most important strategy.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">2. Listen for Signpost Words</div>
+                <p class="text-sm text-slate-600">Words like "however," "actually," "but," "in fact" signal a correction or important point. The answer often comes RIGHT AFTER these words.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">3. Watch for Traps</div>
+                <p class="text-sm text-slate-600">Speakers often change their mind: "I thought 3 PM... actually, let's make it 4." The answer is always the FINAL decision. Don't write the first thing you hear.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">4. Spelling Counts</div>
+                <p class="text-sm text-slate-600">Misspelled answers = zero marks. Practice common tricky words: accommodation, schedule, receipt, Wednesday, February. Keep a spelling list.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">5. Never Leave Blank</div>
+                <p class="text-sm text-slate-600">No penalty for wrong answers. Always guess if you don't know. Even a wild guess has a chance. Check the word limit (e.g., "no more than two words").</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">6. Practice at Higher Speed</div>
+                <p class="text-sm text-slate-600">Listen to podcasts/videos at 1.25x speed during practice. When you return to normal IELTS speed, it feels slower and you catch more detail.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step by step -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Step-by-Step Approach During the Test</h4>
+            <div class="space-y-2 text-sm text-slate-600">
+              <div class="flex gap-3 items-start"><span class="bg-brand-100 text-brand-700 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">1</span>As soon as you're told to open the booklet, immediately read the questions for Section 1. Underline key words.</div>
+              <div class="flex gap-3 items-start"><span class="bg-brand-100 text-brand-700 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">2</span>Predict what kind of answer you need (a name, a number, a date, a place). Write this prediction lightly in pencil.</div>
+              <div class="flex gap-3 items-start"><span class="bg-brand-100 text-brand-700 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">3</span>Listen carefully. Write answers as you hear them. Don't get stuck — if you miss one, move on immediately to the next question.</div>
+              <div class="flex gap-3 items-start"><span class="bg-brand-100 text-brand-700 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">4</span>During the 30-second breaks between sections, quickly read ahead to the next section's questions.</div>
+              <div class="flex gap-3 items-start"><span class="bg-brand-100 text-brand-700 font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">5</span>In the 10-minute transfer time at the end, carefully copy answers to the answer sheet. Check spelling, capitalization, and word limits.</div>
+            </div>
+          </div>
+
+          <!-- Videos -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Video Lessons</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/LMUscRbfBTs" title="IELTS Listening Tips" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">IELTS Listening — Top Tips for Band 8+</p>
+              </div>
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/dTRbCAjBfCg" title="IELTS Listening Practice" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Full IELTS Listening Practice Test</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Practice Task -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Practice Task</h4>
+            <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+              <p class="text-sm font-semibold text-brand-700 mb-2">Daily Listening Drill (20 minutes)</p>
+              <ol class="text-sm text-slate-700 space-y-1.5 list-decimal list-inside">
+                <li>Go to the IELTS Listening practice section on the British Council website or use Cambridge IELTS book audio.</li>
+                <li>Play one section (Section 3 or 4 for challenge).</li>
+                <li>Answer the questions without pausing.</li>
+                <li>Check answers and note every mistake.</li>
+                <li>Re-listen to the parts you missed, reading the transcript simultaneously.</li>
+                <li>Add any new vocabulary to your notebook with the pronunciation noted.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== READING SKILL ===== -->
+    <div id="skill-reading" class="skill-panel hidden">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-accent-purple to-purple-600 px-6 sm:px-8 py-6">
+          <h3 class="font-display text-2xl sm:text-3xl text-white mb-2">Reading — Target: Band 7.0+</h3>
+          <p class="text-purple-100 text-sm">60 minutes · 40 questions · 3 sections</p>
+        </div>
+        <div class="p-6 sm:p-8 space-y-8">
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Test Format (General Training)</h4>
+            <div class="bg-surface-1 rounded-xl p-5 space-y-3 text-sm text-slate-600">
+              <p><span class="font-semibold text-slate-800">Section 1 (Easiest):</span> 2–3 short texts about everyday topics — advertisements, timetables, notices, instructions. ~14 questions. Target time: 15 minutes.</p>
+              <p><span class="font-semibold text-slate-800">Section 2 (Medium):</span> 2 workplace-related texts — job descriptions, company policies, training materials, contracts. ~13 questions. Target time: 20 minutes.</p>
+              <p><span class="font-semibold text-slate-800">Section 3 (Hardest):</span> 1 long, complex text on a general interest topic — similar to a magazine article or book excerpt. ~13 questions. Target time: 25 minutes.</p>
+              <p class="text-slate-800 font-medium">Question types: Multiple choice, identifying information (T/F/NG), identifying writer's views (Y/N/NG), matching information, matching headings, matching features, matching sentence endings, sentence/summary/note/table/flow-chart/diagram completion, short-answer questions.</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Strategies for Band 7+</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">1. Time Management Is Everything</div>
+                <p class="text-sm text-slate-600">Section 1: 15 min. Section 2: 20 min. Section 3: 25 min. Set a watch/timer. If you spend too long on one question, circle it and move on. Return later if time permits.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">2. Read Questions FIRST</div>
+                <p class="text-sm text-slate-600">Never read the whole passage first. Read the questions, underline keywords, then scan the text for those keywords. This saves enormous time.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">3. Paraphrase Detection</div>
+                <p class="text-sm text-slate-600">IELTS uses synonyms and paraphrases. "Costly" in the question might be "expensive" in the text. Build a strong awareness of common paraphrases.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">4. T/F/NG vs Y/N/NG</div>
+                <p class="text-sm text-slate-600">TRUE/FALSE = factual information in the text. YES/NO = the writer's opinion/claim. NOT GIVEN = the text simply doesn't mention it — don't infer or assume.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">5. Matching Headings</div>
+                <p class="text-sm text-slate-600">Read the first and last sentence of each paragraph. These usually contain the main idea. Eliminate easy matches first, then work on ambiguous ones.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">6. Never Leave Blanks</div>
+                <p class="text-sm text-slate-600">No negative marking. Guess strategically. For T/F/NG, if you're stuck, "NOT GIVEN" is a safe statistical guess as many students under-use it.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Step-by-Step Reading Approach</h4>
+            <div class="space-y-2 text-sm text-slate-600">
+              <div class="flex gap-3 items-start"><span class="bg-purple-100 text-accent-purple font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">1</span>Glance at the passage title and any headings/images to get the topic (10 seconds).</div>
+              <div class="flex gap-3 items-start"><span class="bg-purple-100 text-accent-purple font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">2</span>Read ALL the questions for that section. Underline key words in each question.</div>
+              <div class="flex gap-3 items-start"><span class="bg-purple-100 text-accent-purple font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">3</span>Scan the text for answers to the first set of questions. Answers usually follow the order of the text.</div>
+              <div class="flex gap-3 items-start"><span class="bg-purple-100 text-accent-purple font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">4</span>For T/F/NG: Find the relevant sentence, then compare it EXACTLY to the statement. If the text says something different = FALSE. If the text doesn't address it at all = NOT GIVEN.</div>
+              <div class="flex gap-3 items-start"><span class="bg-purple-100 text-accent-purple font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">5</span>Transfer answers as you go (no separate transfer time for Reading). Double-check spelling and word limits.</div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Video Lessons</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/OoCSTdt8MXA" title="IELTS Reading Strategies" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">IELTS Reading — Complete Strategy Guide</p>
+              </div>
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/UGpjvBsP7Dg" title="IELTS Reading True False Not Given" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">True / False / Not Given — How to Get It Right</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Practice Task</h4>
+            <div class="bg-purple-50 rounded-xl p-5 border border-purple-100">
+              <p class="text-sm font-semibold text-accent-purple mb-2">Daily Reading Drill (30 minutes)</p>
+              <ol class="text-sm text-slate-700 space-y-1.5 list-decimal list-inside">
+                <li>Pick one section from a Cambridge IELTS GT Reading test.</li>
+                <li>Set your timer (Section 1: 15 min, Section 2: 20 min, Section 3: 25 min).</li>
+                <li>Read questions first, underline keywords, then scan the text.</li>
+                <li>Answer all questions — never leave blanks.</li>
+                <li>Check answers. For every wrong answer, go back and find exactly where the answer was in the text.</li>
+                <li>Write down every unfamiliar word with its definition. Review these words the next day.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== WRITING SKILL ===== -->
+    <div id="skill-writing" class="skill-panel hidden">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-accent-warm to-orange-500 px-6 sm:px-8 py-6">
+          <h3 class="font-display text-2xl sm:text-3xl text-white mb-2">Writing — Target: Band 7.0+</h3>
+          <p class="text-orange-100 text-sm">60 minutes · 2 tasks · Task 1 (letter, 150+ words) + Task 2 (essay, 250+ words)</p>
+        </div>
+        <div class="p-6 sm:p-8 space-y-8">
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Test Format (General Training)</h4>
+            <div class="bg-surface-1 rounded-xl p-5 space-y-3 text-sm text-slate-600">
+              <p><span class="font-semibold text-slate-800">Task 1 (20 min, 150+ words):</span> Write a letter — formal, semi-formal, or informal. You're given a situation and 3 bullet points to address. Letter types include: complaint, request, apology, invitation, recommendation, application.</p>
+              <p><span class="font-semibold text-slate-800">Task 2 (40 min, 250+ words):</span> Write an essay. Types include: agree/disagree, discuss both views, problem/solution, advantages/disadvantages, two-part question. Task 2 is worth TWICE the marks of Task 1.</p>
+              <p class="text-slate-800 font-medium">Scoring criteria: Task Achievement, Coherence & Cohesion, Lexical Resource, Grammatical Range & Accuracy (each 25%).</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Strategies for Band 7+</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">1. Address ALL Bullet Points</div>
+                <p class="text-sm text-slate-600">Task 1: Cover every bullet point fully. Missing even one drops your Task Achievement score significantly. Allocate roughly equal space to each.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">2. Plan Before You Write</div>
+                <p class="text-sm text-slate-600">Spend 3–5 minutes planning. For Task 2: write your thesis, 2 main points, and examples. A planned essay is always better than an unplanned one.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">3. Use Correct Tone</div>
+                <p class="text-sm text-slate-600">Formal: "Dear Sir/Madam" → "Yours faithfully." Semi-formal: "Dear Mr. Smith" → "Yours sincerely." Informal: "Dear John" → "Best wishes." Getting this wrong costs marks.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">4. Paragraph Structure</div>
+                <p class="text-sm text-slate-600">Each body paragraph: Topic sentence → Explain → Example → Link back. This structure ensures coherence and makes your argument easy to follow.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">5. Vocabulary Range</div>
+                <p class="text-sm text-slate-600">Don't repeat the same words. Use synonyms: important → crucial, significant, vital. Show range but stay natural — don't force complex words you're unsure about.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">6. Mix Sentence Structures</div>
+                <p class="text-sm text-slate-600">Use a mix of simple, compound, and complex sentences. Include: conditionals, relative clauses, passive voice, and reported speech. Aim for 1 complex sentence per paragraph minimum.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sample Band 7+ Answers -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Sample Band 7+ Answers</h4>
+
+            <div class="accordion-item mb-4">
+              <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between bg-orange-50 border border-orange-200 rounded-xl px-5 py-3 text-left">
+                <span class="font-semibold text-sm text-accent-warm">Task 1 Sample: Formal Complaint Letter</span>
+                <svg class="accordion-arrow w-5 h-5 text-accent-warm flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="accordion-content">
+                <div class="bg-white border border-t-0 border-orange-200 rounded-b-xl px-5 py-4 -mt-1">
+                  <p class="text-xs text-slate-500 mb-3 italic">Prompt: You recently bought a product online that arrived damaged. Write a letter to the company. In your letter: describe what you ordered, explain the problem, and say what you want them to do about it.</p>
+                  <div class="bg-surface-1 rounded-lg p-4 text-sm text-slate-700 leading-relaxed font-mono text-xs">
+                    <p>Dear Sir or Madam,</p>
+                    <br>
+                    <p>I am writing to express my dissatisfaction with a recent purchase I made through your online store on 15th March. I ordered a ceramic dinner set, model "Elegance Collection," comprising twelve plates, six bowls, and six cups, for which I paid $89.99.</p>
+                    <br>
+                    <p>Unfortunately, when the package arrived on 22nd March, I discovered that three of the plates were cracked and one of the cups had a chip on its rim. It appeared that the items had been inadequately packed, as there was minimal protective material inside the box. This was extremely disappointing, particularly as the set was intended as a gift for my sister's housewarming party.</p>
+                    <br>
+                    <p>I would appreciate it if you could either send replacement items for the damaged pieces or provide a full refund for the entire set. Additionally, I believe it would be beneficial for your company to review its packaging procedures to prevent similar issues in the future. I have retained the damaged items and the original packaging as evidence, should you require them.</p>
+                    <br>
+                    <p>I look forward to your prompt response on this matter.</p>
+                    <br>
+                    <p>Yours faithfully,<br>Mubashir Ahmed</p>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-3"><strong>Why this scores Band 7+:</strong> Clear purpose from the opening. All 3 bullet points covered in full. Appropriate formal register throughout. Good range of vocabulary (dissatisfaction, inadequately, beneficial). Mix of sentence structures. Coherent paragraphing. Correct opening/closing conventions. 185 words.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between bg-orange-50 border border-orange-200 rounded-xl px-5 py-3 text-left">
+                <span class="font-semibold text-sm text-accent-warm">Task 2 Sample: Agree/Disagree Essay</span>
+                <svg class="accordion-arrow w-5 h-5 text-accent-warm flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="accordion-content">
+                <div class="bg-white border border-t-0 border-orange-200 rounded-b-xl px-5 py-4 -mt-1">
+                  <p class="text-xs text-slate-500 mb-3 italic">Prompt: Some people believe that technology has made our lives more complicated rather than simpler. To what extent do you agree or disagree?</p>
+                  <div class="bg-surface-1 rounded-lg p-4 text-sm text-slate-700 leading-relaxed font-mono text-xs">
+                    <p>It is often argued that modern technology, rather than simplifying our daily routines, has introduced a new layer of complexity into our lives. While I acknowledge that technology can occasionally be overwhelming, I largely disagree with this view, as the benefits it provides far outweigh its drawbacks.</p>
+                    <br>
+                    <p>On the one hand, it is understandable why some individuals feel that technology complicates life. The constant stream of notifications from smartphones, the need to learn new software at work, and the pressure to maintain a social media presence can all contribute to feelings of stress and information overload. For instance, many office workers report spending a significant portion of their day managing emails rather than completing productive tasks, which can lead to frustration and reduced efficiency.</p>
+                    <br>
+                    <p>However, I believe that the advantages of technology overwhelmingly simplify our existence. Firstly, routine tasks that previously consumed hours — such as banking, grocery shopping, and booking travel — can now be accomplished within minutes through mobile applications. Secondly, communication technology has made it possible to maintain relationships across vast distances at virtually no cost, something that would have been inconceivable just a few decades ago. Furthermore, access to information has been democratised; anyone with an internet connection can learn almost any skill through free online resources, from cooking to coding.</p>
+                    <br>
+                    <p>In conclusion, although technology undeniably introduces certain challenges, its capacity to streamline everyday activities and connect people globally makes our lives considerably simpler on balance. The key lies not in rejecting technology, but in learning to use it judiciously.</p>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-3"><strong>Why this scores Band 7+:</strong> Clear position stated in intro and maintained throughout. Both sides discussed (balanced approach). Specific examples given. Strong vocabulary range (democratised, inconceivable, judiciously). Complex sentences with relative clauses and conditionals. Clear 4-paragraph structure. Effective use of cohesive devices. 278 words.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Video Lessons</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/p_wQGh_GDpQ" title="IELTS Writing Task 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Writing Task 1 — Letters for GT</p>
+              </div>
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/wDJBbQHRFUY" title="IELTS Writing Task 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Writing Task 2 — How to Structure Your Essay</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SPEAKING SKILL ===== -->
+    <div id="skill-speaking" class="skill-panel hidden">
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-accent-green to-emerald-500 px-6 sm:px-8 py-6">
+          <h3 class="font-display text-2xl sm:text-3xl text-white mb-2">Speaking — Target: Band 7.0+</h3>
+          <p class="text-emerald-100 text-sm">11–14 minutes · 3 parts · Face-to-face with examiner</p>
+        </div>
+        <div class="p-6 sm:p-8 space-y-8">
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Test Format</h4>
+            <div class="bg-surface-1 rounded-xl p-5 space-y-3 text-sm text-slate-600">
+              <p><span class="font-semibold text-slate-800">Part 1 — Introduction & Interview (4–5 min):</span> General questions about yourself, your home, work/studies, hobbies, daily routine. Give 2–4 sentence answers. Be natural and friendly.</p>
+              <p><span class="font-semibold text-slate-800">Part 2 — Individual Long Turn (3–4 min):</span> You receive a cue card with a topic and bullet points. You get 1 minute to prepare and must speak for 1–2 minutes. The examiner may ask 1–2 follow-up questions.</p>
+              <p><span class="font-semibold text-slate-800">Part 3 — Two-way Discussion (4–5 min):</span> Abstract questions connected to the Part 2 topic. The examiner wants to see analytical thinking, opinion expression, and the ability to discuss complex ideas.</p>
+              <p class="text-slate-800 font-medium">Scoring criteria: Fluency & Coherence, Lexical Resource, Grammatical Range & Accuracy, Pronunciation (each 25%).</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Strategies for Band 7+</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">1. Extend Your Answers</div>
+                <p class="text-sm text-slate-600">Never give one-word answers. Use the formula: Answer + Reason + Example. "Do you like cooking?" → "Yes, I do. I find it quite relaxing, especially after a long day. For instance, I often make pasta from scratch on weekends."</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">2. Part 2: Use Your Prep Time</div>
+                <p class="text-sm text-slate-600">In the 1-minute prep time, write KEYWORDS only (not full sentences). Jot down: 2–3 key points, a specific example, and relevant vocabulary. This structure will carry you through 2 minutes easily.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">3. Self-Correct Naturally</div>
+                <p class="text-sm text-slate-600">If you make a grammar mistake, correct it naturally: "I goed... I mean, I went to the cinema." This actually helps your score — it shows grammatical awareness. Don't panic about mistakes.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">4. Use Fillers Wisely</div>
+                <p class="text-sm text-slate-600">Natural fillers are fine: "That's an interesting question...", "Let me think about that...", "Well, I'd say that..." They give you thinking time and sound natural. Avoid "um" and "uh" excessively.</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">5. Show Vocabulary Range</div>
+                <p class="text-sm text-slate-600">Use idiomatic expressions naturally: "It's right up my alley," "That rings a bell," "To be honest." Use less common vocabulary: "rewarding" instead of "good," "hectic" instead of "busy."</p>
+              </div>
+              <div class="border border-slate-200 rounded-xl p-4">
+                <div class="font-semibold text-slate-900 text-sm mb-2">6. Pronunciation Matters</div>
+                <p class="text-sm text-slate-600">Focus on clarity, not accent. Practice word stress (PHOtograph vs phoTOGrapher), sentence stress (emphasize content words), and intonation (voice goes up for questions).</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sample Speaking Answers -->
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Sample Band 7+ Answers</h4>
+            <div class="space-y-4">
+              <div class="bg-green-50 rounded-xl p-5 border border-green-100">
+                <p class="text-sm font-semibold text-accent-green mb-2">Part 1 Example: "Do you prefer reading books or watching films?"</p>
+                <p class="text-sm text-slate-700 italic leading-relaxed">"That's a tough one, actually. I'd have to say I lean more towards watching films, primarily because I find them more immersive — you know, the visual effects and the soundtrack really draw you in. Having said that, I do enjoy reading before bed. There's something about getting lost in a good novel that's incredibly relaxing. But if I had to choose one, films would win, especially sci-fi ones."</p>
+                <p class="text-xs text-slate-500 mt-2"><strong>Analysis:</strong> Extended answer with reasons. Natural fillers ("That's a tough one"). Hedging language ("I'd have to say"). Contrast ("Having said that"). Specific detail ("sci-fi ones"). Fluent delivery.</p>
+              </div>
+              <div class="bg-green-50 rounded-xl p-5 border border-green-100">
+                <p class="text-sm font-semibold text-accent-green mb-2">Part 2 Cue Card: "Describe a skill you learned as a child"</p>
+                <p class="text-sm text-slate-700 italic leading-relaxed">"I'd like to talk about swimming, which I learned when I was around seven years old. My father taught me at a local pool near our home. Initially, I was terrified of the water — I distinctly remember clinging to the edge of the pool and refusing to let go. But my father was incredibly patient. He started with floating exercises and gradually built my confidence over several weeks. The breakthrough moment came when I finally swam across the width of the pool without any support. I was over the moon! Since then, swimming has become one of my favourite activities. I try to swim at least twice a week, and it's become not just exercise but a form of meditation for me. Looking back, I'm grateful my father persisted because it taught me that facing your fears often leads to the most rewarding experiences."</p>
+                <p class="text-xs text-slate-500 mt-2"><strong>Analysis:</strong> Clear structure (what, when, who, how, feelings). Specific details and emotions. Idiomatic language ("over the moon," "clinging to the edge"). Past and present tenses used accurately. Good vocabulary range. Speaking time: approximately 1.5–2 minutes.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Video Lessons</h4>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/GEi6Y2FW66U" title="IELTS Speaking Band 7+" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">IELTS Speaking — Tips for Band 7+</p>
+              </div>
+              <div>
+                <div class="video-container shadow-sm">
+                  <iframe src="https://www.youtube.com/embed/xMIBMCTCMmA" title="IELTS Speaking Mock Test" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Full IELTS Speaking Mock Test (Band 8)</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold text-lg text-slate-900 mb-3">Common Part 1 Topics to Prepare</h4>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Home/Accommodation</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Work/Studies</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Hometown</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Food & Cooking</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Sports & Exercise</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Music</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Reading</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Travel</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Weather</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Shopping</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Technology</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Neighbours</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Daily Routine</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Transportation</span>
+              <span class="bg-green-50 text-accent-green text-xs font-medium px-3 py-1.5 rounded-full border border-green-200">Social Media</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DAILY STUDY PLAN ========== -->
+<section id="daily-plan" class="py-16 sm:py-24 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">Daily Study Plan</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">A structured 3-hour daily routine. Adjust timing to fit your schedule, but maintain the sequence.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
+        <div class="p-6 text-center">
+          <div class="text-3xl mb-2">🎧</div>
+          <div class="font-semibold text-slate-900 mb-1">Session 1</div>
+          <div class="text-xs text-brand-600 font-medium mb-2">30 min — Listening</div>
+          <p class="text-xs text-slate-500">1 full section practice + review errors + note new vocab</p>
+        </div>
+        <div class="p-6 text-center">
+          <div class="text-3xl mb-2">📖</div>
+          <div class="font-semibold text-slate-900 mb-1">Session 2</div>
+          <div class="text-xs text-accent-purple font-medium mb-2">45 min — Reading</div>
+          <p class="text-xs text-slate-500">1 section timed practice + check answers + learn paraphrases</p>
+        </div>
+        <div class="p-6 text-center">
+          <div class="text-3xl mb-2">✍️</div>
+          <div class="font-semibold text-slate-900 mb-1">Session 3</div>
+          <div class="text-xs text-accent-warm font-medium mb-2">60 min — Writing</div>
+          <p class="text-xs text-slate-500">Write Task 1 OR Task 2 + self-check using band descriptors</p>
+        </div>
+        <div class="p-6 text-center">
+          <div class="text-3xl mb-2">🗣️</div>
+          <div class="font-semibold text-slate-900 mb-1">Session 4</div>
+          <div class="text-xs text-accent-green font-medium mb-2">30 min — Speaking</div>
+          <p class="text-xs text-slate-500">Record answers to 3 Part 1 + 1 Part 2 topic + listen back</p>
+        </div>
+      </div>
+      <div class="bg-surface-1 p-5 border-t border-slate-100">
+        <div class="flex items-center justify-center gap-6 text-xs text-slate-500 flex-wrap">
+          <span>⏰ <strong>15 min:</strong> Vocabulary review (flashcards)</span>
+          <span>📝 <strong>15 min:</strong> Grammar exercise</span>
+          <span>🎬 <strong>15 min:</strong> English immersion (podcast/video)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRACTICE TOOLS ========== -->
+<section id="practice" class="py-16 sm:py-24 px-4 bg-surface-1">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">Practice Tools</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Built-in tools to simulate exam conditions. Use the timer for timed practice and the word counter for writing tasks.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+      <!-- Timer -->
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+        <h3 class="font-semibold text-lg text-slate-900 mb-4">⏱️ Practice Timer</h3>
+        <div class="text-center mb-4">
+          <div id="timer-display" class="font-mono text-5xl font-bold text-slate-900 mb-4">60:00</div>
+          <div class="flex gap-2 justify-center flex-wrap mb-4">
+            <button onclick="setTimer(20)" class="px-3 py-1.5 bg-blue-50 text-brand-600 text-xs font-semibold rounded-lg hover:bg-blue-100 transition-colors">20 min<br><span class="text-[10px] font-normal">Task 1</span></button>
+            <button onclick="setTimer(40)" class="px-3 py-1.5 bg-purple-50 text-accent-purple text-xs font-semibold rounded-lg hover:bg-purple-100 transition-colors">40 min<br><span class="text-[10px] font-normal">Task 2</span></button>
+            <button onclick="setTimer(60)" class="px-3 py-1.5 bg-orange-50 text-accent-warm text-xs font-semibold rounded-lg hover:bg-orange-100 transition-colors">60 min<br><span class="text-[10px] font-normal">Writing</span></button>
+            <button onclick="setTimer(30)" class="px-3 py-1.5 bg-green-50 text-accent-green text-xs font-semibold rounded-lg hover:bg-green-100 transition-colors">30 min<br><span class="text-[10px] font-normal">Listening</span></button>
+          </div>
+          <div class="flex gap-2 justify-center">
+            <button onclick="startTimer()" id="timer-start" class="px-6 py-2.5 bg-brand-600 text-white text-sm font-semibold rounded-xl hover:bg-brand-700 transition-colors">Start</button>
+            <button onclick="pauseTimer()" class="px-6 py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors">Pause</button>
+            <button onclick="resetTimer()" class="px-6 py-2.5 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Word Counter -->
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+        <h3 class="font-semibold text-lg text-slate-900 mb-4">📝 Writing Word Counter</h3>
+        <textarea id="word-counter-input" rows="8" placeholder="Start typing your essay or letter here..." class="w-full border border-slate-200 rounded-xl p-4 text-sm text-slate-700 resize-none focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all" oninput="updateWordCount()"></textarea>
+        <div class="flex items-center justify-between mt-3">
+          <div class="flex items-center gap-4">
+            <span class="text-sm font-semibold text-slate-900">Words: <span id="word-count" class="text-brand-600">0</span></span>
+            <span class="text-sm text-slate-500">Characters: <span id="char-count">0</span></span>
+          </div>
+          <div id="word-status" class="text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-slate-500">Start writing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice Resources -->
+    <div class="mt-8 bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8">
+      <h3 class="font-semibold text-lg text-slate-900 mb-4">📚 Recommended Practice Resources</h3>
+      <div class="grid sm:grid-cols-2 gap-4 text-sm">
+        <div class="space-y-3">
+          <div class="font-semibold text-slate-900 mb-2">Official & Cambridge</div>
+          <a href="https://www.ielts.org/for-test-takers/sample-test-questions" target="_blank" class="block text-brand-600 hover:text-brand-700 hover:underline">→ IELTS Official Sample Tests</a>
+          <a href="https://www.britishcouncil.org/exam/ielts/prepare/free-practice-tests" target="_blank" class="block text-brand-600 hover:text-brand-700 hover:underline">→ British Council Free Practice Tests</a>
+          <a href="https://ieltsonlinetests.com/" target="_blank" class="block text-brand-600 hover:text-brand-700 hover:underline">→ IELTS Online Tests (Free)</a>
+          <p class="text-slate-500 text-xs">Cambridge IELTS Books 14–18 (buy or find at library) — these are the gold standard for authentic practice.</p>
+        </div>
+        <div class="space-y-3">
+          <div class="font-semibold text-slate-900 mb-2">Apps & Online</div>
+          <a href="https://www.ieltsbuddy.com/" target="_blank" class="block text-brand-600 hover:text-brand-700 hover:underline">→ IELTS Buddy (free lessons)</a>
+          <a href="https://ieltsliz.com/" target="_blank" class="block text-brand-600 hover:text-brand-700 hover:underline">→ IELTS Liz (strategies & tips)</a>
+          <a href="https://writeandimprove.com/" target="_blank" class="block text-brand-600 hover:text-brand-700 hover:underline">→ Write & Improve (Cambridge AI feedback)</a>
+          <p class="text-slate-500 text-xs">Also recommended: IELTS Prep App (British Council), BBC Learning English, TED Talks for listening practice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROGRESS TRACKER ========== -->
+<section id="progress" class="py-16 sm:py-24 px-4">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">Progress Tracker</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Check off tasks as you complete them. Your progress is saved in your browser.</p>
+    </div>
+
+    <!-- Overall Progress Bar -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 mb-8">
+      <div class="flex items-center justify-between mb-3">
+        <span class="font-semibold text-slate-900">Overall Course Progress</span>
+        <span id="progress-percent" class="text-sm font-bold text-brand-600">0%</span>
+      </div>
+      <div class="w-full bg-slate-100 rounded-full h-3">
+        <div id="progress-bar" class="progress-fill bg-gradient-to-r from-brand-500 to-accent-purple h-3 rounded-full" style="width: 0%"></div>
+      </div>
+      <div class="flex justify-between text-xs text-slate-400 mt-2">
+        <span>Foundation</span>
+        <span>Intensive</span>
+        <span>Mastery</span>
+      </div>
+    </div>
+
+    <!-- Checklist Sections -->
+    <div class="space-y-4" id="progress-checklists">
+
+      <!-- Month 1 Checklist -->
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-50 text-brand-600 rounded-lg flex items-center justify-center text-xs font-bold">M1</div>
+            <div>
+              <div class="font-semibold text-slate-900">Month 1 — Foundation</div>
+              <div class="text-xs text-slate-500"><span class="month1-count">0</span>/20 completed</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-2">
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Take diagnostic test & record baseline scores</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Understand all 4 test formats completely</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 3 full listening practice tests</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Master listening question types (matching, maps, completion)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Practice spelling of 50 common tricky words</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 3 full reading practice tests</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Master T/F/NG question type</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Learn skimming & scanning techniques</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Write 3 Task 1 letters (formal, semi-formal, informal)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Write 2 Task 2 essays</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Learn essay structure (intro, body 1, body 2, conclusion)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Learn 15+ linking words and use them in writing</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Record answers to 15 Part 1 speaking topics</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 3 Part 2 cue card practice sessions</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Learn 100 new vocabulary words (with pronunciation)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Review complex grammar: conditionals, relative clauses, passive</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Listen to 4+ hours of English podcasts/videos</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Read 4+ English articles (BBC, Guardian, etc.)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Create a vocabulary notebook with 100+ entries</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month1" onchange="updateProgress()"><span class="text-sm text-slate-600">Create your personal strategy cheat sheet</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Month 2 Checklist -->
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-purple-50 text-accent-purple rounded-lg flex items-center justify-center text-xs font-bold">M2</div>
+            <div>
+              <div class="font-semibold text-slate-900">Month 2 — Intensive Practice</div>
+              <div class="text-xs text-slate-500"><span class="month2-count">0</span>/20 completed</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-2">
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 5+ full listening tests</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Score consistently 30+/40 on listening</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 5+ full reading tests</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Score consistently 30+/40 on reading</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Write 6+ Task 1 letters (all types)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Write 4+ Task 2 essays (all types)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 2 full writing tests under timed conditions</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Record 4+ full speaking mock tests</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Practice pronunciation: word stress & intonation</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Learn 20+ idiomatic expressions for speaking</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete mid-course assessment (full test)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Create detailed mistake log with error patterns</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Practice listening at 1.25x speed regularly</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Master 5 complex grammar structures for writing</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Learn 20 formal vocabulary alternatives for writing</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Reach 200+ words in vocabulary notebook</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Practice all speaking Part 2 cue card topics</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete error analysis for all 4 skills</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Practice reading under strict time conditions (60 min)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month2" onchange="updateProgress()"><span class="text-sm text-slate-600">Measure improvement vs Month 1 scores</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Month 3 Checklist -->
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(this)" class="w-full flex items-center justify-between bg-white border border-slate-200 rounded-xl px-5 py-4 text-left hover:shadow-sm transition-all">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-orange-50 text-accent-warm rounded-lg flex items-center justify-center text-xs font-bold">M3</div>
+            <div>
+              <div class="font-semibold text-slate-900">Month 3 — Exam Mastery</div>
+              <div class="text-xs text-slate-500"><span class="month3-count">0</span>/15 completed</div>
+            </div>
+          </div>
+          <svg class="accordion-arrow w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-content">
+          <div class="bg-white border border-t-0 border-slate-200 rounded-b-xl px-5 py-4 -mt-2 space-y-2">
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete 4+ full mock tests under exam conditions</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Achieve target score on at least 2 mock tests</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Complete speed drills for all 4 skills</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Finalize personal strategy cheat sheet</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Eliminate top 5 error patterns from mistake log</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Do a full exam simulation (same start time as real test)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Score 35+/40 listening consistently</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Score 30+/40 reading consistently</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Write a "perfect" Task 1 letter (compare with band 8 model)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Write a "perfect" Task 2 essay (compare with band 8 model)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Record a confident full speaking mock (score 7+)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Review all vocabulary flashcards (300+ words)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Prepare exam bag (ID, pencils, eraser, water)</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">Rest day before exam — no studying</span></label>
+            <label class="flex items-center gap-3 py-1.5 cursor-pointer"><input type="checkbox" class="custom-check progress-check" data-group="month3" onchange="updateProgress()"><span class="text-sm text-slate-600">✅ EXAM COMPLETED!</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TIPS & STRATEGIES ========== -->
+<section id="tips" class="py-16 sm:py-24 px-4 bg-surface-1">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl sm:text-4xl text-slate-900 mb-4">Tips, Strategies & Common Mistakes</h2>
+      <p class="text-slate-600 max-w-2xl mx-auto">Expert advice to avoid costly errors and maximize your band score on exam day.</p>
+    </div>
+
+    <!-- Common Mistakes -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8 mb-8">
+      <h3 class="font-semibold text-lg text-slate-900 mb-4 flex items-center gap-2">
+        <span class="text-accent-coral">⚠️</span> Common Mistakes That Cost Marks
+      </h3>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Listening: Not reading ahead</div>
+          <p class="text-xs text-red-600">Most students try to read and listen simultaneously. Use preview time to read questions BEFORE the audio starts. Predict answers.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Listening: Spelling errors</div>
+          <p class="text-xs text-red-600">"Accomodation" instead of "accommodation," "Febuary" instead of "February." These count as wrong. Keep a spelling list.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Reading: Running out of time</div>
+          <p class="text-xs text-red-600">Most common mistake. Don't spend 25 min on Section 1. Stick to: 15-20-25 minute splits. If stuck on a question for 2+ minutes, skip it.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Reading: Confusing False & Not Given</div>
+          <p class="text-xs text-red-600">FALSE = the text clearly contradicts the statement. NOT GIVEN = the text doesn't address it. If you can't find it in the text, it's NG.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Writing: Not answering all bullet points</div>
+          <p class="text-xs text-red-600">Task 1 gives you 3 bullet points. Missing one = Band 5 max for Task Achievement. Read the prompt twice. Check your letter covers all 3.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Writing: Under word count</div>
+          <p class="text-xs text-red-600">Task 1: minimum 150 words. Task 2: minimum 250 words. Under word count = automatic score reduction. Always aim for 160+ and 270+.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Speaking: Memorized answers</div>
+          <p class="text-xs text-red-600">Examiners are trained to spot memorized responses. They sound unnatural. Instead, prepare IDEAS and VOCABULARY for topics, not scripts.</p>
+        </div>
+        <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+          <div class="font-semibold text-sm text-red-700 mb-1">Speaking: One-word answers</div>
+          <p class="text-xs text-red-600">"Do you like music?" → "Yes." ← This scores Band 4. Always extend: answer + reason + example/detail. Aim for 3–4 sentences minimum.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Strategies -->
+    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 sm:p-8 mb-8">
+      <h3 class="font-semibold text-lg text-slate-900 mb-4 flex items-center gap-2">
+        <span class="text-accent-green">💡</span> Top 10 Exam Day Strategies
+      </h3>
+      <div class="space-y-3">
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">1</span><span class="text-slate-600"><strong class="text-slate-900">Sleep 8 hours the night before.</strong> Cognitive performance drops 25% with poor sleep. No late-night cramming.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">2</span><span class="text-slate-600"><strong class="text-slate-900">Eat a proper breakfast.</strong> Your brain needs fuel. Avoid heavy/sugary food. Oatmeal, eggs, and fruit are ideal.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">3</span><span class="text-slate-600"><strong class="text-slate-900">Arrive 30 minutes early.</strong> Last-minute rush = stress = lower performance. Settle in, relax, breathe.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">4</span><span class="text-slate-600"><strong class="text-slate-900">Read instructions carefully.</strong> "No more than TWO words" means "three words" is wrong even if correct. Follow the rules precisely.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">5</span><span class="text-slate-600"><strong class="text-slate-900">Never leave any answer blank.</strong> No negative marking in IELTS. A guess is better than empty. You have nothing to lose.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">6</span><span class="text-slate-600"><strong class="text-slate-900">Writing: Start with Task 2.</strong> It's worth double the marks. Give it your best energy and time (40 min). Then do Task 1 (20 min).</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">7</span><span class="text-slate-600"><strong class="text-slate-900">Speaking: Be natural and friendly.</strong> Treat it like a conversation, not an interrogation. Smile, make eye contact, be yourself.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">8</span><span class="text-slate-600"><strong class="text-slate-900">Manage your time ruthlessly.</strong> Wear a watch. Check it every 10 minutes. If you're behind, speed up. Don't perfect one answer at the expense of others.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">9</span><span class="text-slate-600"><strong class="text-slate-900">Stay calm if you get a hard question.</strong> Not every question is meant to be easy. Do your best, move on, and recover on the next one.</span></div>
+        <div class="flex gap-3 items-start text-sm"><span class="bg-green-100 text-accent-green font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 text-xs">10</span><span class="text-slate-600"><strong class="text-slate-900">Trust your preparation.</strong> You've spent 12 weeks preparing. You know the format, the strategies, the traps. You are ready.</span></div>
+      </div>
+    </div>
+
+    <!-- Final Exam Strategy -->
+    <div class="bg-gradient-to-br from-brand-600 to-accent-purple rounded-2xl p-6 sm:p-8 text-white">
+      <h3 class="font-display text-2xl mb-4">Final Exam Day Breakdown</h3>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <div class="font-semibold mb-2 text-blue-200">Listening (30 min)</div>
+          <p class="text-sm text-blue-100 leading-relaxed">Preview questions aggressively. Write answers as you hear them. Don't get stuck — keep moving. Use the 10 min transfer time to check spelling. Aim: 35+/40.</p>
+        </div>
+        <div>
+          <div class="font-semibold mb-2 text-blue-200">Reading (60 min)</div>
+          <p class="text-sm text-blue-100 leading-relaxed">15 min Section 1, 20 min Section 2, 25 min Section 3. Read questions first. Scan for keywords. Never read the whole passage first. Aim: 30+/40.</p>
+        </div>
+        <div>
+          <div class="font-semibold mb-2 text-blue-200">Writing (60 min)</div>
+          <p class="text-sm text-blue-100 leading-relaxed">Start with Task 2 (40 min). Plan for 5 min, write for 30 min, review for 5 min. Then Task 1 (20 min). Check word count. Proofread if time allows.</p>
+        </div>
+        <div>
+          <div class="font-semibold mb-2 text-blue-200">Speaking (11–14 min)</div>
+          <p class="text-sm text-blue-100 leading-relaxed">Be natural, extend answers, use examples. In Part 2, use all 1 min prep time. Don't memorize — prepare ideas and vocabulary. Self-correct gracefully.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-12 px-4 border-t border-slate-100">
+  <div class="max-w-5xl mx-auto text-center">
+    <div class="font-display text-xl text-slate-900 mb-2">IELTS Mastery — 90-Day Course</div>
+    <p class="text-sm text-slate-500 mb-4">Built for dedicated learners targeting CLB 9. Study smart, stay consistent, trust the process.</p>
+    <p class="text-xs text-slate-400">This is a self-study resource. For official IELTS information, visit <a href="https://www.ielts.org" target="_blank" class="text-brand-600 hover:underline">ielts.org</a> or <a href="https://www.britishcouncil.org/exam/ielts" target="_blank" class="text-brand-600 hover:underline">britishcouncil.org</a>.</p>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// ===== ACCORDION =====
+function toggleAccordion(btn) {
+  const content = btn.nextElementSibling;
+  const arrow = btn.querySelector('.accordion-arrow');
+  content.classList.toggle('open');
+  arrow.classList.toggle('rotated');
+}
+
+// ===== SKILL TABS =====
+function showSkill(skill) {
+  document.querySelectorAll('.skill-panel').forEach(p => p.classList.add('hidden'));
+  document.getElementById('skill-' + skill).classList.remove('hidden');
+  document.querySelectorAll('.tab-btn').forEach(t => {
+    t.classList.remove('active', 'text-brand-600');
+    t.classList.add('text-slate-600');
+  });
+  const activeTab = document.querySelector(`[data-tab="${skill}"]`);
+  activeTab.classList.add('active', 'text-brand-600');
+  activeTab.classList.remove('text-slate-600');
+}
+
+// ===== TIMER =====
+let timerInterval = null;
+let timerSeconds = 3600;
+let timerRunning = false;
+
+function setTimer(minutes) {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = minutes * 60;
+  updateTimerDisplay();
+  document.getElementById('timer-start').textContent = 'Start';
+}
+
+function updateTimerDisplay() {
+  const min = Math.floor(timerSeconds / 60);
+  const sec = timerSeconds % 60;
+  document.getElementById('timer-display').textContent =
+    String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+  if (timerSeconds <= 60 && timerSeconds > 0) {
+    document.getElementById('timer-display').classList.add('text-accent-coral');
+  } else {
+    document.getElementById('timer-display').classList.remove('text-accent-coral');
+  }
+}
+
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+  document.getElementById('timer-start').textContent = 'Running...';
+  timerInterval = setInterval(() => {
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('timer-start').textContent = 'Start';
+      document.getElementById('timer-display').textContent = "TIME'S UP!";
+      document.getElementById('timer-display').classList.add('text-accent-coral');
+      try { new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdH2Jk5yYl5KMiIeKjpOZn5+dmpiTjoqIio2RlZmcnJqXk4+LiImLjpKWmZubnJqXlJCMiYiKjZGVmJqbnJuZlpKOi4mJjI+Tl5mbnJybmZaSkIyKiYuOkpWYmpyc').length && new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdH2Jk5yYl5KMiIeKjpOZn5+dmpiTjoqIio2RlZmcnJqXk4+LiImLjpKWmZubnJqXlJCMiYiKjZGVmJqbnJuZlpKOi4mJjI+Tl5mbnJybmZaSkIyKiYuOkpWYmpyc').play(); } catch(e) {}
+      return;
+    }
+    timerSeconds--;
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  document.getElementById('timer-start').textContent = 'Resume';
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 3600;
+  updateTimerDisplay();
+  document.getElementById('timer-start').textContent = 'Start';
+  document.getElementById('timer-display').classList.remove('text-accent-coral');
+}
+
+// ===== WORD COUNTER =====
+function updateWordCount() {
+  const text = document.getElementById('word-counter-input').value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const chars = text.length;
+  document.getElementById('word-count').textContent = words;
+  document.getElementById('char-count').textContent = chars;
+
+  const status = document.getElementById('word-status');
+  if (words === 0) {
+    status.textContent = 'Start writing';
+    status.className = 'text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-slate-500';
+  } else if (words < 150) {
+    status.textContent = 'Below Task 1 minimum';
+    status.className = 'text-xs font-medium px-2 py-1 rounded-full bg-red-50 text-red-600';
+  } else if (words < 250) {
+    status.textContent = '✓ Task 1 OK · Below Task 2';
+    status.className = 'text-xs font-medium px-2 py-1 rounded-full bg-yellow-50 text-yellow-700';
+  } else {
+    status.textContent = '✓ Task 1 & Task 2 OK';
+    status.className = 'text-xs font-medium px-2 py-1 rounded-full bg-green-50 text-accent-green';
+  }
+}
+
+// ===== PROGRESS TRACKER =====
+function updateProgress() {
+  const allChecks = document.querySelectorAll('.progress-check');
+  const checked = document.querySelectorAll('.progress-check:checked');
+  const percent = Math.round((checked.length / allChecks.length) * 100);
+
+  document.getElementById('progress-bar').style.width = percent + '%';
+  document.getElementById('progress-percent').textContent = percent + '%';
+
+  // Update group counts
+  ['month1', 'month2', 'month3'].forEach(group => {
+    const groupChecks = document.querySelectorAll(`.progress-check[data-group="${group}"]`);
+    const groupChecked = document.querySelectorAll(`.progress-check[data-group="${group}"]:checked`);
+    document.querySelectorAll(`.${group}-count`).forEach(el => {
+      el.textContent = groupChecked.length;
+    });
+  });
+
+  // Save to localStorage
+  const state = {};
+  allChecks.forEach((cb, i) => { state[i] = cb.checked; });
+  localStorage.setItem('ielts-progress', JSON.stringify(state));
+}
+
+// Load progress from localStorage
+function loadProgress() {
+  const saved = localStorage.getItem('ielts-progress');
+  if (saved) {
+    const state = JSON.parse(saved);
+    const allChecks = document.querySelectorAll('.progress-check');
+    allChecks.forEach((cb, i) => {
+      if (state[i]) cb.checked = true;
+    });
+    updateProgress();
+  }
+}
+
+// ===== NAVBAR =====
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    nav.classList.add('nav-scrolled');
+  } else {
+    nav.classList.remove('nav-scrolled');
+  }
+});
+
+// ===== MOBILE MENU =====
+document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+document.querySelectorAll('#mobile-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('hidden');
+  });
+});
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  loadProgress();
+  updateTimerDisplay();
+});
+</script>
+
+</body>
+</html>

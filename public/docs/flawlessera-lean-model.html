@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlawlessEra — Lean Scalable Model</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream: #F7F3EC;
+  --cream2: #EFE9DF;
+  --cream3: #E5DDCE;
+  --ink: #1A1510;
+  --ink2: #2E2720;
+  --ink3: #4A4035;
+  --muted: #9A8E80;
+  --accent: #C17B2A;
+  --accent2: #E8A44A;
+  --accent-pale: #FDF0DC;
+  --green: #2A7A4A;
+  --green-bg: #EAF5EE;
+  --red: #B03A2E;
+  --red-bg: #FDECEA;
+  --blue: #2A5FA5;
+  --blue-bg: #EAF0FC;
+  --border: #D8D0C4;
+  --border2: #C8BFB0;
+  --shadow: 0 1px 3px rgba(26,21,16,0.08), 0 4px 16px rgba(26,21,16,0.04);
+  --shadow-lg: 0 4px 24px rgba(26,21,16,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+/* GRAIN */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.5;
+}
+
+.mono { font-family: 'DM Mono', monospace; }
+.serif { font-family: 'DM Serif Display', serif; }
+
+/* HEADER */
+header {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 56px 48px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(193,123,42,0.15) 0%, transparent 65%);
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+.h-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.h-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: var(--accent2);
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+  color: var(--cream);
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.h-desc {
+  font-size: 1rem;
+  color: rgba(247,243,236,0.6);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.h-pills {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid;
+}
+
+.pill-amber { background: rgba(193,123,42,0.15); color: var(--accent2); border-color: rgba(193,123,42,0.3); }
+.pill-green { background: rgba(42,122,74,0.15); color: #6BCCA0; border-color: rgba(42,122,74,0.3); }
+.pill-blue { background: rgba(42,95,165,0.15); color: #7BABF0; border-color: rgba(42,95,165,0.3); }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(247,243,236,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex; gap: 0;
+  overflow-x: auto;
+}
+
+nav a {
+  display: inline-flex; align-items: center;
+  padding: 14px 18px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* MAIN */
+main { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; }
+
+section {
+  margin-top: 72px;
+  scroll-margin-top: 56px;
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.eyebrow::before {
+  content: ''; display: inline-block;
+  width: 16px; height: 1px;
+  background: var(--accent);
+}
+
+h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+
+.section-sub {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+  max-width: 560px;
+}
+
+/* DECISION BOX — THE CORE RECOMMENDATION */
+.decision-box {
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.decision-box::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle at top right, rgba(193,123,42,0.12), transparent 60%);
+}
+
+.db-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 12px;
+}
+
+.db-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  color: var(--cream);
+}
+
+.db-title em { font-style: italic; color: var(--accent2); }
+
+.db-body {
+  font-size: 0.88rem;
+  color: rgba(247,243,236,0.7);
+  line-height: 1.75;
+  max-width: 680px;
+  margin-bottom: 24px;
+}
+
+.db-stack {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+
+.stack-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px;
+  background: rgba(247,243,236,0.07);
+  border: 1px solid rgba(247,243,236,0.12);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-family: 'DM Mono', monospace;
+  color: rgba(247,243,236,0.8);
+}
+
+.stack-chip.highlight {
+  background: rgba(193,123,42,0.2);
+  border-color: rgba(193,123,42,0.4);
+  color: var(--accent2);
+}
+
+/* ARCHITECTURE DIAGRAM */
+.arch-wrap {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+
+.arch-flow {
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* LAYER ROW */
+.a-layer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.a-layer-tag {
+  align-self: flex-start;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 3px 10px;
+  background: var(--cream2);
+  border-radius: 100px;
+  border: 1px solid var(--border);
+}
+
+.a-row {
+  display: flex; gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+/* NODE */
+.anode {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1.5px solid;
+  min-width: 110px;
+  text-align: center;
+  cursor: default;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.anode:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.anode-ico { font-size: 1.2rem; }
+.anode-name { font-size: 0.73rem; font-weight: 700; color: var(--ink); }
+.anode-sub { font-size: 0.6rem; font-family: 'DM Mono', monospace; color: var(--muted); }
+
+.an-user { background: #EEF6FF; border-color: #B8D4F8; }
+.an-edge { background: #FFF5E6; border-color: #F5CC88; }
+.an-fe   { background: #FFF9EE; border-color: #E8C97A; }
+.an-be   { background: #EDF7F2; border-color: #90D4AB; }
+.an-db   { background: #F5F0FF; border-color: #C4A8F0; }
+.an-ext  { background: #FFF0F0; border-color: #F4A0A0; }
+
+/* ARROW CONNECTOR */
+.a-arrow {
+  display: flex; flex-direction: column;
+  align-items: center; padding: 2px 0;
+}
+
+.a-line { width: 1.5px; height: 24px; background: linear-gradient(to bottom, var(--border2), var(--accent)); }
+.a-head { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid var(--accent); }
+.a-tag {
+  margin-top: 3px;
+  font-size: 0.58rem;
+  font-family: 'DM Mono', monospace;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.a-divider {
+  width: 100%; display: flex; align-items: center; gap: 12px; margin: 6px 0;
+}
+.a-divider::before, .a-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.a-divider span {
+  font-size: 0.58rem; font-family: 'DM Mono', monospace;
+  color: var(--muted); white-space: nowrap; letter-spacing: 0.08em;
+  padding: 2px 10px; border: 1px solid var(--border); border-radius: 100px;
+  background: var(--cream);
+}
+
+/* STACK TABLE */
+.stbl-wrap {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+
+thead { background: var(--ink2); }
+
+th {
+  text-align: left; padding: 12px 18px;
+  font-size: 0.65rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(247,243,236,0.6);
+}
+
+td {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  background: white;
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--cream); }
+
+.td-cat { color: var(--accent); font-weight: 700; font-size: 0.78rem; }
+.td-tech { font-weight: 700; color: var(--ink); }
+.td-free { color: var(--green); font-size: 0.75rem; font-weight: 600; font-family: 'DM Mono', monospace; }
+.td-cost { color: var(--accent); font-size: 0.75rem; font-weight: 600; font-family: 'DM Mono', monospace; }
+.td-why { color: var(--ink3); font-size: 0.8rem; line-height: 1.5; }
+
+/* COST CARDS */
+.cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.cost-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.cc-head {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+
+.cc-phase { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.cc-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; }
+.cc-traffic { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); margin-top: 4px; }
+
+.cc-price {
+  text-align: right;
+}
+.cc-amt { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--ink); }
+.cc-period { font-size: 0.68rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+.cc-body { padding: 16px 24px; }
+
+.cc-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--cream2);
+  font-size: 0.8rem;
+  gap: 12px;
+}
+
+.cc-row:last-child { border-bottom: none; }
+
+.cc-svc { color: var(--ink3); flex: 1; }
+.cc-val { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--ink); font-weight: 500; text-align: right; flex-shrink: 0; }
+.cc-free { color: var(--green); }
+.cc-paid { color: var(--accent); }
+
+/* DATA FLOW STEPS */
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.fstep {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.fstep::after {
+  content: attr(data-n);
+  position: absolute;
+  bottom: -10px; right: 10px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 5rem;
+  color: var(--cream3);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.fs-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 10px;
+}
+
+.fs-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 6px; }
+.fs-sub { font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+
+.fs-steps { display: flex; flex-direction: column; gap: 4px; }
+.fs-step {
+  display: flex; gap: 6px; align-items: flex-start;
+  font-size: 0.73rem; color: var(--ink3);
+  font-family: 'DM Mono', monospace;
+  line-height: 1.5;
+}
+.fs-step::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+/* PERFORMANCE CARDS */
+.perf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.perf-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.pc-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.pc-unit { font-size: 0.75rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+.pc-label { font-weight: 700; font-size: 0.82rem; margin: 8px 0 4px; }
+.pc-how { font-size: 0.75rem; color: var(--ink3); line-height: 1.55; }
+
+/* SCALE COMPARISON */
+.compare-table {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.compare-table table { font-size: 0.82rem; }
+
+.ct-now { background: var(--green-bg); color: var(--green); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 0.72rem; }
+.ct-then { background: var(--blue-bg); color: var(--blue); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 0.72rem; }
+.ct-muted { color: var(--muted); font-size: 0.78rem; }
+
+/* UPGRADE PATH */
+.upgrade-flow {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.upg-step {
+  flex: 1; min-width: 180px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.upg-arrow {
+  display: flex; align-items: center; padding: 0 8px; flex-shrink: 0;
+}
+
+.upg-arrow-icon { font-size: 1.2rem; color: var(--accent); }
+
+.upg-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 0.6rem;
+  font-family: 'DM Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.upg-green { background: var(--green-bg); color: var(--green); }
+.upg-amber { background: var(--accent-pale); color: var(--accent); }
+.upg-blue { background: var(--blue-bg); color: var(--blue); }
+
+.upg-title { font-weight: 700; font-size: 0.85rem; margin-bottom: 4px; }
+.upg-traffic { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent); margin-bottom: 10px; }
+.upg-items { display: flex; flex-direction: column; gap: 4px; }
+.upg-item { font-size: 0.73rem; color: var(--ink3); display: flex; gap: 5px; align-items: flex-start; }
+.upg-item::before { content: '·'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.upg-cost { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.72rem; }
+.upg-cost-val { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+
+/* QUICK REF */
+.qref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.qref {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.qr-cat { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.qr-tech { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+.qr-why { font-size: 0.75rem; color: var(--ink3); line-height: 1.5; }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  color: rgba(247,243,236,0.5);
+  padding: 28px 48px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem;
+}
+
+footer strong { color: var(--accent2); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section { animation: fadeUp 0.4s ease both; }
+section:nth-child(2) { animation-delay: 0.05s; }
+section:nth-child(3) { animation-delay: 0.1s; }
+section:nth-child(4) { animation-delay: 0.12s; }
+section:nth-child(5) { animation-delay: 0.14s; }
+
+@media (max-width: 640px) {
+  header, main, nav, footer { padding-left: 20px; padding-right: 20px; }
+  .arch-wrap { padding: 20px 14px; }
+  .arch-flow { min-width: 580px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-eyebrow">FlawlessEra · Architecture Blueprint</div>
+  <h1>Lean Stack,<br><em>Infinite Scale</em></h1>
+  <p class="h-desc">The exact model for 1,000 visits/day today — designed so you can reach 10,000/day without rewriting a single line of architecture.</p>
+  <div class="h-pills">
+    <span class="pill pill-amber">⚡ 1K → 10K/day upgrade path</span>
+    <span class="pill pill-green">₹0 at launch · ₹4–6K at 1K/day</span>
+    <span class="pill pill-blue">Sub 1s page load · 99.9% uptime</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#model">The Model</a>
+  <a href="#diagram">Architecture</a>
+  <a href="#stack">Full Stack</a>
+  <a href="#cost">Cost Breakdown</a>
+  <a href="#flow">Data Flow</a>
+  <a href="#perf">Performance</a>
+  <a href="#scale">Scale Path</a>
+</nav>
+
+<main>
+
+  <!-- THE MODEL -->
+  <section id="model">
+    <div class="eyebrow">Core Decision</div>
+    <h2>The Right Model for You</h2>
+    <p class="section-sub">Not CaratLane's model. Your model — built lean, fast, and designed to scale without pain.</p>
+
+    <div class="decision-box">
+      <div class="db-label">Recommended Architecture</div>
+      <div class="db-title">Serverless-first, <em>monolith now</em>, split later</div>
+      <div class="db-body">
+        Start with a single Next.js app — frontend + API routes in one deployment. Zero backend server cost. Zero DevOps overhead. When you hit 10K/day, you pull out the heavy services (search, payments, notifications) into separate workers. No rewrite needed — just extract. This is how Vercel, Linear, and most modern startups at your stage operate. You save ₹8,000/month compared to running separate backend servers from day one.
+      </div>
+      <div class="db-stack">
+        <span class="stack-chip highlight">Next.js 15 (Full Stack)</span>
+        <span class="stack-chip highlight">Supabase PostgreSQL</span>
+        <span class="stack-chip highlight">Upstash Redis</span>
+        <span class="stack-chip highlight">Cloudflare CDN</span>
+        <span class="stack-chip">Better Auth</span>
+        <span class="stack-chip">Drizzle ORM</span>
+        <span class="stack-chip">Razorpay</span>
+        <span class="stack-chip">Resend</span>
+        <span class="stack-chip">Cloudinary</span>
+        <span class="stack-chip">Typesense</span>
+        <span class="stack-chip">Vercel (deploy)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE DIAGRAM -->
+  <section id="diagram">
+    <div class="eyebrow">System Architecture</div>
+    <h2>Visual Flow Diagram</h2>
+    <p class="section-sub">Every request from browser to database — the complete picture.</p>
+
+    <div class="arch-wrap">
+      <div class="arch-flow">
+
+        <!-- CLIENT -->
+        <div class="a-layer">
+          <div class="a-layer-tag">Client Layer</div>
+          <div class="a-row">
+            <div class="anode an-user"><div class="anode-ico">🌐</div><div class="anode-name">Browser</div><div class="anode-sub">flawlessera.store</div></div>
+            <div class="anode an-user"><div class="anode-ico">📱</div><div class="anode-name">Flutter App</div><div class="anode-sub">iOS + Android</div></div>
+            <div class="anode an-user"><div class="anode-ico">🖥️</div><div class="anode-name">Admin Panel</div><div class="anode-sub">admin.flawlessera.store</div></div>
+          </div>
+        </div>
+
+        <div class="a-arrow"><div class="a-line"></div><div class="a-head"></div><div class="a-tag">HTTPS</div></div>
+
+        <!-- EDGE -->
+        <div class="a-layer">
+          <div class="a-layer-tag">Edge / Security Layer</div>
+          <div class="a-row">
+            <div class="anode an-edge"><div class="anode-ico">🛡️</div><div class="anode-name">Cloudflare</div><div class="anode-sub">DDoS + WAF + CDN</div></div>
+            <div class="anode an-edge"><div class="anode-ico">🖼️</div><div class="anode-name">Cloudinary CDN</div><div class="anode-sub">Images auto-optimized</div></div>
+          </div>
+        </div>
+
+        <div class="a-arrow"><div class="a-line"></div><div class="a-head"></div><div class="a-tag">Cache HIT → &lt;50ms · MISS → origin</div></div>
+
+        <!-- FRONTEND + API (MONOLITH) -->
+        <div class="a-divider"><span>Next.js 15 — Frontend + API in one app on Vercel</span></div>
+
+        <div class="a-layer">
+          <div class="a-layer-tag">Next.js App (Frontend)</div>
+          <div class="a-row">
+            <div class="anode an-fe"><div class="anode-ico">📄</div><div class="anode-name">SSG Pages</div><div class="anode-sub">Category / Landing</div></div>
+            <div class="anode an-fe"><div class="anode-ico">🔄</div><div class="anode-name">ISR Pages</div><div class="anode-sub">Product pages</div></div>
+            <div class="anode an-fe"><div class="anode-ico">⚡</div><div class="anode-name">SSR Pages</div><div class="anode-sub">Cart / Checkout</div></div>
+            <div class="anode an-fe"><div class="anode-ico">🔍</div><div class="anode-name">Search UI</div><div class="anode-sub">Typesense widget</div></div>
+          </div>
+        </div>
+
+        <div class="a-arrow"><div class="a-line"></div><div class="a-head"></div><div class="a-tag">Internal API call</div></div>
+
+        <div class="a-layer">
+          <div class="a-layer-tag">Next.js App (API Routes — /api/*)</div>
+          <div class="a-row">
+            <div class="anode an-be"><div class="anode-ico">🔐</div><div class="anode-name">Auth API</div><div class="anode-sub">OTP, sessions, RBAC</div></div>
+            <div class="anode an-be"><div class="anode-ico">🛒</div><div class="anode-name">Product API</div><div class="anode-sub">Catalog, variants</div></div>
+            <div class="anode an-be"><div class="anode-ico">📦</div><div class="anode-name">Order API</div><div class="anode-sub">Cart, checkout</div></div>
+            <div class="anode an-be"><div class="anode-ico">💳</div><div class="anode-name">Payment API</div><div class="anode-sub">Razorpay + webhook</div></div>
+            <div class="anode an-be"><div class="anode-ico">🔔</div><div class="anode-name">Notify API</div><div class="anode-sub">Email, SMS, WA</div></div>
+          </div>
+        </div>
+
+        <div class="a-arrow"><div class="a-line"></div><div class="a-head"></div><div class="a-tag">Read / Write</div></div>
+
+        <!-- DATA LAYER -->
+        <div class="a-divider"><span>Data Layer — all serverless, all managed</span></div>
+
+        <div class="a-layer">
+          <div class="a-layer-tag">Data Layer</div>
+          <div class="a-row">
+            <div class="anode an-db"><div class="anode-ico">🐘</div><div class="anode-name">Supabase PG</div><div class="anode-sub">All relational data</div></div>
+            <div class="anode an-db"><div class="anode-ico">⚡</div><div class="anode-name">Upstash Redis</div><div class="anode-sub">Cache + sessions</div></div>
+            <div class="anode an-db"><div class="anode-ico">🔎</div><div class="anode-name">Typesense</div><div class="anode-sub">Product search</div></div>
+            <div class="anode an-db"><div class="anode-ico">📁</div><div class="anode-name">Supabase Storage</div><div class="anode-sub">Images + files</div></div>
+          </div>
+        </div>
+
+        <div class="a-arrow"><div class="a-line"></div><div class="a-head"></div><div class="a-tag">Webhooks / Events</div></div>
+
+        <!-- EXTERNAL -->
+        <div class="a-layer">
+          <div class="a-layer-tag">External Services</div>
+          <div class="a-row">
+            <div class="anode an-ext"><div class="anode-ico">💰</div><div class="anode-name">Razorpay</div><div class="anode-sub">Payments</div></div>
+            <div class="anode an-ext"><div class="anode-ico">📧</div><div class="anode-name">Resend</div><div class="anode-sub">Email</div></div>
+            <div class="anode an-ext"><div class="anode-ico">📱</div><div class="anode-name">MSG91</div><div class="anode-sub">OTP / SMS</div></div>
+            <div class="anode an-ext"><div class="anode-ico">💬</div><div class="anode-name">WhatsApp API</div><div class="anode-sub">Order alerts</div></div>
+            <div class="anode an-ext"><div class="anode-ico">🚚</div><div class="anode-name">Shiprocket</div><div class="anode-sub">Logistics</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL STACK TABLE -->
+  <section id="stack">
+    <div class="eyebrow">Technology Choices</div>
+    <h2>Every Layer Explained</h2>
+    <p class="section-sub">Each choice is the best option for low cost + high performance + easy scale in 2026.</p>
+
+    <div class="stbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Technology</th>
+            <th>Free Tier</th>
+            <th>Why This, Not Alternatives</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-cat">Framework</td>
+            <td class="td-tech">Next.js 15</td>
+            <td class="td-free">✓ Free on Vercel</td>
+            <td class="td-why">SSG + ISR + SSR in one. Best SEO. API routes replace separate backend at 1K/day. You already know it.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Language</td>
+            <td class="td-tech">TypeScript 5</td>
+            <td class="td-free">✓ Free</td>
+            <td class="td-why">Shared types between frontend and API. Catches bugs before deploy. Standard in 2026.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Styling</td>
+            <td class="td-tech">Tailwind CSS v4</td>
+            <td class="td-free">✓ Free</td>
+            <td class="td-why">v4 is 10x faster build. Tiny CSS output. Design system tokens built in. No runtime cost.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Database</td>
+            <td class="td-tech">Supabase PostgreSQL</td>
+            <td class="td-free">✓ 500MB free</td>
+            <td class="td-why">vs Neon: Supabase includes Auth, Storage, Realtime in one bill. Simpler for your scale. Auto-backups.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">ORM</td>
+            <td class="td-tech">Drizzle ORM</td>
+            <td class="td-free">✓ Free</td>
+            <td class="td-why">Fastest Node.js ORM. Type-safe SQL. Works perfectly with Supabase and Neon. Tiny bundle.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Auth</td>
+            <td class="td-tech">Better Auth</td>
+            <td class="td-free">✓ Free (self-hosted)</td>
+            <td class="td-why">vs NextAuth: supports OTP/phone login natively. RBAC built in. Works with Drizzle. Perfect for your anon-checkout flow.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Cache</td>
+            <td class="td-tech">Upstash Redis</td>
+            <td class="td-free">✓ 10K req/day free</td>
+            <td class="td-why">Serverless Redis — pay per request. No always-on server. Product cache, cart, rate limiting, sessions. ₹0 at launch.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Search</td>
+            <td class="td-tech">Typesense</td>
+            <td class="td-free">✓ Self-host free</td>
+            <td class="td-why">vs Algolia: free self-hosted option on Railway (₹500/mo). &lt;50ms results. Filters, facets, typo-tolerant. Sync from Supabase via webhook.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Images</td>
+            <td class="td-tech">Cloudinary</td>
+            <td class="td-free">✓ 25GB free</td>
+            <td class="td-why">Auto WebP/AVIF, resize on-the-fly, face crop for fashion. CDN included. 25GB free covers 1000s of product images.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Storage</td>
+            <td class="td-tech">Supabase Storage</td>
+            <td class="td-free">✓ 1GB free</td>
+            <td class="td-why">Included in Supabase. Row-level security on files. CDN-backed. Enough for receipts, CSVs, admin uploads.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Payments</td>
+            <td class="td-tech">Razorpay</td>
+            <td class="td-free">✓ No setup fee</td>
+            <td class="td-why">2% per transaction. UPI, cards, netbanking, COD, EMI. Best for India. Webhook-based — reliable.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Email</td>
+            <td class="td-tech">Resend</td>
+            <td class="td-free">✓ 3,000/mo free</td>
+            <td class="td-why">3K emails/month free. Developer-first API. React email templates. Perfect for order confirmations.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">SMS / OTP</td>
+            <td class="td-tech">MSG91</td>
+            <td class="td-cost">₹0.16/SMS</td>
+            <td class="td-why">Cheapest reliable OTP for India. DLT registered. ₹160 for 1,000 OTPs. No monthly fee.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">CDN / Security</td>
+            <td class="td-tech">Cloudflare Free</td>
+            <td class="td-free">✓ Free forever</td>
+            <td class="td-why">DDoS protection, WAF, global CDN, SSL — all free. Handles traffic spikes without your servers breaking.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Hosting</td>
+            <td class="td-tech">Vercel Pro</td>
+            <td class="td-cost">₹1,700/mo</td>
+            <td class="td-why">Auto-scales, zero DevOps. Preview deploys. Edge functions. Worth ₹1,700 vs managing your own server.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Monitoring</td>
+            <td class="td-tech">Sentry</td>
+            <td class="td-free">✓ Free tier</td>
+            <td class="td-why">5K errors/month free. Alerts on Telegram/email. Trace errors to exact line. Essential for production.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Analytics</td>
+            <td class="td-tech">Vercel Analytics + PostHog</td>
+            <td class="td-free">✓ Free tiers</td>
+            <td class="td-why">Core Web Vitals + product funnels + heatmaps. PostHog 1M events/month free.</td>
+          </tr>
+          <tr>
+            <td class="td-cat">Mobile App</td>
+            <td class="td-tech">Flutter (your stack)</td>
+            <td class="td-free">✓ Free</td>
+            <td class="td-why">Uses same REST API. BLoC + Clean Architecture — your existing expertise. Add in Phase 2.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- COST BREAKDOWN -->
+  <section id="cost">
+    <div class="eyebrow">Running Costs</div>
+    <h2>Real Monthly Numbers</h2>
+    <p class="section-sub">Actual costs at each traffic level. No hidden surprises.</p>
+
+    <div class="cost-grid">
+
+      <div class="cost-card">
+        <div class="cc-head">
+          <div>
+            <div class="cc-phase">Phase 1 — Now</div>
+            <div class="cc-title">Launch Mode</div>
+            <div class="cc-traffic">0 → 1,000 visits/day</div>
+          </div>
+          <div class="cc-price">
+            <div class="cc-amt">₹1,700</div>
+            <div class="cc-period">/month</div>
+          </div>
+        </div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-svc">Vercel Pro</span><span class="cc-val cc-paid">₹1,700</span></div>
+          <div class="cc-row"><span class="cc-svc">Supabase (Free tier)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Upstash Redis (Free tier)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Cloudinary (Free 25GB)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Cloudflare (Free)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Resend (3K emails free)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Typesense (Railway ₹500)</span><span class="cc-val cc-paid">₹500</span></div>
+          <div class="cc-row"><span class="cc-svc">MSG91 OTP (~500/mo)</span><span class="cc-val cc-paid">~₹80</span></div>
+          <div class="cc-row"><span class="cc-svc">Sentry (Free 5K errors)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Razorpay (2% per txn)</span><span class="cc-val cc-paid">Variable</span></div>
+        </div>
+      </div>
+
+      <div class="cost-card">
+        <div class="cc-head">
+          <div>
+            <div class="cc-phase">Phase 2 — Growth</div>
+            <div class="cc-title">Scaling Mode</div>
+            <div class="cc-traffic">1,000 → 5,000 visits/day</div>
+          </div>
+          <div class="cc-price">
+            <div class="cc-amt">₹6,500</div>
+            <div class="cc-period">/month</div>
+          </div>
+        </div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-svc">Vercel Pro</span><span class="cc-val cc-paid">₹1,700</span></div>
+          <div class="cc-row"><span class="cc-svc">Supabase Pro ($25)</span><span class="cc-val cc-paid">₹2,100</span></div>
+          <div class="cc-row"><span class="cc-svc">Upstash Redis (Pay/req)</span><span class="cc-val cc-paid">~₹400</span></div>
+          <div class="cc-row"><span class="cc-svc">Cloudinary Growth</span><span class="cc-val cc-paid">₹0–1,700</span></div>
+          <div class="cc-row"><span class="cc-svc">Cloudflare (Free)</span><span class="cc-val cc-free">₹0</span></div>
+          <div class="cc-row"><span class="cc-svc">Resend (50K plan $20)</span><span class="cc-val cc-paid">₹1,700</span></div>
+          <div class="cc-row"><span class="cc-svc">Typesense (Railway)</span><span class="cc-val cc-paid">₹500</span></div>
+          <div class="cc-row"><span class="cc-svc">MSG91 OTP</span><span class="cc-val cc-paid">~₹300</span></div>
+          <div class="cc-row"><span class="cc-svc">Sentry Team ($26)</span><span class="cc-val cc-paid">₹2,200</span></div>
+        </div>
+      </div>
+
+      <div class="cost-card">
+        <div class="cc-head">
+          <div>
+            <div class="cc-phase">Phase 3 — Scale</div>
+            <div class="cc-title">10K/day Mode</div>
+            <div class="cc-traffic">5,000 → 10,000 visits/day</div>
+          </div>
+          <div class="cc-price">
+            <div class="cc-amt">₹18K</div>
+            <div class="cc-period">/month</div>
+          </div>
+        </div>
+        <div class="cc-body">
+          <div class="cc-row"><span class="cc-svc">Vercel Pro (more bandwidth)</span><span class="cc-val cc-paid">₹3,400</span></div>
+          <div class="cc-row"><span class="cc-svc">Supabase Pro + extras</span><span class="cc-val cc-paid">₹4,200</span></div>
+          <div class="cc-row"><span class="cc-svc">Upstash Redis scaled</span><span class="cc-val cc-paid">₹1,200</span></div>
+          <div class="cc-row"><span class="cc-svc">Cloudinary Scale</span><span class="cc-val cc-paid">₹2,500</span></div>
+          <div class="cc-row"><span class="cc-svc">Cloudflare Pro ($20)</span><span class="cc-val cc-paid">₹1,700</span></div>
+          <div class="cc-row"><span class="cc-svc">Resend scale plan</span><span class="cc-val cc-paid">₹2,500</span></div>
+          <div class="cc-row"><span class="cc-svc">Typesense Cloud</span><span class="cc-val cc-paid">₹1,700</span></div>
+          <div class="cc-row"><span class="cc-svc">MSG91 + WhatsApp API</span><span class="cc-val cc-paid">₹800</span></div>
+          <div class="cc-row"><span class="cc-svc">Sentry + monitoring</span><span class="cc-val cc-paid">₹2,200</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DATA FLOW -->
+  <section id="flow">
+    <div class="eyebrow">Request Lifecycle</div>
+    <h2>How Data Flows</h2>
+    <p class="section-sub">Every key user journey — step by step from click to response.</p>
+
+    <div class="flow-grid">
+
+      <div class="fstep" data-n="1">
+        <div class="fs-num">01</div>
+        <div class="fs-title">Product Page Load</div>
+        <div class="fs-sub">User visits /products/rose-oud-perfume</div>
+        <div class="fs-steps">
+          <div class="fs-step">Cloudflare checks edge cache</div>
+          <div class="fs-step">HIT → HTML served in &lt;50ms, done</div>
+          <div class="fs-step">MISS → Vercel runs ISR page</div>
+          <div class="fs-step">Check Upstash Redis for product</div>
+          <div class="fs-step">MISS → Supabase query via Drizzle</div>
+          <div class="fs-step">Store in Redis (TTL 10min)</div>
+          <div class="fs-step">Return HTML → Cloudflare caches</div>
+        </div>
+      </div>
+
+      <div class="fstep" data-n="2">
+        <div class="fs-num">02</div>
+        <div class="fs-title">Product Search</div>
+        <div class="fs-sub">User types "rose" in search bar</div>
+        <div class="fs-steps">
+          <div class="fs-step">InstantSearch sends to Typesense</div>
+          <div class="fs-step">Typesense returns in &lt;30ms</div>
+          <div class="fs-step">Filters: price, category, size</div>
+          <div class="fs-step">Zero DB hit — search is isolated</div>
+          <div class="fs-step">Supabase → Typesense sync on product update</div>
+        </div>
+      </div>
+
+      <div class="fstep" data-n="3">
+        <div class="fs-num">03</div>
+        <div class="fs-title">Add to Cart + OTP Login</div>
+        <div class="fs-sub">Anonymous checkout flow</div>
+        <div class="fs-steps">
+          <div class="fs-step">Cart saved in Zustand + Redis</div>
+          <div class="fs-step">Checkout → enter phone number</div>
+          <div class="fs-step">POST /api/auth/otp/send → MSG91</div>
+          <div class="fs-step">User enters OTP → verify</div>
+          <div class="fs-step">Better Auth creates session (JWT)</div>
+          <div class="fs-step">Silent user row in Supabase</div>
+          <div class="fs-step">Anon cart merged to user cart</div>
+        </div>
+      </div>
+
+      <div class="fstep" data-n="4">
+        <div class="fs-num">04</div>
+        <div class="fs-title">Payment Flow</div>
+        <div class="fs-sub">Razorpay UPI / Card</div>
+        <div class="fs-steps">
+          <div class="fs-step">POST /api/payments/create</div>
+          <div class="fs-step">Backend creates Razorpay order</div>
+          <div class="fs-step">Frontend opens Razorpay modal</div>
+          <div class="fs-step">User pays — Razorpay callback</div>
+          <div class="fs-step">POST /api/webhooks/razorpay</div>
+          <div class="fs-step">HMAC verify signature</div>
+          <div class="fs-step">Order status → PAID in Supabase</div>
+        </div>
+      </div>
+
+      <div class="fstep" data-n="5">
+        <div class="fs-num">05</div>
+        <div class="fs-title">Post-Payment Notify</div>
+        <div class="fs-sub">Multi-channel confirmation</div>
+        <div class="fs-steps">
+          <div class="fs-step">Webhook triggers notify function</div>
+          <div class="fs-step">Resend → order email (React template)</div>
+          <div class="fs-step">MSG91 → SMS confirmation</div>
+          <div class="fs-step">WhatsApp API → order + image</div>
+          <div class="fs-step">Shiprocket API → create shipment</div>
+          <div class="fs-step">Tracking ID → stored in Supabase</div>
+        </div>
+      </div>
+
+      <div class="fstep" data-n="6">
+        <div class="fs-num">06</div>
+        <div class="fs-title">Admin Dashboard</div>
+        <div class="fs-sub">admin.flawlessera.store</div>
+        <div class="fs-steps">
+          <div class="fs-step">RBAC check → admin role only</div>
+          <div class="fs-step">Product CRUD → Supabase + Typesense sync</div>
+          <div class="fs-step">Image upload → Cloudinary</div>
+          <div class="fs-step">Order management → status update</div>
+          <div class="fs-step">Analytics embed — PostHog</div>
+          <div class="fs-step">Invalidate Redis cache on update</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section id="perf">
+    <div class="eyebrow">Speed Targets</div>
+    <h2>Performance Numbers</h2>
+    <p class="section-sub">What you can realistically achieve with this stack.</p>
+
+    <div class="perf-grid">
+
+      <div class="perf-card">
+        <div class="pc-val">&lt;1s</div>
+        <div class="pc-unit">TTFB (Time to First Byte)</div>
+        <div class="pc-label">Page Load Speed</div>
+        <div class="pc-how">ISR pages served from Cloudflare edge. Pre-built HTML. No server cold start for cached pages.</div>
+      </div>
+
+      <div class="perf-card">
+        <div class="pc-val">&lt;30ms</div>
+        <div class="pc-unit">search response</div>
+        <div class="pc-label">Product Search</div>
+        <div class="pc-how">Typesense self-hosted on Railway. Direct client-side queries. No API gateway in between.</div>
+      </div>
+
+      <div class="perf-card">
+        <div class="pc-val">95+</div>
+        <div class="pc-unit">Lighthouse score</div>
+        <div class="pc-label">Core Web Vitals</div>
+        <div class="pc-how">SSG/ISR + Cloudinary WebP images + Tailwind minimal CSS. No layout shift, instant LCP.</div>
+      </div>
+
+      <div class="perf-card">
+        <div class="pc-val">&lt;5ms</div>
+        <div class="pc-unit">cache reads</div>
+        <div class="pc-label">Redis Cache Speed</div>
+        <div class="pc-how">Upstash Redis at edge. Cart, sessions, product data. Protects Supabase from repeated reads.</div>
+      </div>
+
+      <div class="perf-card">
+        <div class="pc-val">99.9%</div>
+        <div class="pc-unit">uptime</div>
+        <div class="pc-label">Availability</div>
+        <div class="pc-how">Vercel SLA + Cloudflare absorbs spikes. Supabase managed. No single point of failure.</div>
+      </div>
+
+      <div class="perf-card">
+        <div class="pc-val">0ms</div>
+        <div class="pc-unit">cold start (ISR)</div>
+        <div class="pc-label">Server Cold Start</div>
+        <div class="pc-how">Pre-rendered HTML means most pages need zero server execution. Only checkout/cart hits serverless.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCALE PATH -->
+  <section id="scale">
+    <div class="eyebrow">Growth Path</div>
+    <h2>1K → 10K/day — What Changes</h2>
+    <p class="section-sub">The key principle: architecture stays the same. Only the plan tiers change.</p>
+
+    <div class="upgrade-flow">
+
+      <div class="upg-step">
+        <div class="upg-badge upg-green">TODAY</div>
+        <div class="upg-title">Launch</div>
+        <div class="upg-traffic">0 → 1,000/day</div>
+        <div class="upg-items">
+          <div class="upg-item">Vercel Pro only paid cost</div>
+          <div class="upg-item">Supabase free tier</div>
+          <div class="upg-item">Upstash free tier</div>
+          <div class="upg-item">Cloudinary free 25GB</div>
+          <div class="upg-item">Cloudflare free</div>
+          <div class="upg-item">Typesense on Railway ₹500</div>
+        </div>
+        <div class="upg-cost"><div style="color:var(--muted);font-size:0.65rem;margin-bottom:2px">MONTHLY COST</div><div class="upg-cost-val">₹1,700–2,500</div></div>
+      </div>
+
+      <div class="upg-arrow"><div class="upg-arrow-icon">→</div></div>
+
+      <div class="upg-step">
+        <div class="upg-badge upg-amber">UPGRADE 1</div>
+        <div class="upg-title">Steady Growth</div>
+        <div class="upg-traffic">1K → 3,000/day</div>
+        <div class="upg-items">
+          <div class="upg-item">Upgrade Supabase to Pro ($25)</div>
+          <div class="upg-item">Upstash starts billing per req</div>
+          <div class="upg-item">Add Resend paid plan</div>
+          <div class="upg-item">Nothing else changes</div>
+          <div class="upg-item">Same codebase, same architecture</div>
+        </div>
+        <div class="upg-cost"><div style="color:var(--muted);font-size:0.65rem;margin-bottom:2px">MONTHLY COST</div><div class="upg-cost-val">₹5,000–7,000</div></div>
+      </div>
+
+      <div class="upg-arrow"><div class="upg-arrow-icon">→</div></div>
+
+      <div class="upg-step">
+        <div class="upg-badge upg-amber">UPGRADE 2</div>
+        <div class="upg-title">High Traffic</div>
+        <div class="upg-traffic">3K → 6,000/day</div>
+        <div class="upg-items">
+          <div class="upg-item">Move Typesense to Cloud plan</div>
+          <div class="upg-item">Supabase read replicas</div>
+          <div class="upg-item">Cloudflare Pro for WAF</div>
+          <div class="upg-item">Add WhatsApp Business API</div>
+          <div class="upg-item">Extract notify to separate worker</div>
+        </div>
+        <div class="upg-cost"><div style="color:var(--muted);font-size:0.65rem;margin-bottom:2px">MONTHLY COST</div><div class="upg-cost-val">₹10,000–14,000</div></div>
+      </div>
+
+      <div class="upg-arrow"><div class="upg-arrow-icon">→</div></div>
+
+      <div class="upg-step">
+        <div class="upg-badge upg-blue">UPGRADE 3</div>
+        <div class="upg-title">Scale Mode</div>
+        <div class="upg-traffic">6K → 10,000/day</div>
+        <div class="upg-items">
+          <div class="upg-item">Vercel bandwidth upgrade</div>
+          <div class="upg-item">Supabase connection pooling</div>
+          <div class="upg-item">Upstash Redis cluster</div>
+          <div class="upg-item">Launch Flutter mobile app</div>
+          <div class="upg-item">Add PostHog paid for funnels</div>
+        </div>
+        <div class="upg-cost"><div style="color:var(--muted);font-size:0.65rem;margin-bottom:2px">MONTHLY COST</div><div class="upg-cost-val">₹16,000–20,000</div></div>
+      </div>
+
+    </div>
+
+    <br>
+
+    <!-- WHAT STAYS THE SAME -->
+    <div class="eyebrow" style="margin-top:32px">Key Principle</div>
+    <h2>What Never Changes</h2>
+    <p class="section-sub">Architecture that survives all 4 phases without a rewrite.</p>
+
+    <div class="qref-grid">
+      <div class="qref">
+        <div class="qr-cat">Framework</div>
+        <div class="qr-tech">Next.js 15 throughout</div>
+        <div class="qr-why">Same codebase from day 1 to 10K/day. API routes scale with Vercel auto-scaling. No migration ever.</div>
+      </div>
+      <div class="qref">
+        <div class="qr-cat">Database Schema</div>
+        <div class="qr-tech">PostgreSQL stays</div>
+        <div class="qr-why">Just upgrade Supabase plan. Same schema, same queries. Read replicas added transparently.</div>
+      </div>
+      <div class="qref">
+        <div class="qr-cat">Cache Strategy</div>
+        <div class="qr-tech">Redis pattern stays</div>
+        <div class="qr-why">Upstash just scales with usage. Same code. Same TTL logic. No refactor needed.</div>
+      </div>
+      <div class="qref">
+        <div class="qr-cat">Search</div>
+        <div class="qr-tech">Typesense API stays</div>
+        <div class="qr-why">Self-hosted → Typesense Cloud is just a URL change. Zero code change.</div>
+      </div>
+      <div class="qref">
+        <div class="qr-cat">Payments</div>
+        <div class="qr-tech">Razorpay stays forever</div>
+        <div class="qr-why">Razorpay handles any scale. No migration. Just enable more payment methods as needed.</div>
+      </div>
+      <div class="qref">
+        <div class="qr-cat">Flutter App</div>
+        <div class="qr-tech">Same REST API</div>
+        <div class="qr-why">Flutter calls the same Next.js API routes. Add mobile app in Phase 2 with zero backend changes.</div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <div><strong>FlawlessEra</strong> — Lean Scalable Architecture Blueprint</div>
+  <div>Next.js 15 · Supabase · Upstash · Typesense · Cloudflare · Razorpay</div>
+  <div>₹1,700/mo at launch → ₹18K/mo at 10K visits/day</div>
+</footer>
+
+</body>
+</html>

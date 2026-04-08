@@ -132,8 +132,11 @@ export function BlogSection() {
 
 function SectionBadge({ label }: { label: string }) {
   return (
-    <span className="inline-block px-4 py-1.5 text-xs font-bold tracking-wider text-accent bg-accent-subtle border border-accent rounded-full backdrop-blur-sm">
-      {label}
+    <span
+      className="inline-block text-[9px] tracking-[0.2em] uppercase border px-3 py-1 text-muted-foreground border-border"
+      style={{ fontFamily: 'var(--font-jetbrains)' }}
+    >
+      / {label}
     </span>
   );
 }

@@ -15,7 +15,7 @@ import { ParticleField } from '@/components/ParticleField';
 
 export default function HomePage() {
   return (
-    <main className="relative">
+    <main className="relative bg-background transition-colors duration-500">
       <ParticleField />
       <CinematicHero />
 

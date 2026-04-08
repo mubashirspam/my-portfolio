@@ -20,6 +20,7 @@ const navLinks = [
 export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 80);
@@ -50,7 +51,7 @@ export function Navigation() {
           <a
             href="#"
             className={`font-bold tracking-tight transition-all duration-500 relative overflow-hidden inline-block logo-shine ${
-              scrolled ? 'text-xl text-foreground' : 'text-2xl text-white'
+              scrolled ? 'text-xl text-foreground' : `text-2xl ${isDark ? 'text-white' : 'text-foreground'}`
             }`}
             style={{ fontFamily: "'Instrument Serif', serif" }}
           >
@@ -66,7 +67,9 @@ export function Navigation() {
                 className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300 ${
                   scrolled
                     ? 'text-muted-foreground hover:text-foreground hover:bg-foreground/5'
-                    : 'text-white/60 hover:text-white hover:bg-white/10'
+                    : isDark
+                    ? 'text-white/60 hover:text-white hover:bg-white/10'
+                    : 'text-foreground/60 hover:text-foreground hover:bg-foreground/10'
                 }`}
               >
                 {label}
@@ -76,14 +79,14 @@ export function Navigation() {
 
           {/* Right: theme + clock + mobile menu */}
           <div className="flex items-center gap-1">
-            <ThemeModeToggle scrolled={scrolled} />
-            <LiveClock scrolled={scrolled} />
+            <ThemeModeToggle scrolled={scrolled} isDark={isDark} />
+            <LiveClock scrolled={scrolled} isDark={isDark} />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className={`md:hidden p-2 rounded-full transition-colors ${
                 scrolled
                   ? 'text-muted-foreground hover:text-foreground'
-                  : 'text-white/60 hover:text-white'
+                  : isDark ? 'text-white/60 hover:text-white' : 'text-foreground/60 hover:text-foreground'
               }`}
               aria-label="Toggle menu"
             >
@@ -113,7 +116,7 @@ export function Navigation() {
 }
 
 /* ===== Theme Mode Toggle ===== */
-function ThemeModeToggle({ scrolled }: { scrolled: boolean }) {
+function ThemeModeToggle({ scrolled, isDark }: { scrolled: boolean; isDark: boolean }) {
   const { mode, setMode } = useTheme();
 
   const cycle = () => {
@@ -132,7 +135,9 @@ function ThemeModeToggle({ scrolled }: { scrolled: boolean }) {
       className={`p-2 rounded-full transition-colors ${
         scrolled
           ? 'text-muted-foreground hover:text-foreground hover:bg-foreground/5'
-          : 'text-white/60 hover:text-white hover:bg-white/10'
+          : isDark
+          ? 'text-white/60 hover:text-white hover:bg-white/10'
+          : 'text-foreground/60 hover:text-foreground hover:bg-foreground/10'
       }`}
       aria-label="Change theme"
     >
@@ -142,7 +147,7 @@ function ThemeModeToggle({ scrolled }: { scrolled: boolean }) {
 }
 
 /* ===== Live Clock ===== */
-function LiveClock({ scrolled }: { scrolled: boolean }) {
+function LiveClock({ scrolled, isDark }: { scrolled: boolean; isDark: boolean }) {
   const [time, setTime] = useState('');
 
   useEffect(() => {
@@ -167,7 +172,7 @@ function LiveClock({ scrolled }: { scrolled: boolean }) {
       className={`hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium rounded-full transition-colors ${
         scrolled
           ? 'text-muted-foreground bg-foreground/5'
-          : 'text-white/50 bg-white/8'
+          : isDark ? 'text-white/50 bg-white/8' : 'text-foreground/50 bg-foreground/8'
       }`}
     >
       <Clock className="w-3 h-3" />

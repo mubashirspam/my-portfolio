@@ -26,31 +26,31 @@
 
 /* ===== Light Theme (default) ===== */
 :root {
-  --bg: #fafbff;
+  --bg: #F2F2F2;
   --fg: #0f172a;
-  --muted: #e8ecf7;
-  --muted-fg: #64748b;
-  --surface: rgba(255, 255, 255, 0.7);
+  --muted: #E5E5E5;
+  --muted-fg: #555555;
+  --surface: rgba(255, 255, 255, 0.9);
   --surface-fg: #1e293b;
-  --border-color: rgba(148, 163, 184, 0.2);
+  --border-color: rgba(0, 0, 0, 0.1);
   --accent-color: #8B5CF6;
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-bg: rgba(242, 242, 242, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.9);
 
   color-scheme: light;
 }
 
 /* ===== Dark Theme ===== */
 .dark {
-  --bg: #0a0b14;
+  --bg: #000000;
   --fg: #e2e8f0;
-  --muted: #1a1b2e;
-  --muted-fg: #94a3b8;
-  --surface: rgba(22, 22, 28, 0.7);
+  --muted: #111111;
+  --muted-fg: #888888;
+  --surface: rgba(20, 20, 20, 0.85);
   --surface-fg: #cbd5e1;
-  --border-color: rgba(148, 163, 184, 0.15);
-  --glass-bg: rgba(22, 22, 28, 0.5);
-  --glass-border: rgba(148, 163, 184, 0.1);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
 
   color-scheme: dark;
 }

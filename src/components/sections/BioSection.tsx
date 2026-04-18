@@ -8,7 +8,7 @@ const words2 = "My focus is on solving real engineering problems and complex arc
 export function BioSection() {
   return (
     <section className="py-24 relative overflow-hidden">
-      {/* Animated orbit decoration */}
+      
       <motion.div
         className="absolute -right-32 top-1/2 -translate-y-1/2 w-80 h-80 pointer-events-none"
         animate={{ rotate: 360 }}
@@ -24,7 +24,7 @@ export function BioSection() {
         </svg>
       </motion.div>
 
-      {/* Floating dots decoration */}
+
       <div className="absolute inset-0 pointer-events-none">
         {[
           { x: '10%', y: '20%', size: 4, delay: 0, duration: 6 },

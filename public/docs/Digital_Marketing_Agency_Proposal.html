@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Proposal — Digital Marketing Agency & Training Academy | Kozhikode, Kerala</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg: #FAFAF8;
+      --surface: #FFFFFF;
+      --surface-alt: #F5F4F0;
+      --border: #E8E6E1;
+      --border-light: #F0EEEA;
+      --text-primary: #1A1A18;
+      --text-secondary: #5C5C58;
+      --text-tertiary: #8A8A86;
+      --accent: #2D6A4F;
+      --accent-light: #EDF5F0;
+      --accent-dark: #1B4332;
+      --highlight: #D4A853;
+      --highlight-light: #FDF8ED;
+      --red-soft: #C44536;
+      --blue-soft: #3A7CA5;
+      --font-serif: 'Source Serif 4', 'Georgia', serif;
+      --font-sans: 'DM Sans', 'Helvetica Neue', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    /* ── COVER PAGE ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(170deg, #FAFAF8 0%, #EDF5F0 40%, #F5F4F0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,106,79,0.06) 0%, transparent 70%);
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,83,0.07) 0%, transparent 70%);
+    }
+
+    .cover-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.4rem 1.2rem;
+      border-radius: 100px;
+      margin-bottom: 2.5rem;
+    }
+
+    .cover h1 {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-primary);
+      max-width: 700px;
+      margin-bottom: 1rem;
+    }
+
+    .cover h1 span {
+      color: var(--accent);
+    }
+
+    .cover-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--text-tertiary);
+    }
+
+    .cover-meta div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .cover-meta strong {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .toc h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+    }
+
+    .toc-list {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+
+    .toc-list li {
+      counter-increment: toc-counter;
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.7rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .toc-list li::before {
+      content: counter(toc-counter, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      min-width: 1.8rem;
+    }
+
+    .toc-list a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .toc-list a:hover { color: var(--accent); }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 2rem 6rem;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .section-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .section > h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.25;
+    }
+
+    h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 2rem 0 0.8rem;
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      font-weight: 300;
+      line-height: 1.8;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── CARDS & CALLOUTS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-accent {
+      border-left: 3px solid var(--accent);
+    }
+
+    .card-highlight {
+      background: var(--highlight-light);
+      border-color: rgba(212,168,83,0.25);
+    }
+
+    .callout {
+      background: var(--accent-light);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: var(--accent-dark);
+    }
+
+    .callout strong { color: var(--accent-dark); }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* ── TABLES ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      font-size: 0.88rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      background: var(--surface-alt);
+      border-bottom: 2px solid var(--border);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      color: var(--text-primary);
+    }
+
+    tbody td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-total td {
+      font-weight: 600;
+      color: var(--text-primary);
+      border-top: 2px solid var(--border);
+      background: var(--accent-light);
+    }
+
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 1.25rem 0;
+    }
+
+    /* ── LISTS ── */
+    ul, ol {
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+    }
+
+    li { margin-bottom: 0.4rem; }
+
+    /* ── TAG / BADGE ── */
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: var(--accent-light);
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-right: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .tag-gold {
+      background: var(--highlight-light);
+      color: #946B20;
+    }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 3rem 0;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .cover h1 { font-size: 2rem; }
+      .section > h2 { font-size: 1.4rem; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+      .cover-meta { gap: 1.5rem; }
+      table { font-size: 0.8rem; }
+      thead th, tbody td { padding: 0.5rem 0.6rem; }
+    }
+
+    @media print {
+      .cover { min-height: auto; padding: 3rem 2rem; page-break-after: always; }
+      .section { page-break-inside: avoid; }
+      body { font-size: 11pt; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- COVER PAGE                                  -->
+<!-- ═══════════════════════════════════════════ -->
+<header class="cover">
+  <div class="cover-label">Confidential — Project Proposal</div>
+  <h1>Digital Marketing Agency<br>&amp; <span>Training Academy</span></h1>
+  <p class="cover-subtitle">A comprehensive business plan for building a full-service digital marketing agency with an integrated training academy, headquartered in Kozhikode, Kerala — serving clients and students across India.</p>
+  <div class="cover-meta">
+    <div><span>Location</span><strong>Kozhikode, Kerala</strong></div>
+    <div><span>Market</span><strong>Pan-India (Remote)</strong></div>
+    <div><span>Team</span><strong>15 Members</strong></div>
+    <div><span>Date</span><strong>April 2026</strong></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TABLE OF CONTENTS                           -->
+<!-- ═══════════════════════════════════════════ -->
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol class="toc-list">
+    <li><a href="#executive-summary">Executive Summary</a></li>
+    <li><a href="#business-overview">Business Overview</a></li>
+    <li><a href="#market-analysis">Market Analysis — India Level</a></li>
+    <li><a href="#services">Services Offered</a></li>
+    <li><a href="#ai-strategy">AI Integration Strategy</a></li>
+    <li><a href="#business-model">Business Model &amp; Revenue Streams</a></li>
+    <li><a href="#team">Team Structure (15 Staff)</a></li>
+    <li><a href="#infrastructure">Infrastructure &amp; Setup</a></li>
+    <li><a href="#expense-plan">6-Month Worst-Case Expense Plan</a></li>
+    <li><a href="#investment">Investment Required</a></li>
+    <li><a href="#marketing-strategy">Marketing Strategy</a></li>
+    <li><a href="#growth">Growth Strategy</a></li>
+    <li><a href="#risk">Risk Analysis &amp; Mitigation</a></li>
+    <li><a href="#positioning">Market Positioning</a></li>
+    <li><a href="#financial-projection">Financial Projection</a></li>
+  </ol>
+</nav>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- MAIN CONTENT                                -->
+<!-- ═══════════════════════════════════════════ -->
+<main class="content">
+
+  <!-- ─── 01. EXECUTIVE SUMMARY ─── -->
+  <section class="section" id="executive-summary">
+    <span class="section-number">Section 01</span>
+    <h2>Executive Summary</h2>
+    <p class="lead">This proposal outlines the establishment of a dual-model business — a full-service Digital Marketing Agency paired with a hands-on Training Academy — headquartered in Kozhikode (Calicut), Kerala, with service delivery spanning all of India through remote operations.</p>
+
+    <p>India's digital advertising market is projected to exceed ₹62,000 crore by 2026, growing at a compounded annual rate of over 25%. Simultaneously, the demand for skilled digital marketers far outstrips supply — with an estimated 2 lakh+ job openings annually going unfilled due to a shortage of practically trained talent. This creates a clear, two-sided opportunity: businesses need expert digital marketing execution, and individuals need quality training to enter the field.</p>
+
+    <p>Our agency will serve SMEs, D2C brands, educational institutions, real estate firms, and service-based businesses across India with performance-driven marketing services. The training academy will offer structured certification programs — from beginner to advanced — combining classroom instruction, live projects, and AI-powered learning tools.</p>
+
+    <p>By locating in Kozhikode — a city with low operational costs, a growing tech ecosystem, and proximity to a large pool of ambitious young professionals — we gain a significant cost advantage over agencies in metro cities while serving the same national market.</p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-value">₹62K Cr+</span>
+        <span class="stat-label">India Digital Ad Spend (2026)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">2L+</span>
+        <span class="stat-label">Unfilled Marketing Jobs/Year</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">15</span>
+        <span class="stat-label">Initial Team Size</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~₹45L</span>
+        <span class="stat-label">Estimated Initial Investment</span>
+      </div>
+    </div>
+
+    <p>The business targets profitability by month 10–12, with projected first-year revenue of ₹75–90 lakh from the combined agency and academy model. Total initial investment required, including a 6-month working capital buffer, is approximately ₹42–48 lakh.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 02. BUSINESS OVERVIEW ─── -->
+  <section class="section" id="business-overview">
+    <span class="section-number">Section 02</span>
+    <h2>Business Overview</h2>
+
+    <h3>Vision</h3>
+    <p>To become India's most trusted digital marketing partner and the leading practical training academy for the next generation of digital marketers — built from a Tier-2 city, powered by AI, and driven by measurable results.</p>
+
+    <h3>Mission</h3>
+    <p>Deliver high-ROI digital marketing services to businesses across India while training job-ready digital marketers through hands-on, AI-enhanced programs — proving that world-class work doesn't require a metro address.</p>
+
+    <h3>Core Goals (Year 1)</h3>
+    <ul>
+      <li>Onboard 20–30 retainer clients within the first 12 months</li>
+      <li>Graduate 150–200 trained students from the academy</li>
+      <li>Achieve a client retention rate above 80%</li>
+      <li>Build a recognizable brand in Kerala's digital marketing ecosystem</li>
+      <li>Reach monthly revenue of ₹8–10 lakh by month 12</li>
+    </ul>
+
+    <h3>Why Kozhikode?</h3>
+    <div class="card card-accent">
+      <p><strong>Cost Advantage:</strong> Office rent and living costs are 40–60% lower than Bangalore, Mumbai, or Delhi. A well-equipped 1,500 sq ft office in a green-campus or semi-urban area costs ₹25,000–40,000/month — versus ₹1.5–3 lakh in metros.</p>
+      <p><strong>Talent Pool:</strong> Kerala has India's highest literacy rate (96.2%) and a young, English-proficient workforce. NIT Calicut, IIM Kozhikode, and numerous engineering colleges create a steady stream of graduates.</p>
+      <p><strong>Quality of Life:</strong> The natural, calm environment aligns with the founding vision — a workspace surrounded by greenery rather than concrete, which improves creativity, retention, and team wellbeing.</p>
+      <p><strong>Growing Tech Hub:</strong> Cyberpark Kozhikode, UL Cyberpark, and the broader Kerala Startup Mission are driving IT infrastructure growth. The city offers reliable high-speed internet and modern co-working spaces.</p>
+      <p><strong>Remote-First Advantage:</strong> Since digital marketing is delivered entirely online, client location is irrelevant. Operating from Kozhikode means lower costs with zero compromise on service quality for clients in Mumbai, Delhi, or Bangalore.</p>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── 03. MARKET ANALYSIS ─── -->
+  <section class="section" id="market-analysis">
+    <span class="section-number">Section 03</span>
+    <h2>Market Analysis — India Level</h2>
+
+    <h3>Industry Overview</h3>
+    <p>India's digital advertising market has witnessed explosive growth over the past five years, driven by affordable mobile internet (700M+ smartphone users), the rise of social commerce, and a post-pandemic shift toward digital-first business models. Digital ad spending now accounts for over 45% of total advertising expenditure in India, surpassing television for the first time in 2024.</p>
+
+    <p>The market is expected to maintain a 20–28% CAGR through 2028, driven by Tier-2 and Tier-3 city adoption, increasing D2C brand launches (5,000+ new D2C brands annually), and the growing sophistication of performance marketing tools.</p>
+
+    <h3>Demand for Marketing Services</h3>
+    <p>Over 63 million MSMEs operate in India, yet fewer than 15% have any structured digital marketing presence. As more businesses move online — accelerated by UPI adoption, WhatsApp Business, and social selling — the demand for affordable, results-driven digital marketing agencies is surging. Importantly, most SMEs cannot afford or justify hiring in-house marketing teams, making agency partnerships the practical default.</p>
+
+    <h3>Demand for Training</h3>
+    <p>The digital marketing skills gap in India is significant. LinkedIn data shows "Digital Marketing" as one of the top 5 most in-demand skills. Yet traditional education institutions do not offer practical, industry-aligned training. Most graduates learn theoretical concepts without touching live campaigns, ad managers, or analytics dashboards. This creates a clear market for academies that teach through real-world projects — especially those that also integrate AI tools into the curriculum.</p>
+
+    <h3>Target Audience Segmentation</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Segment</th>
+            <th>Type</th>
+            <th>Need</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SMEs &amp; Local Businesses</td>
+            <td>Agency Client</td>
+            <td>Social media management, local SEO, paid ads</td>
+          </tr>
+          <tr>
+            <td>D2C &amp; E-Commerce Brands</td>
+            <td>Agency Client</td>
+            <td>Performance marketing, ROAS optimization, content</td>
+          </tr>
+          <tr>
+            <td>Educational Institutions</td>
+            <td>Agency Client</td>
+            <td>Lead generation, WhatsApp campaigns, branding</td>
+          </tr>
+          <tr>
+            <td>Real Estate &amp; Healthcare</td>
+            <td>Agency Client</td>
+            <td>Lead generation, Google Ads, reputation management</td>
+          </tr>
+          <tr>
+            <td>Fresh Graduates (18–25)</td>
+            <td>Academy Student</td>
+            <td>Job-ready skills, certification, placement support</td>
+          </tr>
+          <tr>
+            <td>Working Professionals</td>
+            <td>Academy Student</td>
+            <td>Upskilling, career switch, freelance readiness</td>
+          </tr>
+          <tr>
+            <td>Business Owners</td>
+            <td>Academy Student</td>
+            <td>DIY marketing skills, understanding agency deliverables</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Competitor Landscape</h3>
+    <p>The competitive environment spans two categories:</p>
+
+    <h4>Agency Competitors</h4>
+    <p>National players like WATConsult, iProspect, and Dentsu-owned agencies dominate large-enterprise accounts. However, the SME and mid-market space — which represents 80%+ of the addressable market — remains fragmented across thousands of small agencies and freelancers, most of whom lack structured processes, reporting frameworks, or AI capabilities. This is the white space we target.</p>
+
+    <h4>Training Competitors</h4>
+    <p>National institutes like Digital Vidya, IIDE, and Simplilearn offer certifications at premium price points (₹50K–2L). Local institutes in Kerala offer basic courses but lack live project experience and industry-current curricula. Our academy differentiates by integrating AI tools into every module, providing live client projects from our own agency, and pricing competitively for the Kerala and Tier-2 market.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 04. SERVICES ─── -->
+  <section class="section" id="services">
+    <span class="section-number">Section 04</span>
+    <h2>Services Offered</h2>
+
+    <h3>Agency Services</h3>
+    <div class="card">
+      <h4>Search Engine Optimization (SEO)</h4>
+      <p>Technical audits, on-page optimization, content strategy, local SEO, link building, and monthly reporting. Focus on driving organic traffic and reducing long-term customer acquisition costs.</p>
+    </div>
+    <div class="card">
+      <h4>Social Media Marketing (SMM)</h4>
+      <p>Strategy development, content calendar creation, community management, influencer coordination, and analytics across Instagram, Facebook, LinkedIn, YouTube, and X (Twitter). Platform-specific content creation included.</p>
+    </div>
+    <div class="card">
+      <h4>Paid Advertising (PPC / Performance Marketing)</h4>
+      <p>Meta Ads (Facebook + Instagram), Google Ads (Search, Display, YouTube), LinkedIn Ads, and emerging platforms. Full-funnel campaign management from TOFU awareness to BOFU conversion with ROAS-focused optimization.</p>
+    </div>
+    <div class="card">
+      <h4>Content Marketing</h4>
+      <p>Blog writing, video scripting, email newsletters, case studies, whitepapers, and thought-leadership content. SEO-integrated content strategy to build authority and inbound leads.</p>
+    </div>
+    <div class="card">
+      <h4>Branding &amp; Creative Design</h4>
+      <p>Logo design, brand identity systems, social media templates, pitch decks, and visual storytelling. Ensuring every client touchpoint communicates a consistent, professional brand.</p>
+    </div>
+    <div class="card">
+      <h4>WhatsApp &amp; Email Marketing</h4>
+      <p>Broadcast campaigns, drip sequences, automation flows, list segmentation, and performance tracking. Particularly effective for education, real estate, and e-commerce clients.</p>
+    </div>
+    <div class="card">
+      <h4>Web Development (Landing Pages &amp; Funnels)</h4>
+      <p>High-converting landing pages, sales funnels, lead capture forms, and CRM integration. Speed-optimized, mobile-first design with analytics tracking.</p>
+    </div>
+
+    <h3>Training Academy Programs</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Program</th>
+            <th>Duration</th>
+            <th>Level</th>
+            <th>Price Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Digital Marketing Foundation</td>
+            <td>6 weeks</td>
+            <td>Beginner</td>
+            <td>₹8,000 – ₹12,000</td>
+          </tr>
+          <tr>
+            <td>Performance Marketing Masterclass</td>
+            <td>8 weeks</td>
+            <td>Intermediate</td>
+            <td>₹15,000 – ₹20,000</td>
+          </tr>
+          <tr>
+            <td>Advanced SEO &amp; Content Strategy</td>
+            <td>6 weeks</td>
+            <td>Intermediate</td>
+            <td>₹12,000 – ₹18,000</td>
+          </tr>
+          <tr>
+            <td>AI-Powered Marketing Pro</td>
+            <td>4 weeks</td>
+            <td>Advanced</td>
+            <td>₹10,000 – ₹15,000</td>
+          </tr>
+          <tr>
+            <td>Full-Stack Digital Marketer (Certification)</td>
+            <td>16 weeks</td>
+            <td>Comprehensive</td>
+            <td>₹30,000 – ₹45,000</td>
+          </tr>
+          <tr>
+            <td>Weekend Workshop Series</td>
+            <td>2 days</td>
+            <td>All Levels</td>
+            <td>₹2,000 – ₹5,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>All programs include live project work using real agency campaigns (with client consent), access to premium marketing tools during training, and a portfolio-building component. The comprehensive certification program includes placement assistance.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 05. AI STRATEGY ─── -->
+  <section class="section" id="ai-strategy">
+    <span class="section-number">Section 05</span>
+    <h2>AI Integration Strategy</h2>
+
+    <p class="lead">AI is not an add-on — it is embedded into every layer of operations, from client service delivery to student training. This makes us fundamentally faster, leaner, and more scalable than traditional agencies.</p>
+
+    <h3>AI in Agency Operations</h3>
+    <div class="card card-accent">
+      <h4>Content Creation &amp; Copywriting</h4>
+      <p>Claude, ChatGPT, and Jasper for first-draft ad copy, blog outlines, email sequences, and social captions — always refined by human strategists. Reduces content production time by 50–70%.</p>
+
+      <h4>Ad Campaign Optimization</h4>
+      <p>AI-powered bid management, audience segmentation, and creative testing. Tools like Meta Advantage+, Google Performance Max, and third-party platforms like Revealbot for automated rules and anomaly detection.</p>
+
+      <h4>Design &amp; Creative</h4>
+      <p>Canva AI, Adobe Firefly, and Midjourney for rapid concept generation, social media templates, and ad creative variations. Designers focus on strategy and refinement rather than production from scratch.</p>
+
+      <h4>Analytics &amp; Reporting</h4>
+      <p>Automated dashboards using Looker Studio + AI interpretation layers. Natural language report generation that translates raw metrics into actionable insights for clients who don't speak marketing jargon.</p>
+
+      <h4>Client Communication</h4>
+      <p>AI-assisted proposal generation, meeting summarization, and project management. CRM workflows that auto-trigger follow-ups, status updates, and feedback requests.</p>
+    </div>
+
+    <h3>AI in the Training Academy</h3>
+    <div class="card card-accent">
+      <h4>Curriculum Enhancement</h4>
+      <p>Every training module includes a dedicated "AI Tools" component — students learn the manual process first, then the AI-accelerated version. This dual approach ensures they understand fundamentals while being production-ready with modern tools.</p>
+
+      <h4>Personalized Learning</h4>
+      <p>AI-powered assessment tools that adapt difficulty levels, identify knowledge gaps, and recommend specific modules. Students get customized learning paths rather than one-size-fits-all curricula.</p>
+
+      <h4>Live Project Simulation</h4>
+      <p>AI tools allow students to rapidly prototype campaigns, generate mock creative sets, and simulate ad performance — giving them portfolio-ready work before they even complete the program.</p>
+    </div>
+
+    <h3>Competitive Advantage</h3>
+    <div class="callout">
+      <strong>The AI Leverage:</strong> A team of 15 operating with AI tools delivers output equivalent to a 25–30 person traditional agency. This means higher margins, faster turnaround, and the ability to serve more clients without proportional headcount growth. For the academy, AI integration makes us the only institute in the region teaching students to work the way the industry actually works in 2026.
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── 06. BUSINESS MODEL ─── -->
+  <section class="section" id="business-model">
+    <span class="section-number">Section 06</span>
+    <h2>Business Model &amp; Revenue Streams</h2>
+
+    <h3>Agency Revenue</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Revenue Stream</th>
+            <th>Pricing Model</th>
+            <th>Expected Monthly</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monthly Retainers (SMM + Ads Management)</td>
+            <td>₹15,000 – ₹75,000/client/month</td>
+            <td>₹2.5L – ₹4L (10–15 clients)</td>
+          </tr>
+          <tr>
+            <td>SEO Retainers</td>
+            <td>₹10,000 – ₹40,000/client/month</td>
+            <td>₹60K – ₹1.2L (5–8 clients)</td>
+          </tr>
+          <tr>
+            <td>One-Time Projects (Branding, Web, Funnels)</td>
+            <td>₹25,000 – ₹2,00,000/project</td>
+            <td>₹50K – ₹1.5L (2–3 projects)</td>
+          </tr>
+          <tr>
+            <td>Ad Spend Management Fee (% of spend)</td>
+            <td>10–15% of client ad spend</td>
+            <td>₹30K – ₹80K</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Academy Revenue</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Revenue Stream</th>
+            <th>Pricing</th>
+            <th>Expected Monthly</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Short Courses (6–8 weeks)</td>
+            <td>₹8,000 – ₹20,000/student</td>
+            <td>₹80K – ₹1.5L (10–15 students)</td>
+          </tr>
+          <tr>
+            <td>Comprehensive Certification (16 weeks)</td>
+            <td>₹30,000 – ₹45,000/student</td>
+            <td>₹90K – ₹1.8L (3–5 students)</td>
+          </tr>
+          <tr>
+            <td>Weekend Workshops</td>
+            <td>₹2,000 – ₹5,000/participant</td>
+            <td>₹20K – ₹50K (1–2 workshops)</td>
+          </tr>
+          <tr>
+            <td>Online Courses (Pre-recorded, future)</td>
+            <td>₹2,000 – ₹8,000/course</td>
+            <td>₹10K – ₹40K (Year 2 onwards)</td>
+          </tr>
+          <tr>
+            <td>Corporate Training</td>
+            <td>₹50,000 – ₹2,00,000/batch</td>
+            <td>₹50K – ₹1L (1–2 batches/quarter)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Revenue Split Target (Month 12)</h3>
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-value">60%</span>
+        <span class="stat-label">Agency Services</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">35%</span>
+        <span class="stat-label">Training Academy</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">5%</span>
+        <span class="stat-label">Online / Passive Income</span>
+      </div>
+    </div>
+
+    <p>The dual-model creates a flywheel: the agency generates live projects for academy students, and the academy produces a pipeline of trained talent for the agency. Students gain real experience; the agency gains extra bandwidth on production tasks. This synergy is the core strategic advantage.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 07. TEAM STRUCTURE ─── -->
+  <section class="section" id="team">
+    <span class="section-number">Section 07</span>
+    <h2>Team Structure — 15 Staff</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Count</th>
+            <th>Key Responsibilities</th>
+            <th>Salary Range (Monthly)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Founder / CEO</strong></td>
+            <td>1</td>
+            <td>Strategy, business development, key client relationships, overall direction</td>
+            <td>₹40,000 – ₹60,000*</td>
+          </tr>
+          <tr>
+            <td><strong>Operations Manager</strong></td>
+            <td>1</td>
+            <td>Day-to-day operations, project delivery oversight, client coordination, HR</td>
+            <td>₹30,000 – ₹40,000</td>
+          </tr>
+          <tr>
+            <td><strong>Performance Marketing Lead</strong></td>
+            <td>1</td>
+            <td>Meta Ads, Google Ads, campaign strategy, ROAS optimization, client reporting</td>
+            <td>₹30,000 – ₹45,000</td>
+          </tr>
+          <tr>
+            <td><strong>Performance Marketing Executive</strong></td>
+            <td>1</td>
+            <td>Campaign execution, A/B testing, ad creative coordination, daily optimization</td>
+            <td>₹15,000 – ₹22,000</td>
+          </tr>
+          <tr>
+            <td><strong>SEO Specialist</strong></td>
+            <td>1</td>
+            <td>Technical SEO, content optimization, link building, keyword research, audits</td>
+            <td>₹20,000 – ₹30,000</td>
+          </tr>
+          <tr>
+            <td><strong>Content Strategist / Writer</strong></td>
+            <td>1</td>
+            <td>Blog content, ad copy, email sequences, social captions, content calendar</td>
+            <td>₹18,000 – ₹28,000</td>
+          </tr>
+          <tr>
+            <td><strong>Social Media Manager</strong></td>
+            <td>1</td>
+            <td>Platform management, community engagement, scheduling, trend monitoring</td>
+            <td>₹15,000 – ₹22,000</td>
+          </tr>
+          <tr>
+            <td><strong>Graphic Designer (Senior)</strong></td>
+            <td>1</td>
+            <td>Brand design, ad creatives, social templates, presentations, brand guidelines</td>
+            <td>₹22,000 – ₹32,000</td>
+          </tr>
+          <tr>
+            <td><strong>Graphic Designer (Junior)</strong></td>
+            <td>1</td>
+            <td>Production design, template adaptation, story creatives, minor edits</td>
+            <td>₹12,000 – ₹18,000</td>
+          </tr>
+          <tr>
+            <td><strong>Video Editor / Motion Graphics</strong></td>
+            <td>1</td>
+            <td>Reels, YouTube edits, ad videos, motion graphics, thumbnail design</td>
+            <td>₹15,000 – ₹25,000</td>
+          </tr>
+          <tr>
+            <td><strong>Web Developer</strong></td>
+            <td>1</td>
+            <td>Landing pages, WordPress sites, funnel builds, CRM integration, tracking setup</td>
+            <td>₹22,000 – ₹35,000</td>
+          </tr>
+          <tr>
+            <td><strong>Academy Trainer / Instructor</strong></td>
+            <td>1</td>
+            <td>Course delivery, curriculum updates, student mentorship, assessment</td>
+            <td>₹25,000 – ₹35,000</td>
+          </tr>
+          <tr>
+            <td><strong>Academy Coordinator</strong></td>
+            <td>1</td>
+            <td>Enrollment management, student support, scheduling, placement coordination</td>
+            <td>₹12,000 – ₹18,000</td>
+          </tr>
+          <tr>
+            <td><strong>Sales &amp; Lead Generation Executive</strong></td>
+            <td>1</td>
+            <td>Outbound outreach, lead qualification, proposal follow-ups, CRM management</td>
+            <td>₹15,000 – ₹20,000 + incentives</td>
+          </tr>
+          <tr>
+            <td><strong>Admin &amp; Accounts</strong></td>
+            <td>1</td>
+            <td>Office management, invoicing, vendor coordination, basic accounting</td>
+            <td>₹12,000 – ₹15,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>*Founder salary is conservative for Year 1 to preserve runway. The founder also serves as the primary business development lead and lead trainer for advanced modules.</p>
+
+    <div class="callout">
+      <strong>Total Monthly Salary Estimate:</strong> ₹3,00,000 – ₹4,50,000 (depending on hiring seniority). The midpoint estimate used for financial planning is <strong>₹3,75,000/month</strong>.
+    </div>
+
+    <p>Several roles are cross-functional by design. The Performance Marketing Lead also contributes to academy training. The Content Strategist handles both client and academy content. This dual-utility model maximizes output per team member.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 08. INFRASTRUCTURE ─── -->
+  <section class="section" id="infrastructure">
+    <span class="section-number">Section 08</span>
+    <h2>Infrastructure &amp; Setup</h2>
+
+    <h3>Office Space</h3>
+    <p>The office will be located in a natural, green-campus style environment in the outskirts or semi-urban areas of Kozhikode — such as Kunnamangalam, Chevayur, Pantheerankavu, or the Medical College area. The preference is for a standalone space or a campus with open-air access, natural light, and minimal concrete surroundings.</p>
+
+    <div class="card">
+      <h4>Space Requirements</h4>
+      <ul>
+        <li><strong>Total Area:</strong> 1,200 – 1,800 sq ft</li>
+        <li><strong>Open Workspace:</strong> For 12–15 desks with ergonomic seating</li>
+        <li><strong>Training Room:</strong> 15–20 seat capacity with projector/display</li>
+        <li><strong>Meeting / Client Call Room:</strong> 4–6 person enclosed space</li>
+        <li><strong>Pantry / Break Area:</strong> Small kitchen and relaxation zone</li>
+        <li><strong>Server / Equipment Room:</strong> For router, NAS, and power backup</li>
+      </ul>
+    </div>
+
+    <h3>Equipment &amp; Tools</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Estimated Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Desktops / Laptops (i5/Ryzen 5, 16GB RAM)</td>
+            <td>15</td>
+            <td>₹6,00,000 – ₹8,00,000</td>
+          </tr>
+          <tr>
+            <td>4K Monitor (for designers/editors)</td>
+            <td>3</td>
+            <td>₹60,000 – ₹90,000</td>
+          </tr>
+          <tr>
+            <td>Projector / Smart TV (Training Room)</td>
+            <td>1</td>
+            <td>₹25,000 – ₹40,000</td>
+          </tr>
+          <tr>
+            <td>Conference Camera + Mic (Client Calls)</td>
+            <td>1</td>
+            <td>₹15,000 – ₹25,000</td>
+          </tr>
+          <tr>
+            <td>Ergonomic Chairs</td>
+            <td>20</td>
+            <td>₹1,00,000 – ₹1,60,000</td>
+          </tr>
+          <tr>
+            <td>Desks / Tables</td>
+            <td>8–10</td>
+            <td>₹60,000 – ₹1,00,000</td>
+          </tr>
+          <tr>
+            <td>Whiteboard, Stationery, Decor</td>
+            <td>—</td>
+            <td>₹20,000 – ₹35,000</td>
+          </tr>
+          <tr>
+            <td>UPS / Power Backup</td>
+            <td>2</td>
+            <td>₹30,000 – ₹50,000</td>
+          </tr>
+          <tr>
+            <td>High-Speed Internet (100Mbps+, dual ISP)</td>
+            <td>—</td>
+            <td>₹3,000 – ₹5,000/month</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Software &amp; Tools Stack</h3>
+    <div style="margin: 1rem 0;">
+      <span class="tag">Google Workspace</span>
+      <span class="tag">Meta Business Suite</span>
+      <span class="tag">Google Ads</span>
+      <span class="tag">SEMrush / Ahrefs</span>
+      <span class="tag">Canva Pro</span>
+      <span class="tag">Adobe Creative Suite</span>
+      <span class="tag">Zoho CRM</span>
+      <span class="tag">Claude / ChatGPT</span>
+      <span class="tag">Looker Studio</span>
+      <span class="tag">WordPress</span>
+      <span class="tag">WhatsApp Business API</span>
+      <span class="tag">Notion / ClickUp</span>
+      <span class="tag">Mailchimp / SendGrid</span>
+      <span class="tag">Figma</span>
+      <span class="tag">CapCut / Premiere Pro</span>
+    </div>
+
+    <p>Estimated monthly software spend: ₹25,000 – ₹40,000/month. Many tools offer startup or agency-tier pricing. Open-source alternatives will be used where feasible without compromising output quality.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 09. EXPENSE PLAN ─── -->
+  <section class="section" id="expense-plan">
+    <span class="section-number">Section 09</span>
+    <h2>6-Month Worst-Case Expense Plan</h2>
+
+    <p>This plan assumes minimal revenue during the first three months (ramp-up phase) and gradual client acquisition from month 4 onwards. All figures represent worst-case monthly burn rate.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Expense Category</th>
+            <th>Monthly (Worst Case)</th>
+            <th>6-Month Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Office Rent (incl. maintenance)</td>
+            <td>₹35,000</td>
+            <td>₹2,10,000</td>
+          </tr>
+          <tr>
+            <td>Salaries (15 staff, mid-estimate)</td>
+            <td>₹3,75,000</td>
+            <td>₹22,50,000</td>
+          </tr>
+          <tr>
+            <td>Software &amp; Tools</td>
+            <td>₹35,000</td>
+            <td>₹2,10,000</td>
+          </tr>
+          <tr>
+            <td>Electricity &amp; Internet</td>
+            <td>₹15,000</td>
+            <td>₹90,000</td>
+          </tr>
+          <tr>
+            <td>Marketing &amp; Advertising (Own brand)</td>
+            <td>₹40,000</td>
+            <td>₹2,40,000</td>
+          </tr>
+          <tr>
+            <td>Travel &amp; Client Meetings</td>
+            <td>₹15,000</td>
+            <td>₹90,000</td>
+          </tr>
+          <tr>
+            <td>Office Supplies &amp; Maintenance</td>
+            <td>₹8,000</td>
+            <td>₹48,000</td>
+          </tr>
+          <tr>
+            <td>Legal, Accounting &amp; Compliance</td>
+            <td>₹10,000</td>
+            <td>₹60,000</td>
+          </tr>
+          <tr>
+            <td>Miscellaneous / Buffer</td>
+            <td>₹15,000</td>
+            <td>₹90,000</td>
+          </tr>
+          <tr class="table-total">
+            <td><strong>Total Monthly Burn Rate</strong></td>
+            <td><strong>₹5,48,000</strong></td>
+            <td><strong>₹32,88,000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>6-Month Worst-Case Survival Cost:</strong> Approximately ₹33 lakh. This assumes zero revenue for the first 6 months — an extremely conservative estimate. In practice, the agency should begin generating revenue by month 2–3, and the academy by month 3–4, significantly reducing actual cash burn.
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── 10. INVESTMENT REQUIRED ─── -->
+  <section class="section" id="investment">
+    <span class="section-number">Section 10</span>
+    <h2>Investment Required</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Office Setup (furniture, renovation, signage)</td>
+            <td>₹2,50,000 – ₹3,50,000</td>
+          </tr>
+          <tr>
+            <td>Equipment (computers, monitors, peripherals)</td>
+            <td>₹8,50,000 – ₹11,00,000</td>
+          </tr>
+          <tr>
+            <td>Training Room Setup (projector, boards, seating)</td>
+            <td>₹75,000 – ₹1,25,000</td>
+          </tr>
+          <tr>
+            <td>Security Deposit (office rent, 6 months advance)</td>
+            <td>₹1,00,000 – ₹2,00,000</td>
+          </tr>
+          <tr>
+            <td>Brand Development (logo, website, collateral)</td>
+            <td>₹50,000 – ₹1,00,000</td>
+          </tr>
+          <tr>
+            <td>Legal &amp; Registration (Pvt Ltd / LLP, GST, trademark)</td>
+            <td>₹40,000 – ₹60,000</td>
+          </tr>
+          <tr>
+            <td>Initial Marketing Push (first 2 months ad spend)</td>
+            <td>₹80,000 – ₹1,20,000</td>
+          </tr>
+          <tr>
+            <td><strong>Subtotal — Setup Costs</strong></td>
+            <td><strong>₹14,45,000 – ₹20,55,000</strong></td>
+          </tr>
+          <tr><td colspan="2" style="padding:0.3rem;"></td></tr>
+          <tr>
+            <td>Working Capital (6-month worst-case buffer)</td>
+            <td>₹25,00,000 – ₹33,00,000</td>
+          </tr>
+          <tr><td colspan="2" style="padding:0.3rem;"></td></tr>
+          <tr class="table-total">
+            <td><strong>Total Investment Required</strong></td>
+            <td><strong>₹40,00,000 – ₹48,00,000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-value">~₹17L</span>
+        <span class="stat-label">One-Time Setup Cost</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~₹28L</span>
+        <span class="stat-label">Working Capital (6 Months)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~₹45L</span>
+        <span class="stat-label">Total Capital Needed</span>
+      </div>
+    </div>
+
+    <p>A lean-start variant with 10 team members instead of 15 could reduce total investment to approximately ₹32–36 lakh. The team can be expanded gradually as revenue stabilizes.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 11. MARKETING STRATEGY ─── -->
+  <section class="section" id="marketing-strategy">
+    <span class="section-number">Section 11</span>
+    <h2>Marketing Strategy</h2>
+
+    <p class="lead">We sell marketing — so our own marketing must be exceptional. Every campaign we run for ourselves doubles as a live case study for prospects and students.</p>
+
+    <h3>Client Acquisition Strategy</h3>
+
+    <h4>1. Inbound Engine (Months 1–12)</h4>
+    <p>Build a content-driven inbound funnel using SEO-optimized blog content targeting queries like "best digital marketing agency for education," "Meta Ads agency India," and "digital marketing training in Kerala." Publish 3–4 long-form articles per month, supplemented by LinkedIn thought leadership posts and YouTube tutorials.</p>
+
+    <h4>2. Outbound Prospecting</h4>
+    <p>Targeted outreach to SMEs, D2C brands, and educational institutions via LinkedIn, cold email sequences (using Apollo/Instantly), and WhatsApp Business. Focus on industries where the team has existing case studies or demonstrable expertise.</p>
+
+    <h4>3. Paid Lead Generation</h4>
+    <p>Run Meta and Google Ads campaigns to generate leads for both the agency and academy. Agency ads targeting business owners searching for marketing help. Academy ads targeting students and professionals interested in digital marketing courses. Monthly ad budget: ₹20,000–40,000 for own brand.</p>
+
+    <h4>4. Referral &amp; Partnership Program</h4>
+    <p>Offer a 10% referral commission to existing clients. Partner with web development agencies, CA firms, and business consultants who serve SME clients but don't offer digital marketing. Build a network of micro-influencers in the business/startup space for cross-promotion.</p>
+
+    <h4>5. Local Presence (Kerala)</h4>
+    <p>Sponsor and speak at startup events, college fests, and business chamber meetings across Kerala. Host free workshops at co-working spaces and college campuses to build awareness for both the agency and academy. Leverage the "Built in Kozhikode" narrative for local media coverage.</p>
+
+    <h3>Academy Marketing</h3>
+    <p>The academy's marketing hinges on one core message: "Learn from an agency that actually does the work." This is the single strongest differentiator versus traditional training institutes. Every marketing asset will showcase live campaign results, student project outcomes, and placement success stories.</p>
+
+    <p>Primary channels for academy enrollment: Instagram Reels and YouTube Shorts (career-focused content), WhatsApp broadcast lists, Google Ads (course-related keywords), and local college partnerships for campus outreach.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 12. GROWTH STRATEGY ─── -->
+  <section class="section" id="growth">
+    <span class="section-number">Section 12</span>
+    <h2>Growth Strategy</h2>
+
+    <h3>Year 1 — Foundation</h3>
+    <div class="card">
+      <ul>
+        <li>Establish core team of 15, onboard first 20–30 agency clients</li>
+        <li>Launch 3–4 academy batches, graduate first 150 students</li>
+        <li>Build brand presence across LinkedIn, Instagram, and YouTube</li>
+        <li>Develop 5–8 strong case studies with measurable ROI data</li>
+        <li>Achieve monthly revenue of ₹7–10 lakh by month 12</li>
+        <li>Target break-even by month 10–12</li>
+      </ul>
+    </div>
+
+    <h3>Year 2 — Scale</h3>
+    <div class="card">
+      <ul>
+        <li>Grow team to 20–25 members; add specialized verticals (e-commerce, healthcare, real estate)</li>
+        <li>Launch pre-recorded online course platform for passive revenue</li>
+        <li>Expand academy offerings to include corporate training packages</li>
+        <li>Target 50+ active retainer clients and 400+ academy graduates</li>
+        <li>Open enrollment for students from outside Kerala (online batches)</li>
+        <li>Explore franchise or licensing model for academy in other Tier-2 cities</li>
+        <li>Monthly revenue target: ₹15–25 lakh</li>
+      </ul>
+    </div>
+
+    <h3>Year 3 — Establish</h3>
+    <div class="card">
+      <ul>
+        <li>Position as a top-10 digital marketing agency in South India</li>
+        <li>Launch SaaS or productized service offering (e.g., marketing dashboard for SMEs)</li>
+        <li>Academy becomes a recognized certification body with industry partnerships</li>
+        <li>Explore second office in Bangalore or Kochi for enterprise client meetings</li>
+        <li>Build a 1,000+ alumni network that feeds referral pipeline</li>
+        <li>Monthly revenue target: ₹30–50 lakh</li>
+      </ul>
+    </div>
+
+    <h3>Online Academy Expansion</h3>
+    <p>By Year 2, the academy will produce self-paced online courses hosted on a custom LMS or platforms like Teachable/Thinkific. This creates a scalable, recurring revenue stream that is not limited by classroom capacity. Key courses will be available in English, Malayalam, and Hindi to maximize addressable market across India.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 13. RISK ANALYSIS ─── -->
+  <section class="section" id="risk">
+    <span class="section-number">Section 13</span>
+    <h2>Risk Analysis &amp; Mitigation</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Risk</th>
+            <th>Likelihood</th>
+            <th>Mitigation Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Slow client acquisition</strong> — fewer clients than projected in first 6 months</td>
+            <td>Medium</td>
+            <td>Start founder-led sales 2 months before launch. Offer discounted "founding client" retainers. Maintain 6-month cash reserve. Start with 10-person team and scale up.</td>
+          </tr>
+          <tr>
+            <td><strong>Talent retention</strong> — key team members leaving for metro-based roles</td>
+            <td>Medium</td>
+            <td>Competitive salaries indexed to Kozhikode cost of living. Work environment and culture as a differentiator. Skill development opportunities. Performance bonuses and equity consideration for key hires.</td>
+          </tr>
+          <tr>
+            <td><strong>Price undercutting</strong> — freelancers and micro-agencies competing on price</td>
+            <td>High</td>
+            <td>Compete on process, reporting, and results — not price. Build a portfolio of measurable case studies. Target clients who have been burned by cheap providers and now value reliability.</td>
+          </tr>
+          <tr>
+            <td><strong>Academy low enrollment</strong> — insufficient student intake</td>
+            <td>Medium</td>
+            <td>Price competitively for the Kerala market. Strong placement support as a selling point. Free intro workshops to build pipeline. Flexible payment options (EMI).</td>
+          </tr>
+          <tr>
+            <td><strong>Platform dependency</strong> — over-reliance on Meta or Google</td>
+            <td>Low</td>
+            <td>Diversify across platforms from the start. Build SEO and content capabilities that are platform-independent. Stay current with emerging platforms.</td>
+          </tr>
+          <tr>
+            <td><strong>AI disruption</strong> — clients using AI directly instead of agencies</td>
+            <td>Low–Medium</td>
+            <td>Position as "AI-powered agency" rather than competing against AI. Offer strategic oversight, creative judgment, and campaign management that AI alone cannot replace. Continuously upskill team on latest AI tools.</td>
+          </tr>
+          <tr>
+            <td><strong>Economic downturn</strong> — businesses cutting marketing budgets</td>
+            <td>Low</td>
+            <td>Diversified client base across industries. Performance marketing is often the last budget to be cut (direct ROI). Academy revenue is counter-cyclical (more people seek training during downturns).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── 14. MARKET POSITIONING ─── -->
+  <section class="section" id="positioning">
+    <span class="section-number">Section 14</span>
+    <h2>Market Positioning</h2>
+
+    <h3>Unique Selling Proposition (USP)</h3>
+    <div class="card card-highlight">
+      <p style="font-size: 1.05rem; color: var(--text-primary); font-weight: 500; margin-bottom: 0.5rem;">"The agency that trains the next generation — and the academy that runs real campaigns."</p>
+      <p>We are the only digital marketing business in the region that combines a working agency with a training academy, creating a self-reinforcing ecosystem where students learn on live projects and clients benefit from a constantly evolving team with fresh perspectives.</p>
+    </div>
+
+    <h3>How We Stand Out</h3>
+
+    <h4>vs. Metro-Based Agencies</h4>
+    <p>Same quality of work at 30–50% lower cost, enabled by Kozhikode's operational advantages. Clients get senior-level attention (not passed off to juniors after onboarding). AI-powered efficiency means faster delivery and more iterations within the same budget.</p>
+
+    <h4>vs. Local Freelancers &amp; Small Agencies</h4>
+    <p>Structured processes, transparent reporting, and a full team behind every account — not a single overextended freelancer. Service-level agreements, monthly reviews, and professional account management that freelancers cannot match.</p>
+
+    <h4>vs. Training Institutes</h4>
+    <p>Students work on real campaigns for real clients — not simulated exercises. The curriculum includes AI tools that most institutes haven't integrated. The academy is run by an agency that practices what it teaches, not by educators who left the industry years ago.</p>
+
+    <h4>vs. Online-Only Course Platforms</h4>
+    <p>Live instruction, peer collaboration, direct mentorship, and hands-on project work that pre-recorded courses cannot replicate. The hybrid model (offline + online) serves students who need structure and accountability to complete their learning.</p>
+
+    <h3>Brand Positioning Statement</h3>
+    <p style="font-style: italic; color: var(--text-primary);">For Indian businesses seeking measurable marketing results and individuals seeking practical digital marketing skills, we are the AI-powered agency and academy that delivers both — from a calm, creative workspace in Kozhikode that proves great work doesn't need a metro address.</p>
+  </section>
+
+  <hr>
+
+  <!-- ─── 15. FINANCIAL PROJECTION ─── -->
+  <section class="section" id="financial-projection">
+    <span class="section-number">Section 15</span>
+    <h2>Financial Projection — Year 1</h2>
+
+    <p>The following projections are conservative base-case estimates, assuming a gradual ramp-up in client acquisition and academy enrollment over 12 months.</p>
+
+    <h3>Revenue Projection</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Quarter</th>
+            <th>Agency Revenue</th>
+            <th>Academy Revenue</th>
+            <th>Total Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Q1 (Months 1–3)</td>
+            <td>₹1,50,000</td>
+            <td>₹80,000</td>
+            <td>₹2,30,000</td>
+          </tr>
+          <tr>
+            <td>Q2 (Months 4–6)</td>
+            <td>₹4,50,000</td>
+            <td>₹2,50,000</td>
+            <td>₹7,00,000</td>
+          </tr>
+          <tr>
+            <td>Q3 (Months 7–9)</td>
+            <td>₹9,00,000</td>
+            <td>₹5,00,000</td>
+            <td>₹14,00,000</td>
+          </tr>
+          <tr>
+            <td>Q4 (Months 10–12)</td>
+            <td>₹15,00,000</td>
+            <td>₹8,00,000</td>
+            <td>₹23,00,000</td>
+          </tr>
+          <tr class="table-total">
+            <td><strong>Year 1 Total</strong></td>
+            <td><strong>₹30,00,000</strong></td>
+            <td><strong>₹16,30,000</strong></td>
+            <td><strong>₹46,30,000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Expense Projection</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Year 1 Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Salaries</td>
+            <td>₹42,00,000</td>
+          </tr>
+          <tr>
+            <td>Office Rent &amp; Utilities</td>
+            <td>₹6,00,000</td>
+          </tr>
+          <tr>
+            <td>Software &amp; Tools</td>
+            <td>₹3,60,000</td>
+          </tr>
+          <tr>
+            <td>Marketing &amp; Advertising</td>
+            <td>₹4,80,000</td>
+          </tr>
+          <tr>
+            <td>Miscellaneous &amp; Overheads</td>
+            <td>₹3,00,000</td>
+          </tr>
+          <tr class="table-total">
+            <td><strong>Total Expenses</strong></td>
+            <td><strong>₹59,40,000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Year 1 Summary</h3>
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-value">₹46.3L</span>
+        <span class="stat-label">Projected Revenue</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">₹59.4L</span>
+        <span class="stat-label">Projected Expenses</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" style="color: var(--red-soft);">-₹13.1L</span>
+        <span class="stat-label">Net Loss (Year 1)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" style="color: var(--accent);">Mo. 10–12</span>
+        <span class="stat-label">Break-Even Target</span>
+      </div>
+    </div>
+
+    <p>The Year 1 net loss of approximately ₹13 lakh is expected and is covered by the working capital reserve included in the initial investment. By Q4, the business is projected to be operationally profitable at a monthly run rate of ₹7.5–8L revenue vs ₹5.5L expenses. Year 2 is projected to generate ₹85–120 lakh in revenue with the same cost base, achieving full-year profitability.</p>
+
+    <div class="callout">
+      <strong>Note:</strong> These projections are conservative. With aggressive sales execution and faster client acquisition, break-even could be achieved as early as month 7–8. The academy revenue is particularly elastic — a single corporate training contract worth ₹1–2 lakh can significantly accelerate the timeline.
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ─── CLOSING ─── -->
+  <section class="section">
+    <span class="section-number">Closing Note</span>
+    <h2>Conclusion</h2>
+
+    <p>This proposal presents a clear, capital-efficient opportunity to build a dual-revenue business in one of India's fastest-growing sectors. The combination of a digital marketing agency and training academy creates a self-reinforcing model: the agency generates live projects and credibility for the academy, while the academy produces a talent pipeline and additional revenue stream for the agency.</p>
+
+    <p>By operating from Kozhikode — with its cost advantages, talent availability, and quality of life — we gain structural margins that metro-based competitors cannot match. The deep integration of AI across both the agency and academy further multiplies team productivity and positions us ahead of the industry curve.</p>
+
+    <p>With an initial investment of approximately ₹42–48 lakh and a projected path to profitability within 10–12 months, this business offers a compelling risk-adjusted return for founders and investors willing to build patiently in one of the most fundamental sectors of the modern economy: helping businesses grow through digital marketing, and helping people build careers in the field.</p>
+
+    <p style="margin-top: 2rem; font-weight: 500; color: var(--text-primary);">We invite your questions, feedback, and partnership in making this vision a reality.</p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Confidential Business Proposal — Digital Marketing Agency &amp; Training Academy</p>
+  <p>Kozhikode, Kerala, India &nbsp;·&nbsp; April 2026</p>
+  <p style="margin-top: 0.5rem; font-size: 0.72rem;">This document is intended for the exclusive use of the intended recipient(s) and may contain confidential information.</p>
+</footer>
+
+</body>
+</html>

@@ -10,6 +10,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { BlogSection } from '@/components/sections/BlogSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { FlutterPlayground } from '@/components/FlutterPlayground';
+import { LabSection } from '@/components/sections/LabSection';
 import { FloatingTerminal } from '@/components/FloatingTerminal';
 import { ParticleField } from '@/components/ParticleField';
 
@@ -43,6 +44,9 @@ export default function HomePage() {
         </div>
         <div id="testimonials">
           <TestimonialsSection />
+        </div>
+        <div id="lab">
+          <LabSection />
         </div>
         <div id="flutter-playground">
           <FlutterPlayground />

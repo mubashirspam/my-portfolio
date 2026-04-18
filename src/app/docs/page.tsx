@@ -60,6 +60,13 @@ const docFiles: DocFile[] = [
     type: 'docx',
     category: 'Professional',
     displayName: 'Mubashir Ahmed Cover Letter'
+  },
+  {
+    name: 'Digital_Marketing_Agency_Proposal.html',
+    path: '/docs/Digital_Marketing_Agency_Proposal.html',
+    type: 'html',
+    category: 'Projects',
+    displayName: 'Digital Marketing Agency Proposal'
   }
 ];
 

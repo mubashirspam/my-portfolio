@@ -20,6 +20,14 @@ const docFiles: DocFile[] = [
     displayName: 'German Course'
   },
   {
+    name: 'fumifrog.html',
+    path: '/docs/fumifrog.html',
+    type: 'html',
+    category: 'Projects',
+    displayName: 'Fumifrog'
+  },
+  
+  {
     name: 'ielts-mastery-course.html',
     path: '/docs/ielts-mastery-course.html',
     type: 'html',
